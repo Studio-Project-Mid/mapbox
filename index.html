@@ -57,6 +57,7 @@
         left: 20%;
         width: 60%;
         opacity: 80%;
+        z-index: 15;
         /* max-width: 500px;
         margin: auto;
         padding: 10px; */
@@ -242,6 +243,19 @@
       "Natan"
     ]
 
+    var formIdx = {
+          "Gagon_Addicts": 0,
+          "Gagon_Women": 1,
+          "Transition Apartment": 2,
+          "Hygiene Center": 3,
+          "The Platform": 4,
+          "Dizengoff Center": 5,
+          "Dirty Burger": 6,
+          "Synagogue Beit El": 7,
+          "Mati": 8,
+          "Natan": 9
+        }
+
     // function openForm(idx) {
     //   var lst = [0, 1, 2, 3];
     //   lst.splice(idx, 1);
@@ -264,10 +278,12 @@
 
     function openImage(id) {
       document.getElementById(id).style.display = "block";
+      closeForm();
     }
 
-    function closeImage(id) {
-      document.getElementById(id).style.display = "none";
+    function closeImage(id1, id2) {
+      document.getElementById(id1).style.display = "none";
+      openForm(formIdx[id2]);
     }
 
     function closeForm() {
@@ -297,35 +313,43 @@
       <!-- <button class="accordion" id="time_filter">Choose Time Period</button> -->
     </div>
     <div class="full-image" id="Mechurim">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Mechurim", "Gagon_Addicts")'>x</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Mechurim.pdf"
-        onclick="closeImage('Mechurim')">
+        src="images/Mechurim.pdf">
       </embed>
     </div>
     <div class="full-image" id="Women">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Women", "Gagon_Women")'>x</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Women.pdf"
-        onclick="closeImage('Women')">
+        src="images/Women.pdf">
       </embed>
     </div>
     <div class="full-image" id="Dirat Maavar">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirat Maavar", "Transition Apartment")'>x</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Dirat Maavar.pdf"
-        onclick="closeImage('Dirat Maavar')">
+        src="images/Dirat Maavar.pdf">
       </embed>
     </div>
     <div class="full-image" id="Dirty Burger img">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Dirty Burger.pdf"
-        onclick="closeImage('Dirty Burger img')">
+        src="images/Dirty Burger.pdf">
+      </embed>
+    </div>
+    <div class="full-image" id="Frishman 46">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Frishman 46", "Natan")'>x</button>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Dirty Burger.pdf">
       </embed>
     </div>
     <!-- <div class="form-popup" id="present_form">
@@ -395,29 +419,29 @@
     </div>
     <div class="form-popup" id="Gagon_Addicts">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Mechurim")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Mechurim.pdf"
-        onclick="openImage('Mechurim')">
+        src="images/Mechurim.pdf">
       </embed>
     </div>
     <div class="form-popup" id="Gagon_Women">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Women")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Women.pdf"
-        onclick="openImage('Women')">
+        src="images/Women.pdf">
       </embed>
     </div>
     <div class="form-popup" id="Transition Apartment">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Dirat Maavar")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Dirat Maavar.pdf"
-        onclick="openImage('Dirat Maavar')">
+        src="images/Dirat Maavar.pdf">
       </embed>
     </div>
     <audio controls id="Hygiene Center">
@@ -440,11 +464,11 @@
     </div>
     <div class="form-popup" id="Dirty Burger">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Dirty Burger img")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Dirty Burger.pdf"
-        onclick="openImage('Dirty Burger img')">
+        src="images/Dirty Burger.pdf">
       </embed>
     </div>
     <form action="/action_page.php" class="text-container" id="Synagogue Beit El">
@@ -468,11 +492,11 @@
     </div>
     <div class="form-popup" id="Natan">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Frishman 46")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
-        src="images/Frishman 46.pdf"
-        onclick="openImage('Dirty Burger img')">
+        src="images/Frishman 46.pdf">
       </embed>
     </div>
     
