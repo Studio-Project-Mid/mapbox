@@ -136,6 +136,20 @@
         padding: 10px;
         background-color: white;
       }
+      .text-container {
+        display: none;
+        position: fixed;
+        vertical-align: middle;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+        margin:4px, 4px;
+        padding:4px;
+        background-color: rgba(255,255,255, 0.6);
+        text-align: right;
+        width: 560px;
+      }
       #close {
         float:right;
         display:inline-block;
@@ -171,7 +185,6 @@
         bottom: 0;
         right: 15px;
         z-index: 9;
-        background-color: white;
       }
       
       /* .accordion {
@@ -434,14 +447,13 @@
         onclick="openImage('Dirty Burger img')">
       </embed>
     </div>
-    <div class="form-popup" id="Synagogue Beit El">
+    <form action="/action_page.php" class="text-container" id="Synagogue Beit El">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <form action="/action_page.php" class="form-container">
-        <h1>Title</h1>
-        <p>“תשאלי אותי איפה אני אוכל בשבת, למרות שאני לא כל כך רעב בבוקר…חוף פרישמן קצת קרוב לבן יהודה יש בית כנסת של הקהילה הצרפתית…עכשיו, כל שבת אחרי שהם גומרים את התפילה הם עושים קידוש, עכשיו אני אוהב נורא חמין, אז כל שבת הם עושים בחצר אוכל, וזה מה שאני לוקח…” (נתן, דר רחוב)
-        </p>
-      </form>
-    </div>
+      <h1 style="text-align: center;">Title</h1>
+      <p>״תשאלי אותי איפה אני אוכל בשבת, למרות שאני לא כל כך רעב בבוקר…חוף פרישמן קצת קרוב לבן יהודה יש בית כנסת של הקהילה הצרפתית…עכשיו, כל שבת אחרי שהם גומרים את התפילה הם עושים קידוש, עכשיו אני אוהב נורא חמין, אז כל שבת הם עושים בחצר אוכל, וזה מה שאני לוקח…״ (נתן, דר רחוב)
+      </p>
+    </form>
+
     <div class="form-popup" id="Mati">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <iframe 
@@ -558,7 +570,7 @@
         ]
 
         var layers_map = map.getStyle().layers;
-        console.log(layers_map);
+        // console.log(layers_map);
 
         // var layers_acc = document.createElement('button');
         // layers_acc.className = 'accordion';
@@ -852,6 +864,7 @@
 
         map.on('click', 'formal', (e) => {
           var prop = e.features[0].properties["Official institutions"];
+          console.log(prop);
           if (prop == '"Lasova"_Gagon_Addicts') {
             openForm(0);
           } 
@@ -883,6 +896,7 @@
 
         map.on('click', 'informal', (e) => {
           var prop = e.features[0].properties["Informal Programs"];
+          console.log(prop);
           if (prop == 'Dizengoff Center') {
             openForm(5);
           } 
@@ -908,6 +922,7 @@
 
         map.on('click', 'sleeping-corners', (e) => {
           var prop = e.features[0].properties["Sleeping Corner"];
+          console.log(prop);
           if (prop == 'Mati') {
             openForm(8);
           } 
