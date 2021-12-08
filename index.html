@@ -926,35 +926,35 @@
           map.getCanvas().style.cursor = '';
         });
 
-        function hoverPopupMove(popup) {
-          map.on('mousemove', function (e) {
-              var features = map.queryRenderedFeatures(e.point, {
-                layers: layers
-              });
-              if (!features.length) {
-                return;
-              }
-              var feature = features[0];
-              var prop = Object.keys(feature.properties)[0];
-              console.log(Object.keys(feature.properties));
-              popup.setLngLat(e.lngLat)
-              .setHTML(
-                '<h3>' +
-                feature.layer.id +
-                '</h3>' +
-                '<p>'  +
-                feature.properties[prop] +
-                '</p>'
-              )
-              .addTo(map);
-          });
-          map.on('mouseleave', function(e) {
-            popup.remove();
-          });
-        }
+      //   function hoverPopupMove(popup) {
+      //     map.on('mousemove', function (e) {
+      //         var features = map.queryRenderedFeatures(e.point, {
+      //           layers: layers
+      //         });
+      //         if (!features.length) {
+      //           return;
+      //         }
+      //         var feature = features[0];
+      //         var prop = Object.keys(feature.properties)[0];
+      //         console.log(Object.keys(feature.properties));
+      //         popup.setLngLat(e.lngLat)
+      //         .setHTML(
+      //           '<h3>' +
+      //           feature.layer.id +
+      //           '</h3>' +
+      //           '<p>'  +
+      //           feature.properties[prop] +
+      //           '</p>'
+      //         )
+      //         .addTo(map);
+      //     });
+      //     map.on('mouseleave', function(e) {
+      //       popup.remove();
+      //     });
+      //   }
       
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
-      hoverPopupMove(popup);
+      // var popup = new mapboxgl.Popup({ offset: [0, -15] })
+      // hoverPopupMove(popup);
         
       });
     </script>
