@@ -255,7 +255,7 @@
           "Mati": 8,
           "Natan": 9
         }
-
+        
     // function openForm(idx) {
     //   var lst = [0, 1, 2, 3];
     //   lst.splice(idx, 1);
@@ -882,8 +882,30 @@
         //   });
         // }
 
+        
+        for (i = 0; i < layers.length; i++) {
+          map.on('click', layers[i], (e) => {
+            var prop = e.features[0].properties["name"];
+            console.log(prop);
+            console.log(layers[i] in formIdx);
+            if (prop in formIdx) {
+              console.log(formIdx[prop]);
+              openForm(formIdx[prop]);
+            }
+          });
+  
+          map.on('mouseenter', layers[i], () => {
+            map.getCanvas().style.cursor = 'pointer';
+          });
+          
+          // Change the cursor back to a pointer
+          // when it leaves the states layer.
+          map.on('mouseleave', layers[i], () => {
+            map.getCanvas().style.cursor = '';
+          });
+        }
 
-        map.on('click', 'formal', (e) => {
+       /* map.on('click', 'formal', (e) => {
           var prop = e.features[0].properties["Official institutions"];
           console.log(prop);
           if (prop == '"Lasova"_Gagon_Addicts') {
@@ -901,7 +923,7 @@
           else if (prop == 'The Platform') {
             openForm(4);
           }
-        });
+        }); 
 
         map.on('mouseenter', 'formal', () => {
           map.getCanvas().style.cursor = 'pointer';
@@ -911,7 +933,7 @@
         // when it leaves the states layer.
         map.on('mouseleave', 'formal', () => {
           map.getCanvas().style.cursor = '';
-        });
+        }); 
 
 
 
@@ -954,13 +976,12 @@
 
         map.on('mouseenter', 'sleeping-corners', () => {
           map.getCanvas().style.cursor = 'pointer';
-        });
+        });*/
         
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
-        map.on('mouseleave', 'sleeping-corners', () => {
+        
+        /*map.on('mouseleave', 'sleeping-corners', () => {
           map.getCanvas().style.cursor = '';
-        });
+        });*/ 
 
       //   function hoverPopupMove(popup) {
       //     map.on('mousemove', function (e) {
