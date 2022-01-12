@@ -50,7 +50,7 @@
         /* overflow: auto; */
         /* border-radius: 3px; */
       }
-      .full-image {
+      /* .full-image {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -60,8 +60,55 @@
         z-index: 15;
         /* max-width: 500px;
         margin: auto;
+        padding: 10px;
+        display: none;
+      } */
+      .full-image {
+        position: absolute;
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        /* left: 20%; */
+        /* height: 90%; */
+        /* width: 100%; */
+        opacity: 95%;
+        z-index: 99999;
+        /* max-width: 500px;
+        margin: auto;
         padding: 10px; */
         display: none;
+      }
+      .button {
+        position: absolute;
+        top: 50%;
+        right: 92%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        /* Center the content */
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        /* Spacing */
+        padding: 8px;
+      }
+      
+      .button__arrow {
+        /* Transparent background */
+        background-color: transparent;
+
+        /* Size */
+        height: 12px;
+        width: 12px;
+      }
+
+      .button__arrow--left {
+        /* Edges */
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        transform: translateX(25%) rotate(45deg);
       }
       #map {
         position: absolute;
@@ -152,19 +199,75 @@
         width: 560px;
       }
       #close {
-        float:right;
-        display:inline-block;
-        padding:2px 5px;
+        /* float:right; */
+        /* display:inline-block; */
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 8px;
+        background:white;
+        border: none;
+        width: 25px;
+        align-items: center;
+      }
+      #close:hover {
+        /* float:right; */
+        /* display:inline-block; */
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 8px;
+        background:#ccc;
+        color:#fff;
+        width: 25px;
+        align-items: center;
+      }
+      #enlarge {
+        /* float:right; */
+        /* display:inline-block; */
+        position: absolute;
+        right: 30px;
+        top: 0;
+        padding: 8px;
         background:white;
         border: none;
       }
-      #close:hover {
-        float:right;
-        display:inline-block;
-        padding:2px 5px;
+      #enlarge:hover {
+        /* float:right; */
+        /* display:inline-block; */
+        position: absolute;
+        right: 30px;
+        top: 0;
+        padding: 8px;
         background:#ccc;
         color:#fff;
       }
+      
+      /* #close {
+        background:white;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        padding: 8px;
+      }
+      #close:hover {
+        background:#ccc;
+        color:#fff;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        padding: 8px;
+      } */
       div.scroll {
         margin:4px, 4px;
         padding:4px;
@@ -240,7 +343,8 @@
       "Dirty Burger",
       "Synagogue Beit El",
       "Mati",
-      "Natan"
+      "Natan",
+      "Dizengoff  Square"
     ]
 
     var formIdx = {
@@ -253,8 +357,16 @@
           "Dirty Burger": 6,
           "Synagogue Beit El": 7,
           "Mati": 8,
-          "Natan": 9
+          "Natan": 9,
+          "Dizengoff  Square": 10
         }
+
+    var sources = {
+      "Dizengoff  Square_in": [
+        "images/Dizengoff Setion.pdf",
+        "images/Zoom-in Section.pdf"
+      ]
+    }
         
     // function openForm(idx) {
     //   var lst = [0, 1, 2, 3];
@@ -291,6 +403,15 @@
       {
         document.getElementById(forms[i]).style.display = "none";
       }
+    }
+    var relIdx = 0;
+    function changeSource(id, idx) {
+      var current=document.getElementById(id);
+      var clone=current.cloneNode(true);
+      var source = sources[id][idx];
+      clone.setAttribute('src',source);
+      current.parentNode.replaceChild(clone,current)
+      relIdx = 1 - relIdx;
     }
   </script>
   <body>
@@ -336,6 +457,14 @@
         src="images/Dirat Maavar.pdf">
       </embed>
     </div>
+    <!-- <div class="full-image" id="Dirty Burger img">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Dirty Burger.pdf">
+      </embed>
+    </div> -->
     <div class="full-image" id="Dirty Burger img">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
       <embed
@@ -344,12 +473,24 @@
         src="images/Dirty Burger.pdf">
       </embed>
     </div>
+    <!-- https://drive.google.com/file/d/1FodN9dEg-fYmh659HAUIrqG4MjcNJV0O/preview -->
     <div class="full-image" id="Frishman 46">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Frishman 46", "Natan")'>x</button>
       <embed
         height="100%"
         width="100%" 
         src="images/Frishman 46.pdf">
+      </embed>
+    </div>
+    <div class="full-image" id="Dizengoff Square2">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff Square2", "Dizengoff  Square")'>x</button>
+      <!-- <button class="arrow_button"></button> -->
+      <button class="button" onclick="changeSource('Dizengoff  Square_in', 1 - relIdx)"><div class="button__arrow button__arrow--left"></div></button>
+      <embed
+        id="Dizengoff  Square_in"
+        height="100%"
+        width="100%" 
+        src="images/Dizengoff Setion.pdf">
       </embed>
     </div>
     <!-- <div class="form-popup" id="present_form">
@@ -380,7 +521,7 @@
         </p>
       </form>
     </div> -->
-    <div class="form-popup" id="youtube_video">
+    <!-- <div class="form-popup" id="youtube_video">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container">
         <h1>Title</h1>
@@ -416,10 +557,10 @@
       onclick="openImage()"
       />
 
-    </div>
+    </div> -->
     <div class="form-popup" id="Gagon_Addicts">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Mechurim")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Mechurim")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
@@ -428,7 +569,7 @@
     </div>
     <div class="form-popup" id="Gagon_Women">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Women")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Women")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
@@ -437,7 +578,7 @@
     </div>
     <div class="form-popup" id="Transition Apartment">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Dirat Maavar")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dirat Maavar")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
@@ -464,7 +605,7 @@
     </div>
     <div class="form-popup" id="Dirty Burger">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Dirty Burger img")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dirty Burger img")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
@@ -492,11 +633,25 @@
     </div>
     <div class="form-popup" id="Natan">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='close' onclick='openImage("Frishman 46")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Frishman 46")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
         src="images/Frishman 46.pdf">
+      </embed>
+    </div>
+    <div class="form-popup" id="Dizengoff  Square">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dizengoff Square2")'>Enlarge</button>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Dizengoff Setion.pdf">
+      </embed>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Zoom-in Section.pdf">
       </embed>
     </div>
     
@@ -504,6 +659,8 @@
 
       // define access token
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpZ2FsaSIsImEiOiJja3dsc3ViOHYwMXNxMnBxdDRmOW1tcDRhIn0.01oFmibnj8b3erAu6aTXIg';
+
+      var flying = false;
 
       //create map
       var map = new mapboxgl.Map({
@@ -538,7 +695,7 @@
           // These options control the flight curve, making it move
           // slowly and zoom out almost completely before starting
           // to pan.
-          speed: 0.1, // make the flying slow
+          speed: 0.2, // make the flying slow
           curve: 1, // change the speed at which it zooms out
           
           // This can be any easing function: it takes a number between
@@ -882,6 +1039,46 @@
         //   });
         // }
 
+        var formToOpen = "";
+
+        map.on('moveend', function(e){
+          if(flying) {
+            openForm(formToOpen);
+            map.fire('flyend');
+          }
+        });
+        
+        map.on('flystart', function(){
+          flying = true;
+        });
+        map.on('flyend', function(){
+          flying = false;
+        });
+
+        function flyToFunc(pos) {
+          map.flyTo({
+            // These options control the ending camera position: centered at
+            // the target, at zoom level 9, and north up.
+            center: pos,
+            zoom: 16,
+            bearing: 0,
+            pitch: 60,
+            
+            // These options control the flight curve, making it move
+            // slowly and zoom out almost completely before starting
+            // to pan.
+            speed: 0.3, // make the flying slow
+            curve: 1, // change the speed at which it zooms out
+            
+            // This can be any easing function: it takes a number between
+            // 0 and 1 and returns another number between 0 and 1.
+            easing: (t) => t,
+            
+            // this animation is considered essential with respect to prefers-reduced-motion
+            essential: true
+          });
+          map.fire('flystart');
+        }
         
         for (i = 0; i < layers.length; i++) {
           map.on('click', layers[i], (e) => {
@@ -889,8 +1086,17 @@
             console.log(prop);
             console.log(layers[i] in formIdx);
             if (prop in formIdx) {
-              console.log(formIdx[prop]);
-              openForm(formIdx[prop]);
+              // var timeOutVal = 0;
+              if (prop == "Dizengoff  Square") {
+                flyToFunc(e.features[0].geometry.coordinates);
+                formToOpen = formIdx[prop];
+                // timeOutVal = 5000;
+              }
+              else {
+                openForm(formIdx[prop]);
+              }
+              // console.log(formIdx[prop]);
+              // setTimeout(() => openForm(formIdx[prop]), timeOutVal);
             }
           });
   
