@@ -1214,6 +1214,12 @@
       // Remove when needed!!!
       removeMapLayer('night-policy-in-leisure-areas');
 
+      var noPopupLayers = [
+        '3D',
+        'back-yard',
+        'front-yard'
+      ];
+
       function hoverPopupMove(popup) {
         map.on('mousemove', function (e) {
             var features = map.queryRenderedFeatures(e.point, {
@@ -1223,19 +1229,24 @@
               return;
             }
             var feature = features[0];
-            var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
-            // var prop = Object.keys(feature.properties)[0];
-            // console.log(Object.keys(feature.properties));
-            popup.setLngLat(e.lngLat)
-            .setHTML(
-              '<h3><b>' +
-                title +
-              '</b></h3>' +
-              '<p>'  +
-                feature.layer.id +
-              '</p>'
-            )
-            .addTo(map);
+            if (!(noPopupLayers.includes(feature.layer.id))) {
+              var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
+              // var prop = Object.keys(feature.properties)[0];
+              // console.log(Object.keys(feature.properties));
+              popup.setLngLat(e.lngLat)
+              .setHTML(
+                '<h3><b>' +
+                  title +
+                '</b></h3>' +
+                '<p>'  +
+                  feature.layer.id +
+                '</p>'
+              )
+              .addTo(map);
+            }
+            else {
+              popup.remove();
+            }
         });
         map.on('mouseleave', function(e) {
           popup.remove();
