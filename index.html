@@ -773,17 +773,65 @@
         line_div.appendChild(all_title);
         collapseOne.appendChild(line_div);
 
+        function getLayerColor(layer) {
+          switch (layer.type) {
+            case "line":
+              if ("paint" in layer) {
+                var lineColor = layer.paint["line-color"];
+                if (Array.isArray(lineColor))
+                  return lineColor[6];
+                return lineColor;
+              }
+              else {
+                return "hsl(0, 100%, 0%)";
+              }
+            case "fill":
+              var fillColor = layer.paint["fill-color"];
+              if (Array.isArray(fillColor))
+                return fillColor[6];
+              return fillColor;
+            case "circle":
+              var circleColor = "hsl(0, 100%, 0%)";
+              if ("paint" in layer) {
+                var circlePaint = layer.paint;
+                if ("circle-color" in circlePaint) {
+                  circleColor = circlePaint["circle-color"];
+                }
+                else if ("circle-stroke-color" in circlePaint){
+                  circleColor = circlePaint["circle-stroke-color"];
+                }
+                if (Array.isArray(circleColor))
+                  circleColor = circleColor[6];
+              }
+              return circleColor;
+              
+            case "fill-extrusion":
+              return layer.paint["fill-extrusion-color"];
+          }
+        }
+
         // create legend
         for (i = 78, j = 0; i < layers_map.length; i++, j++) {
           layers.push(layers_map[i].id);
           var layer = layers_map[i].id;
-          var color = colors[j];
+          var color = getLayerColor(layers_map[i]);
+          var layerType = layers_map[i].type;
+          // var color = colors[j];
+          // console.log(layers_map[i]);
+          console.log(layers_map[i].id + ", " + color);
           var item = document.createElement('div');
           item.id = 'item_' + ids[i];
           item.className = 'accordion-body';
           var key = document.createElement('span');
           key.className = 'legend-key';
           key.style.backgroundColor = color;
+          if (layerType == 'circle') {
+            key.style.borderRadius = '50%';
+          }
+          else if (layerType == 'line') {
+            key.style.height = '2px';
+            key.style.verticalAlign = 'middle';
+          }
              
           const link = document.createElement('input');
           link.type = 'checkbox';
@@ -1046,8 +1094,8 @@
         for (i = 0; i < layers.length; i++) {
           map.on('click', layers[i], (e) => {
             var prop = e.features[0].properties["name"];
-            console.log(prop);
-            console.log(layers[i] in formIdx);
+            // console.log(prop);
+            // console.log(layers[i] in formIdx);
             if (prop in formIdx) {
               // var timeOutVal = 0;
               if (prop == "Dizengoff  Square") {
@@ -1152,37 +1200,52 @@
           map.getCanvas().style.cursor = '';
         });*/ 
 
-        function hoverPopupMove(popup) {
-          map.on('mousemove', function (e) {
-              var features = map.queryRenderedFeatures(e.point, {
-                layers: layers
-              });
-              if (!features.length) {
-                return;
-              }
-              var feature = features[0];
-              var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
-              // var prop = Object.keys(feature.properties)[0];
-              // console.log(Object.keys(feature.properties));
-              popup.setLngLat(e.lngLat)
-              .setHTML(
-                '<h3>' +
-                  title +
-                '</h3>' +
-                '<p>'  +
-                  feature.layer.id +
-                '</p>'
-              )
-              .addTo(map);
-          });
-          map.on('mouseleave', function(e) {
-            popup.remove();
-          });
+        function removeMapLayer(layerId) {
+        var itemInAccordion = 0;
+        for (i = 0; i < collapseOne.children.length; i++) {
+          if (collapseOne.children[i].innerText == layerId) {
+            collapseOne.children[i].remove();
+            map.getLayer(layerId).visibility = 'none';
+          }
         }
+      }
+        
+      // Remove when needed!!!
+      removeMapLayer('night-policy-in-leisure-areas');
+
+      function hoverPopupMove(popup) {
+        map.on('mousemove', function (e) {
+            var features = map.queryRenderedFeatures(e.point, {
+              layers: layers
+            });
+            if (!features.length) {
+              return;
+            }
+            var feature = features[0];
+            var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
+            // var prop = Object.keys(feature.properties)[0];
+            // console.log(Object.keys(feature.properties));
+            popup.setLngLat(e.lngLat)
+            .setHTML(
+              '<h3>' +
+                title +
+              '</h3>' +
+              '<p>'  +
+                feature.layer.id +
+              '</p>'
+            )
+            .addTo(map);
+        });
+        map.on('mouseleave', function(e) {
+          popup.remove();
+        });
+      }
       
       var popup = new mapboxgl.Popup({ offset: [0, -15] })
       hoverPopupMove(popup);
-        
+
+      
+
       });
     </script>
   </body>
