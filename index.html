@@ -291,11 +291,12 @@
         z-index: 9;
       }
 
-      /* .mapboxgl-popup-content{
-        background-color: aquamarine;
+      .mapboxgl-popup-content{
+        /* background-color: aquamarine; */
+        font-family: 'Assistant';
       }
 
-      .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+      /* .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
         border-top-color: aquamarine;
       }
 
@@ -1227,9 +1228,9 @@
             // console.log(Object.keys(feature.properties));
             popup.setLngLat(e.lngLat)
             .setHTML(
-              '<h3>' +
+              '<h3><b>' +
                 title +
-              '</h3>' +
+              '</b></h3>' +
               '<p>'  +
                 feature.layer.id +
               '</p>'
