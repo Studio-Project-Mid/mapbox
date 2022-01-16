@@ -290,48 +290,22 @@
         right: 15px;
         z-index: 9;
       }
-      
-      /* .accordion {
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        top: 100%;
-        margin-left: 20px;
-        margin-top: 20px;
-        position: relative;
-        padding: 10px;
-        line-height: 18px;
-        cursor: pointer;
-        height: 30px;
-        width: 300px;
-        text-align: left;
-        border: none;
-        outline: none;
-        transition: 0.4s;
-        display: block;
-        box-sizing: border-box;
-      } */
-      /* .active, .accordion:hover {
-        background-color: #ccc;
+
+      /* .mapboxgl-popup-content{
+        background-color: aquamarine;
       }
-      .accordion-title {
-        display: block;
-        pointer-events: none;
-        border: transparent 2px solid;
-        border-radius: 5px;
-        padding: 0.25em;
-        outline: none;
+
+      .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+        border-top-color: aquamarine;
+      }
+
+      .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+        border-top-color: aquamarine;
       } */
-      /* .panel {
-        padding: 0 18px;
-        
-        background-color: white;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-      } */
+
     </style>
   </head>
   <script>
-    // var forms = ['present_form', 'near_future_form', 'test1', 'youtube_video'];
 
     var forms = [
       "Gagon_Addicts",
@@ -427,11 +401,7 @@
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"></div>
         </div>
       </div>
-      <!-- <button type="button" class="btn btn-outline-primary" onclick="openForm(3)">Primary</button> -->
-      <!-- <button class="accordion" id="layers_acc">
-        <span class="accordion-title" id="layers_acc_title">Map Layers</span>
-      </button> -->
-      <!-- <button class="accordion" id="time_filter">Choose Time Period</button> -->
+      
     </div>
     <div class="full-image" id="Mechurim">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Mechurim", "Gagon_Addicts")'>x</button>
@@ -457,14 +427,7 @@
         src="images/Dirat Maavar.pdf">
       </embed>
     </div>
-    <!-- <div class="full-image" id="Dirty Burger img">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Dirty Burger.pdf">
-      </embed>
-    </div> -->
+   
     <div class="full-image" id="Dirty Burger img">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
       <embed
@@ -1189,35 +1152,36 @@
           map.getCanvas().style.cursor = '';
         });*/ 
 
-      //   function hoverPopupMove(popup) {
-      //     map.on('mousemove', function (e) {
-      //         var features = map.queryRenderedFeatures(e.point, {
-      //           layers: layers
-      //         });
-      //         if (!features.length) {
-      //           return;
-      //         }
-      //         var feature = features[0];
-      //         var prop = Object.keys(feature.properties)[0];
-      //         console.log(Object.keys(feature.properties));
-      //         popup.setLngLat(e.lngLat)
-      //         .setHTML(
-      //           '<h3>' +
-      //           feature.layer.id +
-      //           '</h3>' +
-      //           '<p>'  +
-      //           feature.properties[prop] +
-      //           '</p>'
-      //         )
-      //         .addTo(map);
-      //     });
-      //     map.on('mouseleave', function(e) {
-      //       popup.remove();
-      //     });
-      //   }
+        function hoverPopupMove(popup) {
+          map.on('mousemove', function (e) {
+              var features = map.queryRenderedFeatures(e.point, {
+                layers: layers
+              });
+              if (!features.length) {
+                return;
+              }
+              var feature = features[0];
+              var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
+              // var prop = Object.keys(feature.properties)[0];
+              // console.log(Object.keys(feature.properties));
+              popup.setLngLat(e.lngLat)
+              .setHTML(
+                '<h3>' +
+                  title +
+                '</h3>' +
+                '<p>'  +
+                  feature.layer.id +
+                '</p>'
+              )
+              .addTo(map);
+          });
+          map.on('mouseleave', function(e) {
+            popup.remove();
+          });
+        }
       
-      // var popup = new mapboxgl.Popup({ offset: [0, -15] })
-      // hoverPopupMove(popup);
+      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+      hoverPopupMove(popup);
         
       });
     </script>
