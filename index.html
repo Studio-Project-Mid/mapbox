@@ -324,9 +324,9 @@
   <script>
 
     var forms = [
-      "Gagon_Addicts",
-      "Gagon_Women",
-      "Transition Apartment",
+      'Gagon_Addicts',
+      'Gagon_Women',
+      'Transition Apartment',
       "Hygiene Center",
       "The Platform",
       "Dizengoff Center",
@@ -338,9 +338,9 @@
     ]
 
     var formIdx = {
-          "Gagon_Addicts": 0,
-          "Gagon_Women": 1,
-          "Transition Apartment": 2,
+          '"Lasova"_Gagon_Addicts': 0,
+          '"Lasova"_Gagon_Women': 1,
+          '"Lasova"_Transition Apartment': 2,
           "Hygiene Center": 3,
           "The Platform": 4,
           "Dizengoff Center": 5,
@@ -374,6 +374,7 @@
     function openForm(idx) {
       for (i = 0; i < forms.length; i++) {
         if (i == idx) {
+          console.log(forms[i]);
           document.getElementById(forms[i]).style.display = "block";
         }
         else {
@@ -442,62 +443,96 @@
       
     </div>
     <div class="full-image" id="Mechurim">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Mechurim", "Gagon_Addicts")'>x</button>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Mechurim.pdf#view=Fit">
-      </embed>
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Mechurim", "\"Lasova\"_Gagon_Addicts")'>x</button>
+      <div id="Mechurim_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Mechurim_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Mechurim.pdf"}},
+            metaData:{fileName: "Mechurim.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
     <div class="full-image" id="Women">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Women", "Gagon_Women")'>x</button>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Women.pdf#view=Fit">
-      </embed>
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Women", "\"Lasova\"_Gagon_Women")'>x</button>
+      <div id="Women_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Women_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Women.pdf"}},
+            metaData:{fileName: "Women.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
     <div class="full-image" id="Dirat Maavar">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirat Maavar", "Transition Apartment")'>x</button>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Dirat Maavar.pdf#view=Fit">
-      </embed>
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirat Maavar", "\"Lasova\"_Transition Apartment")'>x</button>
+      <div id="Dirat Maavar_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dirat Maavar_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dirat Maavar.pdf"}},
+            metaData:{fileName: "Dirat Maavar.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
    
     <div class="full-image" id="Dirty Burger img">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dirty Burger img", "Dirty Burger")'>x</button>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Dirty Burger.pdf#view=Fit">
-      </embed>
+      <div id="Dirty Burger img_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dirty Burger img_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dirty Burger.pdf"}},
+            metaData:{fileName: "Dirty Burger.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
     <!-- https://drive.google.com/file/d/1FodN9dEg-fYmh659HAUIrqG4MjcNJV0O/preview -->
     <div class="full-image" id="Frishman 46">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Frishman 46", "Natan")'>x</button>
-      <embed
+      <!-- <embed
         height="100%"
         width="100%" 
         src="images/Frishman 46.pdf#view=Fit">
-      </embed>
+      </embed> -->
+      <div id="Frishman 46_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Frishman 46_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Frishman 46.pdf"}},
+            metaData:{fileName: "Frishman 46.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
     <div class="full-image" id="Dizengoff  Square_in">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff  Square_in", "Dizengoff  Square")'>x</button>
       <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('Dizengoff  Square_in', 'Dizengoff  Square_in2')"><div class="button__arrow button__arrow--left"></div></button>
-      <!-- <embed
-        id="Dizengoff  Square_in"
-        height="100%"
-        width="100%" 
-        src="images/Dizengoff Setion.pdf#view=Fit">
-      </embed> -->
-      <div id="adobe-dc-view"></div>
+      <div id="Dizengoff  Square_in_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
       <script type="text/javascript">
         document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "adobe-dc-view"});
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dizengoff  Square_in_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dizengoff Setion.pdf"}},
             metaData:{fileName: "Dizengoff Setion.pdf"}
@@ -516,11 +551,11 @@
         width="100%" 
         src="images/Dizengoff Setion.pdf#view=Fit">
       </embed> -->
-      <div id="adobe-dc-view2"></div>
+      <div id="Dizengoff  Square_in2_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
       <script type="text/javascript">
         document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "adobe-dc-view2"});
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dizengoff  Square_in2_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Zoom-in Section.pdf"}},
             metaData:{fileName: "Zoom-in Section.pdf"}
