@@ -351,11 +351,15 @@
           "Dizengoff  Square": 10
         }
 
+    // var sources = {
+    //   "Dizengoff  Square_in": [
+    //     "images/Dizengoff Setion.pdf#view=Fit",
+    //     "images/Zoom-in Section.pdf#view=Fit"
+    //   ]
+    // }
     var sources = {
-      "Dizengoff  Square_in": [
-        "images/Dizengoff Setion.pdf#view=Fit",
-        "images/Zoom-in Section.pdf#view=Fit"
-      ]
+      "Dizengoff  Square_in": "Dizengoff Setion.pdf",
+      "Dizengoff  Square_in2": "Zoom-in Section.pdf"
     }
         
     // function openForm(idx) {
@@ -380,6 +384,7 @@
 
     function openImage(id) {
       document.getElementById(id).style.display = "block";
+      // console.log(document.getElementById(id).children);
       closeForm();
     }
 
@@ -394,14 +399,19 @@
         document.getElementById(forms[i]).style.display = "none";
       }
     }
+
     var relIdx = 0;
-    function changeSource(id, idx) {
-      var current=document.getElementById(id);
-      var clone=current.cloneNode(true);
-      var source = sources[id][idx];
-      clone.setAttribute('src',source);
-      current.parentNode.replaceChild(clone,current)
-      relIdx = 1 - relIdx;
+    // function changeSource(id, idx) {
+    //   var current=document.getElementById(id);
+    //   var clone=current.cloneNode(true);
+    //   var source = sources[id][idx];
+    //   clone.setAttribute('src',source);
+    //   current.parentNode.replaceChild(clone,current)
+    //   relIdx = 1 - relIdx;
+    // }
+    function changeSource(id1, id2) {
+      document.getElementById(id2).style.display = "block";
+      document.getElementById(id1).style.display = "none";
     }
 
     function accordionClick() {
@@ -473,16 +483,51 @@
         src="images/Frishman 46.pdf#view=Fit">
       </embed>
     </div>
-    <div class="full-image" id="Dizengoff Square2">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff Square2", "Dizengoff  Square")'>x</button>
+    <div class="full-image" id="Dizengoff  Square_in">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff  Square_in", "Dizengoff  Square")'>x</button>
       <!-- <button class="arrow_button"></button> -->
-      <button class="button" onclick="changeSource('Dizengoff  Square_in', 1 - relIdx)"><div class="button__arrow button__arrow--left"></div></button>
-      <embed
+      <button class="button" onclick="changeSource('Dizengoff  Square_in', 'Dizengoff  Square_in2')"><div class="button__arrow button__arrow--left"></div></button>
+      <!-- <embed
         id="Dizengoff  Square_in"
         height="100%"
         width="100%" 
         src="images/Dizengoff Setion.pdf#view=Fit">
-      </embed>
+      </embed> -->
+      <div id="adobe-dc-view"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "adobe-dc-view"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dizengoff Setion.pdf"}},
+            metaData:{fileName: "Dizengoff Setion.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
+    </div>
+    <div class="full-image" id="Dizengoff  Square_in2">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff  Square_in2", "Dizengoff  Square")'>x</button>
+      <!-- <button class="arrow_button"></button> -->
+      <button class="button" onclick="changeSource('Dizengoff  Square_in2', 'Dizengoff  Square_in')"><div class="button__arrow button__arrow--left"></div></button>
+      <!-- <embed
+        id="Dizengoff  Square_in"
+        height="100%"
+        width="100%" 
+        src="images/Dizengoff Setion.pdf#view=Fit">
+      </embed> -->
+      <div id="adobe-dc-view2"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "adobe-dc-view2"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Zoom-in Section.pdf"}},
+            metaData:{fileName: "Zoom-in Section.pdf"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
     </div>
     <!-- <div class="form-popup" id="present_form">
       <button id='close' onclick='closeForm()'>x</button>
@@ -633,7 +678,7 @@
     </div>
     <div class="form-popup" id="Dizengoff  Square">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dizengoff Square2")'>Enlarge</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dizengoff  Square_in")'>Enlarge</button>
       <embed
         height="100%"
         width="100%" 
