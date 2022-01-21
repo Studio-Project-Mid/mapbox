@@ -308,7 +308,11 @@
         right: 15px;
         z-index: 9;
       }
-
+      .mapboxgl-popup {
+        font-family: 'Assistant';
+        text-align: right;
+        direction: rtl;
+      }
       .mapboxgl-popup-content{
         /* background-color: rgb(31, 29, 29); */
         background-color: black;
@@ -372,18 +376,18 @@
     ]
 
     var formIdx = {
-          '"Lasova"_Gagon_Addicts': 0,
-          '"Lasova"_Gagon_Women': 1,
-          '"Lasova"_Transition Apartment': 2,
-          "Hygiene Center": 3,
-          "The Platform": 4,
-          "Dizengoff Center": 5,
-          "Dirty Burger": 6,
-          "Synagogue Beit El": 7,
-          "Mati": 8,
-          "Natan": 9,
-          "Dizengoff  Square": 10
-        }
+      '"Lasova"_Gagon_Addicts': 0,
+      '"Lasova"_Gagon_Women': 1,
+      '"Lasova"_Transition Apartment': 2,
+      "Hygiene Center": 3,
+      "The Platform": 4,
+      "Dizengoff Center": 5,
+      "Dirty Burger": 6,
+      "Synagogue Beit El": 7,
+      "Mati": 8,
+      "Natan": 9,
+      "Dizengoff  Square": 10
+    }
 
     // var sources = {
     //   "Dizengoff  Square_in": [
@@ -789,10 +793,6 @@
       // var pos = [34.776, 32.058];
       var pos = [34.77551, 32.07435];
 
-      var lays = {
-        'test': 3
-      };
-
       // wait for map to load before adjusting it
       map.on('load', function () {
         // make a pointer cursor
@@ -855,32 +855,19 @@
         //   'Checkpoints'
         // ];
         
-        var colors = [
-          "hsl(342, 28%, 47%)",
-          "hsl(0, 11%, 72%)",
-          "hsl(0, 11%, 72%)",
-          "hsl(232, 67%, 71%)",
-          "hsl(94, 42%, 65%)",
-          "hsl(0, 57%, 50%)",
-          "hsl(52, 70%, 70%)"
-        ];
+        // var colors = [
+        //   "hsl(342, 28%, 47%)",
+        //   "hsl(0, 11%, 72%)",
+        //   "hsl(0, 11%, 72%)",
+        //   "hsl(232, 67%, 71%)",
+        //   "hsl(94, 42%, 65%)",
+        //   "hsl(0, 57%, 50%)",
+        //   "hsl(52, 70%, 70%)"
+        // ];
 
-        var ids = [
-          'Green-Line',
-          'West-Bank Separation Barrier',
-          'Palestinian Settlements',
-          'Area - A',
-          'Area - B',
-          'Area - C',
-          'Settlements',
-          'Tamil Settlements',
-          'Closed Military Zones',
-          'Declared State Land',
-          // 'Roads',
-          'Checkpoints'
-        ]
 
         var layers_map = map.getStyle().layers;
+        console.log(layers_map);
 
         // var layers_acc = document.createElement('button');
         // layers_acc.className = 'accordion';
@@ -955,7 +942,14 @@
                 return "hsl(0, 100%, 0%)";
               }
             case "fill":
-              var fillColor = layer.paint["fill-color"];
+              var fillColor = "hsl(0, 100%, 0%)";
+              var fillPaint = layer.paint;
+              if ("fill-color" in fillPaint) {
+                fillColor = fillPaint["fill-color"];
+              }
+              else if ("fill-outline-color" in fillPaint) {
+                fillColor = fillPaint["fill-outline-color"];
+              }
               if (Array.isArray(fillColor))
                 return fillColor[6];
               return fillColor;
@@ -996,11 +990,12 @@
           'parking': 'חניונים',
           'business': 'חנויות',
           'light-rail': 'תוואי הרכבת הקלה',
-          '3D': '3D'
+          '3D': '3D',
+          'strategic-axes': 'צירים אסטרטגיים'
         }
 
         // create legend
-        for (i = 78, j = 0; i < layers_map.length; i++, j++) {
+        for (i = 78; i < layers_map.length; i++) {
           if (!notInLegend.includes(layers_map[i].id)) {
             layers.push(layers_map[i].id);
             var layer = layers_map[i].id;
@@ -1009,7 +1004,7 @@
             // var color = colors[j];
             // console.log(layers_map[i].id + ", " + color);
             var item = document.createElement('div');
-            item.id = 'item_' + ids[i];
+            item.id = 'item_' + layers_map[i].id;
             item.className = 'accordion-body';
             var key = document.createElement('span');
             key.className = 'legend-key';
@@ -1436,12 +1431,12 @@
             }
             var feature = features[0];
             if (!(noPopupLayers.includes(feature.layer.id))) {
-              var title = feature.properties["name"] != undefined ? feature.properties["name"] : feature.layer.id;
+              var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[feature.layer.id];
               var htmlText = '<h3 class="h3_1"><b>' +
                               title +
                               '</b></h3>' +
                               '<p>'  +
-                              feature.layer.id +
+                              layerHebrewNames[feature.layer.id] +
                               '</p>';
               if (feature.layer.id == 'sleeping-corners') {
                 htmlText =  '<h3 class="h3_2">שם' + 
@@ -1455,6 +1450,16 @@
                             '<h3 class="h3_1"><b>' +
                             feature.properties["description"] +
                             '</b></h3>';
+                popup.setMaxWidth('240px');
+              }
+              else if (feature.layer.id == 'strategic-axes' && "tsug" in feature.properties) {
+                htmlText =  '<h3><b>' +
+                            feature.properties["name_he"] +
+                            '</b></h3>' +
+                            '<h3 class="h3_2">שעות פעילות' + 
+                            '<br><b>' +
+                            feature.properties["tsug"] +
+                            '</b></br></h3>';
                 popup.setMaxWidth('240px');
               }
               popup.setLngLat(e.lngLat)
