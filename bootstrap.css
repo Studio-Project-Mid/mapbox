@@ -4414,9 +4414,12 @@ textarea.form-control-lg {
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
-  color: #212529;
+  opacity: 70%;
+  /* color: #212529; */
+  color: white;
   text-align: left;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: black;
   border: 0;
   border-radius: 0;
   overflow-anchor: none;
@@ -4428,8 +4431,10 @@ textarea.form-control-lg {
   }
 }
 .accordion-button:not(.collapsed) {
-  color: #0c63e4;
-  background-color: #e7f1ff;
+  /* color: #0c63e4; */
+  color: white;
+  /* background-color: #e7f1ff; */
+  background-color: rgb(51, 51, 51);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 .accordion-button:not(.collapsed)::after {
@@ -4457,7 +4462,8 @@ textarea.form-control-lg {
 }
 .accordion-button:focus {
   z-index: 3;
-  border-color: #86b7fe;
+  /* border-color: #86b7fe; */
+  border-color: white;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
@@ -4467,8 +4473,12 @@ textarea.form-control-lg {
 }
 
 .accordion-item {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: black;
+  color: white;
+  opacity: 70%;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  font-family: 'Assistant';
 }
 .accordion-item:first-of-type {
   border-top-left-radius: 0.25rem;
