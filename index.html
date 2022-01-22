@@ -193,6 +193,17 @@
         overflow-x: hidden;
         overflow-y: auto;
         text-align:justify;
+        font-family: 'Assistant';
+      }
+
+      .form-popup button.btn-outline-secondary {
+        left: 0;
+      }
+
+      .form-popup form {
+        direction: rtl;
+        text-align: right;
+        font-family: 'Assistant';
       }
 
       /* Add styles to the form container */
@@ -372,7 +383,8 @@
       "Synagogue Beit El",
       "Mati",
       "Natan",
-      "Dizengoff  Square"
+      "Dizengoff  Square",
+      "only_text"
     ]
 
     var formIdx = {
@@ -386,7 +398,8 @@
       "Synagogue Beit El": 7,
       "Mati": 8,
       "Natan": 9,
-      "Dizengoff  Square": 10
+      "Dizengoff  Square": 10,
+      "only_text": 11
     }
 
     // var sources = {
@@ -676,6 +689,7 @@
     <div class="form-popup" id="Gagon_Addicts">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Mechurim")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -685,6 +699,7 @@
     <div class="form-popup" id="Gagon_Women">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Women")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -694,6 +709,7 @@
     <div class="form-popup" id="Transition Apartment">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dirat Maavar")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -708,6 +724,7 @@
     </audio>
     <div class="form-popup" id="Dizengoff Center">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <iframe 
       width="560" 
       height="315" 
@@ -721,6 +738,7 @@
     <div class="form-popup" id="Dirty Burger">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dirty Burger img")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -736,6 +754,7 @@
 
     <div class="form-popup" id="Mati">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <iframe 
       width="560" 
       height="315" 
@@ -749,6 +768,7 @@
     <div class="form-popup" id="Natan">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Frishman 46")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -758,6 +778,7 @@
     <div class="form-popup" id="Dizengoff  Square">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Dizengoff  Square_in")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
@@ -768,6 +789,10 @@
         width="100%" 
         src="images/Zoom-in Section.pdf">
       </embed>
+    </div>
+    <div class="form-popup" id="only_text" style="direction: rtl; text-align: right; width: 400px;">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
     </div>
     
     <script>
@@ -930,6 +955,7 @@
         collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
+          console.log(layer);
           switch (layer.type) {
             case "line":
               if ("paint" in layer) {
@@ -1293,10 +1319,43 @@
           map.fire('flystart');
         }
         
+        function addTextToDiv(properties) {
+
+        }
+
+        function updateTextDiv(divId, properties) {
+
+          var textForm = document.getElementById(divId).querySelector('#text_form');
+          if (textForm != undefined) {
+            var name = document.createElement('h3');
+            name.innerHTML = 'שם<br><b>' +
+                              properties["name_he"] +
+                              '</b></br>';
+            var sleeping = document.createElement('h3');
+            sleeping.innerHTML = 'מרחב לינה<br><b>' +
+                              properties["sleeping corner"] +
+                              '</b></br>';
+            var description = document.createElement('h3');
+            description.innerHTML = '<b>' + properties["description"] + '</b>';
+            if (textForm.children.length > 0) {
+              textForm.replaceChild(name, textForm.children[0]);
+              textForm.replaceChild(sleeping, textForm.children[1]);
+              textForm.replaceChild(description, textForm.children[2]);
+            }
+            else {
+              textForm.appendChild(name);
+              textForm.appendChild(sleeping);
+              textForm.appendChild(description);
+            }
+          }
+        }
+
         for (i = 0; i < layers.length; i++) {
           map.on('click', layers[i], (e) => {
+            console.log(e.features[0].layer['id']);
             var prop = e.features[0].properties["name"];
             if (prop in formIdx) {
+              updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
               // var timeOutVal = 0;
               if (prop == "Dizengoff  Square") {
                 flyToFunc(e.features[0].geometry.coordinates);
@@ -1307,6 +1366,10 @@
                 openForm(formIdx[prop]);
               }
               // setTimeout(() => openForm(formIdx[prop]), timeOutVal);
+            }
+            else if (e.features[0].layer['id'] == 'sleeping-corners') {
+              updateTextDiv('only_text', e.features[0].properties);
+              openForm(formIdx['only_text']);
             }
           });
   
