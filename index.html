@@ -650,13 +650,13 @@
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("market_in2", "market")'>x</button>
       <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('market_in2', 'market_in')"><div class="button__arrow button__arrow--left"></div></button>
-      <!-- <embed
-        id="Dizengoff  Square_in"
+      <embed
+        id="market_in2_in"
         height="100%"
         width="100%" 
-        src="images/Dizengoff Setion.pdf#view=Fit">
-      </embed> -->
-      <div id="market_in2_in"></div>
+        src="images/Zoom-in-Section_GIF.gif#view=Fit">
+      </embed>
+      <!-- <div id="market_in2_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
       <script type="text/javascript">
         document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
@@ -667,7 +667,7 @@
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
-      </script>
+      </script> -->
     </div>
     <!-- <div class="form-popup" id="present_form">
       <button id='close' onclick='closeForm()'>x</button>
@@ -973,6 +973,16 @@
             'visibility',
             'none'
           );
+          map.flyTo({
+          center: map.getCenter(),
+          zoom: 14,
+          bearing: 0,
+          pitch: 0,
+          speed: 0.5,
+          curve: 1,
+          easing: (t) => t,
+          essential: true
+          });
         })
 
         // define layer names
@@ -1003,7 +1013,7 @@
 
 
         var layers_map = map.getStyle().layers;
-        console.log(layers_map);
+        // console.log(layers_map);
 
         // var layers_acc = document.createElement('button');
         // layers_acc.className = 'accordion';
@@ -1066,7 +1076,7 @@
         collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
-          console.log(layer);
+          // console.log(layer);
           switch (layer.type) {
             case "line":
               if ("paint" in layer) {
@@ -1592,7 +1602,7 @@
         });*/ 
 
         function removeMapLayer(layerId) {
-          console.log(collapseOne);
+          // console.log(collapseOne);
           for (i = 0; i < collapseOne.children.length; i++) {
             if (collapseOne.children[i].children[0].id == layerId) {
               collapseOne.children[i].remove();
@@ -1602,7 +1612,7 @@
         }
         
       // Remove when needed!!!
-      removeMapLayer('night-policy-in-leisure-areas');
+      // removeMapLayer('night-policy-in-leisure-areas');
 
       var noPopupLayers = [
         '3D',
