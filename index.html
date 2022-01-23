@@ -378,12 +378,13 @@
       'Transition Apartment',
       "Hygiene Center",
       "The Platform",
-      "Dizengoff Center",
+      "Issa",
       "Dirty Burger",
       "Synagogue Beit El",
       "Mati",
       "Natan",
       "Dizengoff  Square",
+      "Yechezkel",
       "only_text"
     ]
 
@@ -393,13 +394,14 @@
       '"Lasova"_Transition Apartment': 2,
       "Hygiene Center": 3,
       "The Platform": 4,
-      "Dizengoff Center": 5,
+      "Issa": 5,
       "Dirty Burger": 6,
       "Synagogue Beit El": 7,
       "Mati": 8,
       "Natan": 9,
       "Dizengoff  Square": 10,
-      "only_text": 11
+      "Yechezkel": 11,
+      "only_text": 12
     }
 
     // var sources = {
@@ -554,7 +556,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dirty Burger img_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dirty Burger.pdf"}},
-            metaData:{fileName: "Dirty Burger.pdf"}
+            metaData:{fileName: '"המלוכלך"'}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -575,7 +577,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Frishman 46_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Frishman 46.pdf"}},
-            metaData:{fileName: "Frishman 46.pdf"}
+            metaData:{fileName: "ספסל מול מגדל פרישמן"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -722,13 +724,13 @@
     <audio controls id="The Platform">
       <source src="audio/יואב_יחידת דרי רחוב.mp3" type="audio/mp3">
     </audio>
-    <div class="form-popup" id="Dizengoff Center">
+    <div class="form-popup" id="Issa">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
       <iframe 
       width="560" 
       height="315" 
-      src="https://www.youtube.com/embed/R8xFDr03D-M" 
+      src="https://www.youtube.com/embed/VEznznkTYB4" 
       title="Natan" 
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -758,7 +760,7 @@
       <iframe 
       width="560" 
       height="315" 
-      src="https://www.youtube.com/embed/HAVRlBJQ38M" 
+      src="https://www.youtube.com/embed/DSquda0KJEA" 
       title="Mati" 
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -769,6 +771,15 @@
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Frishman 46")'>Enlarge</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
+      <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/24_9tw-MQAw"
+      title="Natan" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+      </iframe>
       <embed
         height="100%"
         width="100%" 
@@ -790,6 +801,26 @@
         src="images/Zoom-in Section.pdf">
       </embed>
     </div>
+    <div class="form-popup" id="Yechezkel">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
+      <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/pv_3srpmluY" 
+      title="Yechezkel" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+      </iframe>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Maze Evolution.gif">
+      </embed>
+    </div>
+
+    
     <div class="form-popup" id="only_text" style="direction: rtl; text-align: right; width: 400px;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
@@ -856,12 +887,13 @@
             if (collapseOne.children[i].innerText == '3D') {
               collapseOne.children[i].children[0].checked = false;
             }
-            map.setLayoutProperty(
+          }
+          map.setLayoutProperty(
               '3D',
               'visibility',
               'none'
             );
-          }
+          
         })
 
         // define layer names
@@ -1354,8 +1386,11 @@
           map.on('click', layers[i], (e) => {
             console.log(e.features[0].layer['id']);
             var prop = e.features[0].properties["name"];
+            console.log(prop);
             if (prop in formIdx) {
-              updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
+              if (e.features[0].layer['id'] == 'sleeping-corners') {
+                updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
+              }
               // var timeOutVal = 0;
               if (prop == "Dizengoff  Square") {
                 flyToFunc(e.features[0].geometry.coordinates);
