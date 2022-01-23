@@ -385,6 +385,9 @@
       "Natan",
       "Dizengoff  Square",
       "Yechezkel",
+      "Pasta Basta",
+      "dizengoff Bottles",
+      "market",
       "only_text"
     ]
 
@@ -401,7 +404,10 @@
       "Natan": 9,
       "Dizengoff  Square": 10,
       "Yechezkel": 11,
-      "only_text": 12
+      "Pasta Basta": 12,
+      "dizengoff Bottles": 13,
+      "market": 14,
+      "only_text": 15
     }
 
     // var sources = {
@@ -594,7 +600,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dizengoff  Square_in_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dizengoff Setion.pdf"}},
-            metaData:{fileName: "Dizengoff Setion.pdf"}
+            metaData:{fileName: "מקטע דיזינגוף"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -617,7 +623,47 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dizengoff  Square_in2_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Zoom-in Section.pdf"}},
-            metaData:{fileName: "Zoom-in Section.pdf"}
+            metaData:{fileName: "שימושי מקטע דיזינגוף"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
+    </div>
+    <div class="full-image" id="market_in">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("market_in", "market")'>x</button>
+      <!-- <button class="arrow_button"></button> -->
+      <button class="button" onclick="changeSource('market_in', 'market_in2')"><div class="button__arrow button__arrow--left"></div></button>
+      <div id="market_in_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "market_in_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Market Section.pdf"}},
+            metaData:{fileName: "מקטע שוק הכרמל"}
+          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
+            showDownloadPDF: false, showPrintPDF: false});
+        });
+      </script>
+    </div>
+    <div class="full-image" id="market_in2">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("market_in2", "market")'>x</button>
+      <!-- <button class="arrow_button"></button> -->
+      <button class="button" onclick="changeSource('market_in2', 'market_in')"><div class="button__arrow button__arrow--left"></div></button>
+      <!-- <embed
+        id="Dizengoff  Square_in"
+        height="100%"
+        width="100%" 
+        src="images/Dizengoff Setion.pdf#view=Fit">
+      </embed> -->
+      <div id="market_in2_in"></div>
+      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+      <script type="text/javascript">
+        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
+          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "market_in2_in"});
+          adobeDCView.previewFile({
+            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Zoom-in-Section_GIF.gif"}},
+            metaData:{fileName: "שימושי שוק הכרמל"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -813,14 +859,48 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
       allowfullscreen>
       </iframe>
+    </div>
+    <div class="form-popup" id="Pasta Basta">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
+      <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/cfGCpt0K-ys" 
+      title="Mati" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+      </iframe>
+    </div>
+    <div class="form-popup" id="dizengoff Bottles">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
+      <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/urNfjpW-Cfg" 
+      title="Mati" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+      </iframe>
+    </div>
+    <div class="form-popup" id="market">
+      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
+      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("market_in")'>Enlarge</button>
+      <form action="/action_page.php" class="form-container" id="text_form"></form>
       <embed
         height="100%"
         width="100%" 
-        src="images/Maze Evolution.gif">
+        src="images/Market Section.pdf">
+      </embed>
+      <embed
+        height="100%"
+        width="100%" 
+        src="images/Zoom-in-Section_GIF.gif">
       </embed>
     </div>
-
-    
     <div class="form-popup" id="only_text" style="direction: rtl; text-align: right; width: 400px;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
@@ -889,11 +969,10 @@
             }
           }
           map.setLayoutProperty(
-              '3D',
-              'visibility',
-              'none'
-            );
-          
+            '3D',
+            'visibility',
+            'none'
+          );
         })
 
         // define layer names
@@ -1316,6 +1395,7 @@
         });
 
         function flyToFunc(pos) {
+          closeForm();
           for (i = 0; i < collapseOne.children.length; i++) {
             if (collapseOne.children[i].innerText == '3D') {
               collapseOne.children[i].children[0].checked = true;
@@ -1350,34 +1430,42 @@
           });
           map.fire('flystart');
         }
-        
-        function addTextToDiv(properties) {
 
-        }
-
-        function updateTextDiv(divId, properties) {
+        function updateTextDiv(divId, properties, text="") {
 
           var textForm = document.getElementById(divId).querySelector('#text_form');
           if (textForm != undefined) {
-            var name = document.createElement('h3');
-            name.innerHTML = 'שם<br><b>' +
-                              properties["name_he"] +
-                              '</b></br>';
-            var sleeping = document.createElement('h3');
-            sleeping.innerHTML = 'מרחב לינה<br><b>' +
-                              properties["sleeping corner"] +
-                              '</b></br>';
-            var description = document.createElement('h3');
-            description.innerHTML = '<b>' + properties["description"] + '</b>';
-            if (textForm.children.length > 0) {
-              textForm.replaceChild(name, textForm.children[0]);
-              textForm.replaceChild(sleeping, textForm.children[1]);
-              textForm.replaceChild(description, textForm.children[2]);
+            if (text == "") {
+              var name = document.createElement('h3');
+              name.innerHTML = 'שם<br><b>' +
+                                properties["name_he"] +
+                                '</b></br>';
+              var sleeping = document.createElement('h3');
+              sleeping.innerHTML = 'מרחב לינה<br><b>' +
+                                properties["sleeping corner"] +
+                                '</b></br>';
+              var description = document.createElement('h3');
+              description.innerHTML = '<b>' + properties["description"] + '</b>';
+              if (textForm.children.length > 0) {
+                textForm.replaceChild(name, textForm.children[0]);
+                textForm.replaceChild(sleeping, textForm.children[1]);
+                textForm.replaceChild(description, textForm.children[2]);
+              }
+              else {
+                textForm.appendChild(name);
+                textForm.appendChild(sleeping);
+                textForm.appendChild(description);
+              }
             }
             else {
-              textForm.appendChild(name);
-              textForm.appendChild(sleeping);
-              textForm.appendChild(description);
+              var title = document.createElement('h3');
+              title.innerHTML = text;
+              if (textForm.children.length > 0) {
+                textForm.replaceChild(title, textForm.children[0]);
+              }
+              else {
+                textForm.appendChild(title);
+              }
             }
           }
         }
@@ -1391,8 +1479,14 @@
               if (e.features[0].layer['id'] == 'sleeping-corners') {
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
               }
+              else if (prop == 'Pasta Basta') {
+                updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "מנהל בסטה בשוק הכרמל");
+              }
+              else if (prop == 'dizengoff Bottles') {
+                updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
+              }
               // var timeOutVal = 0;
-              if (prop == "Dizengoff  Square") {
+              if (prop == "Dizengoff  Square" || prop == "market") {
                 flyToFunc(e.features[0].geometry.coordinates);
                 formToOpen = formIdx[prop];
                 // timeOutVal = 5000;
