@@ -213,6 +213,19 @@
         padding: 10px;
         background-color: white;
       }
+      .form-container h3{
+        font-family: 'Assistant';
+        font-size: 0.8em;
+        color: gray;
+        opacity: 70%;
+      }
+
+      .form-container b{
+        /* font-family: 'Assistant';
+        font-size: 0.8em; */
+        color: black;
+      }
+
       .text-container {
         display: none;
         position: fixed;
@@ -516,7 +529,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Mechurim_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Mechurim.pdf"}},
-            metaData:{fileName: "Mechurim.pdf"}
+            metaData:{fileName: "פרטים גגון מכורים"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -531,7 +544,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Women_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Women.pdf"}},
-            metaData:{fileName: "Women.pdf"}
+            metaData:{fileName: "פרטים גגון נשים"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
@@ -546,7 +559,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "Dirat Maavar_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dirat Maavar.pdf"}},
-            metaData:{fileName: "Dirat Maavar.pdf"}
+            metaData:{fileName: "פרטים דירת מעבר"}
           }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
             showDownloadPDF: false, showPrintPDF: false});
         });
