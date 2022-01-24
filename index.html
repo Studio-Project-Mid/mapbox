@@ -1503,12 +1503,12 @@
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
               // var timeOutVal = 0;
-              if (prop == "Dizengoff  Square" || prop == "market") {
+              if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'informal')) {
                 flyToFunc(e.features[0].geometry.coordinates);
                 formToOpen = formIdx[prop];
                 // timeOutVal = 5000;
               }
-              else {
+              else if (!(prop == 'market')) {
                 openForm(formIdx[prop]);
               }
               // setTimeout(() => openForm(formIdx[prop]), timeOutVal);
