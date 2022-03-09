@@ -401,8 +401,6 @@
       "Pasta Basta",
       "dizengoff Bottles",
       "market",
-      "pre_planning",
-      "treatment_radius",
       "only_text"
     ]
 
@@ -422,9 +420,7 @@
       "Pasta Basta": 12,
       "dizengoff Bottles": 13,
       "market": 14,
-      "pre_planning": 15,
-      "treatment_radius": 16,
-      "only_text": 17
+      "only_text": 15
     }
 
     // var sources = {
@@ -503,12 +499,12 @@
       }
     }
   </script>
-  <!-- <div class="map-title">
+  <div class="map-title">
     <h1 style="padding-top: 5px; padding-right: 8px; padding-left: 8px; text-align: center;">כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב</h1>
   </div>
   <div class="secondary-title">
     <p style="padding-right: 2px; padding-left: 2px; text-align: center;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים</p>
-  </div> -->
+  </div>
   <body>
     <div id="map"></div>
     <div class="map-overlay">
@@ -679,38 +675,6 @@
             showDownloadPDF: false, showPrintPDF: false});
         });
       </script> -->
-    </div>
-    <div class="full-image" id="pre_planning_in">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("pre_planning_in", "pre_planning")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
-      <button class="button" onclick="changeSource('pre_planning_in', 'pre_planning_in2')"><div class="button__arrow button__arrow--left"></div></button>
-      <div id="pre_planning_in_in"></div>
-      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-      <script type="text/javascript">
-        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "pre_planning_in_in"});
-          adobeDCView.previewFile({
-            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Schemes.pdf"}},
-            metaData:{fileName: "מבנה אב"}
-          }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
-        });
-      </script>
-    </div>
-    <div class="full-image" id="treatment_radius_in">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("treatment_radius_in", "treatment_radius")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
-      <button class="button" onclick="changeSource('treatment_radius_in', 'treatment_radius_in2')"><div class="button__arrow button__arrow--left"></div></button>
-      <div id="treatment_radius_in_in"></div>
-      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-      <script type="text/javascript">
-        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "treatment_radius_in_in"});
-          adobeDCView.previewFile({
-            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Dizengoff Radius.pdf"}},
-            metaData:{fileName: "רדיוס טיפול"}
-          }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
-        });
-      </script>
     </div>
     <!-- <div class="form-popup" id="present_form">
       <button id='close' onclick='closeForm()'>x</button>
@@ -944,26 +908,6 @@
         src="images/Zoom-in-Section_GIF.gif">
       </embed>
     </div>
-    <div class="form-popup" id="pre_planning">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("pre_planning_in")'>Enlarge</button>
-      <form action="/action_page.php" class="form-container" id="text_form"></form>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Schemes.pdf">
-      </embed>
-    </div>
-    <div class="form-popup" id="treatment_radius">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("treatment_radius_in")'>Enlarge</button>
-      <form action="/action_page.php" class="form-container" id="text_form"></form>
-      <embed
-        height="100%"
-        width="100%" 
-        src="images/Dizengoff Radius.pdf">
-      </embed>
-    </div>
     <div class="form-popup" id="only_text" style="direction: rtl; text-align: right; width: 400px;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
@@ -984,7 +928,7 @@
       //create map
       var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/adigali/cl0jchmbk000014nqfx3qxf3m' // map style URL from Mapbox Studio
+        style: 'mapbox://styles/adigali/ckwluaunh2ymp14o5vwkekbgg' // map style URL from Mapbox Studio
         // zoom: 6
         
       });
@@ -1153,8 +1097,6 @@
               }
             case "fill":
               var fillColor = "hsl(0, 100%, 0%)";
-              if (layer.id == "pre-planning")
-                return fillColor;
               var fillPaint = layer.paint;
               if ("fill-color" in fillPaint) {
                 fillColor = fillPaint["fill-color"];
@@ -1203,9 +1145,7 @@
           'business': 'חנויות',
           'light-rail': 'תוואי הרכבת הקלה',
           '3D': '3D',
-          'strategic-axes': 'צירים אסטרטגיים',
-          'pre-planning': 'מבנה אב',
-          'treatment-radius': 'רדיוס טיפול'
+          'strategic-axes': 'צירים אסטרטגיים'
         }
 
         // create legend
@@ -1699,9 +1639,6 @@
               return;
             }
             var feature = features[0];
-            // console.log('*******************');
-            // console.log(feature, feature.layer.id);
-            // console.log('-------------------');
             if (!(noPopupLayers.includes(feature.layer.id))) {
               var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[feature.layer.id];
               var htmlText = '<h3 class="h3_1"><b>' +
