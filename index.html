@@ -5,21 +5,16 @@
     <title>Mapbox Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
-    <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css"
-      rel="stylesheet"
-    />
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet"/>
     <script src="./bootstrap.js"></script>
-    <link
-      href="./bootstrap.css"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet">
-    
-    <style>
-      body {
+    <link href="./bootstrap.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet"/>
+    <link href="./mapstyles.css" rel="stylesheet"/>
+
+    <!-- <style> 
+      /* body {
         margin: 0;
         padding: 0;
       }
@@ -42,16 +37,13 @@
         text-align: left;
       }
       .map-overlay {
-        /* display: none; */
         position: absolute;
         top: 0;
         left: 0;
-        /* background: rgba(255, 255, 255, 0.8); */
         margin-left: 20px;
         margin-top: 20px;
         font-family: Arial, sans-serif;
-        /* overflow: auto; */
-        /* border-radius: 3px; */
+
       }
       .secondary-title {
         position: fixed;
@@ -60,7 +52,6 @@
         background-color: black;
         opacity: 70%;
         vertical-align: middle;
-        /* height: 5%; */
         color: white;
         z-index: 99999;
         text-size-adjust: 6;
@@ -74,7 +65,6 @@
         background-color: black;
         opacity: 50%;
         vertical-align: middle;
-        /* height: 5%; */
         color: white;
         z-index: 99999;
         text-size-adjust: 14;
@@ -83,19 +73,13 @@
       }
       .full-image {
         position: fixed;
-        /* margin: 0; */
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        /* left: 20%; */
-        /* height: 90%; */
-        /* width: 100%; */
+
         opacity: 95%;
         z-index: 99999;
-        /* max-width: 500px;
-        margin: auto;
-        padding: 10px; */
         display: none;
       }
       .button {
@@ -104,26 +88,21 @@
         right: 92%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
-        /* Center the content */
         align-items: center;
         display: flex;
         justify-content: center;
 
-        /* Spacing */
         padding: 8px;
       }
       
       .button__arrow {
-        /* Transparent background */
         background-color: transparent;
 
-        /* Size */
         height: 12px;
         width: 12px;
       }
 
       .button__arrow--left {
-        /* Edges */
         border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         border-left: 1px solid rgba(0, 0, 0, 0.3);
         transform: translateX(25%) rotate(45deg);
@@ -176,7 +155,6 @@
         margin-right: 2px;
         margin-left: 10px;
       }
-      /* The popup form - hidden by default */
       .form-popup {
         display: none;
         position: fixed;
@@ -206,10 +184,8 @@
         font-family: 'Assistant';
       }
 
-      /* Add styles to the form container */
       .form-container {
         width: 560;
-        /* max-width: 300px; */
         padding: 10px;
         background-color: white;
       }
@@ -221,8 +197,6 @@
       }
 
       .form-container b{
-        /* font-family: 'Assistant';
-        font-size: 0.8em; */
         color: black;
       }
 
@@ -241,8 +215,7 @@
         width: 560px;
       }
       #close {
-        /* float:right; */
-        /* display:inline-block; */
+
         position: absolute;
         right: 0;
         top: 0;
@@ -253,8 +226,7 @@
         align-items: center;
       }
       #close:hover {
-        /* float:right; */
-        /* display:inline-block; */
+
         position: absolute;
         right: 0;
         top: 0;
@@ -265,8 +237,7 @@
         align-items: center;
       }
       #enlarge {
-        /* float:right; */
-        /* display:inline-block; */
+
         position: absolute;
         right: 30px;
         top: 0;
@@ -275,8 +246,7 @@
         border: none;
       }
       #enlarge:hover {
-        /* float:right; */
-        /* display:inline-block; */
+
         position: absolute;
         right: 30px;
         top: 0;
@@ -285,31 +255,6 @@
         color:#fff;
       }
       
-      /* #close {
-        background:white;
-        border: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-
-        padding: 8px;
-      }
-      #close:hover {
-        background:#ccc;
-        color:#fff;
-        border: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-
-        padding: 8px;
-      } */
       div.scroll {
         margin:4px, 4px;
         padding:4px;
@@ -338,7 +283,6 @@
         direction: rtl;
       }
       .mapboxgl-popup-content{
-        /* background-color: rgb(31, 29, 29); */
         background-color: black;
         opacity: 70%;
         font-family: 'Assistant';
@@ -368,20 +312,18 @@
       }
 
       .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
-        /* border-top-color: aquamarine; */
         border: none;
       }
 
       .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-        /* border-top-color: aquamarine; */
         border: none;
       }
 
       .mapboxgl-popup-close-button {
         color: white;
-      }
+      } */
 
-    </style>
+    </style> -->
   </head>
   <script>
 
@@ -423,25 +365,11 @@
       "only_text": 15
     }
 
-    // var sources = {
-    //   "Dizengoff  Square_in": [
-    //     "images/Dizengoff Setion.pdf#view=Fit",
-    //     "images/Zoom-in Section.pdf#view=Fit"
-    //   ]
-    // }
     var sources = {
       "Dizengoff  Square_in": "Dizengoff Setion.pdf",
       "Dizengoff  Square_in2": "Zoom-in Section.pdf"
     }
         
-    // function openForm(idx) {
-    //   var lst = [0, 1, 2, 3];
-    //   lst.splice(idx, 1);
-    //   document.getElementById(forms[lst[0]]).style.display = "none";
-    //   document.getElementById(forms[lst[1]]).style.display = "none";
-    //   document.getElementById(forms[lst[2]]).style.display = "none";
-    //   document.getElementById(forms[idx]).style.display = "block";
-    // }
     var layers = [];
     function openForm(idx) {
       for (i = 0; i < forms.length; i++) {
@@ -457,7 +385,6 @@
 
     function openImage(id) {
       document.getElementById(id).style.display = "block";
-      // console.log(document.getElementById(id).children);
       closeForm();
     }
 
@@ -474,14 +401,6 @@
     }
 
     var relIdx = 0;
-    // function changeSource(id, idx) {
-    //   var current=document.getElementById(id);
-    //   var clone=current.cloneNode(true);
-    //   var source = sources[id][idx];
-    //   clone.setAttribute('src',source);
-    //   current.parentNode.replaceChild(clone,current)
-    //   relIdx = 1 - relIdx;
-    // }
     function changeSource(id1, id2) {
       document.getElementById(id2).style.display = "block";
       document.getElementById(id1).style.display = "none";
@@ -580,11 +499,7 @@
     <!-- https://drive.google.com/file/d/1FodN9dEg-fYmh659HAUIrqG4MjcNJV0O/preview -->
     <div class="full-image" id="Frishman 46">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Frishman 46", "Natan")'>x</button>
-      <!-- <embed
-        height="100%"
-        width="100%" 
-        src="images/Frishman 46.pdf#view=Fit">
-      </embed> -->
+
       <div id="Frishman 46_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
       <script type="text/javascript">
@@ -599,7 +514,6 @@
     </div>
     <div class="full-image" id="Dizengoff  Square_in">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff  Square_in", "Dizengoff  Square")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('Dizengoff  Square_in', 'Dizengoff  Square_in2')"><div class="button__arrow button__arrow--left"></div></button>
       <div id="Dizengoff  Square_in_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
@@ -613,18 +527,10 @@
         });
       </script>
     </div>
-    <!-- {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
-            showDownloadPDF: false, showPrintPDF: false}); -->
+   
     <div class="full-image" id="Dizengoff  Square_in2">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("Dizengoff  Square_in2", "Dizengoff  Square")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('Dizengoff  Square_in2', 'Dizengoff  Square_in')"><div class="button__arrow button__arrow--left"></div></button>
-      <!-- <embed
-        id="Dizengoff  Square_in"
-        height="100%"
-        width="100%" 
-        src="images/Dizengoff Setion.pdf#view=Fit">
-      </embed> -->
       <div id="Dizengoff  Square_in2_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
       <script type="text/javascript">
@@ -639,7 +545,6 @@
     </div>
     <div class="full-image" id="market_in">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("market_in", "market")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('market_in', 'market_in2')"><div class="button__arrow button__arrow--left"></div></button>
       <div id="market_in_in"></div>
       <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
@@ -655,7 +560,6 @@
     </div>
     <div class="full-image" id="market_in2">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeImage("market_in2", "market")'>x</button>
-      <!-- <button class="arrow_button"></button> -->
       <button class="button" onclick="changeSource('market_in2', 'market_in')"><div class="button__arrow button__arrow--left"></div></button>
       <embed
         id="market_in2_in"
@@ -663,84 +567,8 @@
         width="100%" 
         src="images/Zoom-in-Section_GIF.gif#view=Fit">
       </embed>
-      <!-- <div id="market_in2_in"></div>
-      <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-      <script type="text/javascript">
-        document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-          var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: "market_in2_in"});
-          adobeDCView.previewFile({
-            content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/Zoom-in-Section_GIF.gif"}},
-            metaData:{fileName: "שימושי שוק הכרמל"}
-          }, {defaultViewMode: "FIT_PAGE", showAnnotationTools: false, showLeftHandPanel: false, 
-            showDownloadPDF: false, showPrintPDF: false});
-        });
-      </script> -->
+      
     </div>
-    <!-- <div class="form-popup" id="present_form">
-      <button id='close' onclick='closeForm()'>x</button>
-      <form action="/action_page.php" class="form-container">
-        <h1>YouTube video</h1>
-      </form>
-    </div>
-    <div class="form-popup" id="near_future_form">
-      <button id='close' onclick='closeForm()'>x</button>
-      <form action="/action_page.php" class="form-container">
-        <h1>Near Future</h1>
-        <p>After a while, the control games in the area are on the rise - 
-          The Israeli settlements are expanding while starting more "Pop-up settlements" (Tower and Stockade - "Homa u'migdal") 
-          and places guarding towers inside the Palestinian settlements which are expanding by spreading olive groves - 
-          The Indian communities gain power and resources, buy lands and builds temples.
-        </p>
-      </form>
-    </div>
-    <div class="form-popup" id="far_future_form">
-      <button id='close' onclick='closeForm()'>x</button>
-      <form action="/action_page.php" class="form-container">
-        <h1>Far Future</h1>
-        <p>Almost every part of the land is occupied by 3 groups of power.
-          The control games and expantion in the area continues, this time also inside the groups themselves.
-          The Indians claim lands by placing fences and building more and more temples, while the Israelies and the Palestinians continue the spatial expantion.
-          The whole area is filled with collisions and conflicts.
-        </p>
-      </form>
-    </div> -->
-    <!-- <div class="form-popup" id="youtube_video">
-      <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <form action="/action_page.php" class="form-container">
-        <h1>Title</h1>
-        <p>---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-        </p>
-      </form>
-      <iframe 
-      width="560" 
-      height="315" 
-      src="https://www.youtube.com/embed/EouCk4vx5Zg" 
-      title="YouTube video player" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-      </iframe>
-      <form action="/action_page.php" class="form-container">
-        <h1>Title</h1>
-        <p>---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-          ---------- This is text ----------
-        </p>
-      </form>
-      <img 
-      src="tzipkush.jpg"
-      onclick="openImage()"
-      />
-
-    </div> -->
     <div class="form-popup" id="Gagon_Addicts">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <button type="button" class="btn btn-outline-secondary" id='enlarge' onclick='openImage("Mechurim")'>Enlarge</button>
@@ -802,7 +630,6 @@
     </div>
     <form action="/action_page.php" class="text-container" id="Synagogue Beit El">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
-      <!-- <h1 style="text-align: center;">Title</h1> -->
       <p>״תשאלי אותי איפה אני אוכל בשבת, למרות שאני לא כל כך רעב בבוקר…חוף פרישמן קצת קרוב לבן יהודה יש בית כנסת של הקהילה הצרפתית…עכשיו, כל שבת אחרי שהם גומרים את התפילה הם עושים קידוש, עכשיו אני אוהב נורא חמין, אז כל שבת הם עושים בחצר אוכל, וזה מה שאני לוקח…״ (נתן, דר רחוב)
       </p>
     </form>
@@ -915,53 +742,39 @@
     
     <script>
 
-      // define access token
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpZ2FsaSIsImEiOiJja3dsc3ViOHYwMXNxMnBxdDRmOW1tcDRhIn0.01oFmibnj8b3erAu6aTXIg';
       mapboxgl.setRTLTextPlugin(
         'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
         null,
-        true // Lazy load the plugin
+        true 
       );
 
       var flying = false;
 
-      //create map
       var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/adigali/ckwluaunh2ymp14o5vwkekbgg' // map style URL from Mapbox Studio
-        // zoom: 6
+        container: 'map', 
+        style: 'mapbox://styles/adigali/ckwluaunh2ymp14o5vwkekbgg' 
         
       });
 
-      // var pos = [34.776, 32.058];
       var pos = [34.77551, 32.07435];
 
-      // wait for map to load before adjusting it
       map.on('load', function () {
-        // make a pointer cursor
         map.getCanvas().style.cursor = 'default';
 
-        // make a pointer cursor
         map.getCanvas().style.cursor = 'default';
 
         map.flyTo({
-          // These options control the ending camera position: centered at
-          // the target, at zoom level 9, and north up.
+          
           center: pos,
           zoom: 13,
           bearing: 0,
           
-          // These options control the flight curve, making it move
-          // slowly and zoom out almost completely before starting
-          // to pan.
-          speed: 0.2, // make the flying slow
-          curve: 1, // change the speed at which it zooms out
+          speed: 0.2, 
+          curve: 1, 
           
-          // This can be any easing function: it takes a number between
-          // 0 and 1 and returns another number between 0 and 1.
           easing: (t) => t,
           
-          // this animation is considered essential with respect to prefers-reduced-motion
           essential: true
         });
 
@@ -992,43 +805,7 @@
           });
         })
 
-        // define layer names
-        // var layers = [
-        //   'Green Line',
-        //   'West Bank Separation Barrier',
-        //   'Palestinian Settlements',
-        //   'Area A',
-        //   'Area B',
-        //   'Area C',
-        //   'Settlements',
-        //   'Tamil Settlements',
-        //   'Closed Millitary Zones',
-        //   'Declared State Lands',
-        //   // 'Roads',
-        //   'Checkpoints'
-        // ];
-        
-        // var colors = [
-        //   "hsl(342, 28%, 47%)",
-        //   "hsl(0, 11%, 72%)",
-        //   "hsl(0, 11%, 72%)",
-        //   "hsl(232, 67%, 71%)",
-        //   "hsl(94, 42%, 65%)",
-        //   "hsl(0, 57%, 50%)",
-        //   "hsl(52, 70%, 70%)"
-        // ];
-
-
         var layers_map = map.getStyle().layers;
-        // console.log(layers_map);
-
-        // var layers_acc = document.createElement('button');
-        // layers_acc.className = 'accordion';
-        // layers_acc.id = 'layers_acc';
-        // layers_acc.innerHTML = 'Map Layers';
-
-        // var tmp_div = document.createElement('div');
-        //   tmp_div.className = 'panel';
 
         var line_div = document.createElement('div');
         line_div.className = 'accordion-body';
@@ -1057,7 +834,6 @@
               clickedLayer,
               'visibility'
             );
-            // Toggle layer visibility by changing the layout object's visibility property.
             if (visibility == 'visible' && current_layer.checked == false) {
                 map.setLayoutProperty(clickedLayer, 'visibility', 'none');
                 this.className = '';
@@ -1083,7 +859,6 @@
         collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
-          // console.log(layer);
           switch (layer.type) {
             case "line":
               if ("paint" in layer) {
@@ -1155,8 +930,6 @@
             var layer = layers_map[i].id;
             var color = getLayerColor(layers_map[i]);
             var layerType = layers_map[i].type;
-            // var color = colors[j];
-            // console.log(layers_map[i].id + ", " + color);
             var item = document.createElement('div');
             item.id = 'item_' + layers_map[i].id;
             item.className = 'accordion-body';
@@ -1229,172 +1002,6 @@
           }
         }
 
-        // layers_acc_title.addEventListener("click", function() {
-        //   this.classList.toggle("active");
-        //   for (i = 0; i < this.children.length; i++) {
-        //     var panel = this.children[i];
-        //     if (panel.style.maxHeight) {
-        //       panel.style.maxHeight = null;
-        //     } else {
-        //       this.nextSibling
-        //       panel.style.maxHeight = panel.scrollHeight + "px";
-        //     }
-        //   }
-          
-        // });
-
-        // layers_acc.addEventListener("click", function() {
-        //   this.classList.toggle("active");
-        //   for (i = 0; i < this.children.length; i++) {
-        //     var panel = this.children[i];
-        //     if (panel.style.maxHeight) {
-        //       panel.style.maxHeight = null;
-        //     } else {
-        //       panel.style.maxHeight = panel.scrollHeight + "px";
-        //     }
-        //   }
-          
-        // });
-
-        // legend.appendChild(layers_acc);
-        
-        // var forms = ['present_form', 'near_future_form', 'far_future_form'];
-
-        // function openForm(idx) {
-        //   var lst = [0, 1, 2];
-        //   lst.splice(idx, 1);
-        //   document.getElementById(forms[lst[0]]).style.display = "none";
-        //   document.getElementById(forms[lst[1]]).style.display = "none";
-        //   document.getElementById(forms[idx]).style.display = "block";
-        // }
-
-        // function closeForm() {
-        //   for (i = 0; i < forms.length; i++)
-        //   {
-        //     document.getElementById(forms[i]).style.display = "none";
-        //   }
-        // }
-
-        // var periods = ['Current', 'Present', 'Near Future', 'Far Future'];
-
-        // var time_filter = document.createElement('button');
-        // time_filter.className = 'accordion2';
-        // time_filter.id = 'filter';
-        // time_filter.innerHTML = 'Choose Time Period';
-        // for (i = 0; i < periods.length; i++) {
-        //   var tmp_div = document.createElement('div');
-        //   tmp_div.className = 'accordion-body';
-        //   var tmp_radio = document.createElement('input');
-        //   tmp_radio.type = 'radio';
-        //   tmp_radio.id = periods[i];
-        //   tmp_radio.name = 'time';
-        //   tmp_radio.value = periods[i]
-        //   // tmp_radio.onchange = "openForm()";
-        //   var label = document.createElement('label');
-        //   label.htmlFor = periods[i];
-        //   label.innerHTML = periods[i];
-        //   label.style = "margin-left: 10px; font-size:10.0pt;"
-        //   if (i == 0)
-        //     tmp_radio.checked = true;
-        //   tmp_div.appendChild(tmp_radio);
-        //   tmp_div.appendChild(label);
-        //   collapseTwo.appendChild(tmp_div);
-        // }
-        
-
-        // collapseTwo.addEventListener('change', function(e) {
-        //   var time = e.target.value;
-        //   // update the map filter
-        //   var tamil_checkbox = document.getElementById('item_' + 'Tamil Settlements').children[0];
-        //   if (time === periods[0]) {
-        //     filterTime = ["match", ["get", "time"], ["far future", "near future"], false, true];
-        //     tamil_checkbox.className = '';
-        //     tamil_checkbox.checked = false;
-        //     map.setLayoutProperty('Tamil Settlements', 'visibility', 'none');
-        //     closeForm();
-        //   } else if (time === periods[1]) {
-        //     map.setLayoutProperty('Tamil Settlements', 'visibility', 'visible');
-        //     filterTime = ["match", ["get", "time"], ["far future", "near future"], false, true];
-        //     tamil_checkbox.className = 'active';
-        //     tamil_checkbox.checked = true;
-        //     openForm(0);
-        //   } else if (time === periods[2]) {
-        //     map.setLayoutProperty('Tamil Settlements', 'visibility', 'visible');
-        //     filterTime = ["match", ["get", "time"], ["far future", "present"], false, true];
-        //     tamil_checkbox.className = 'active';
-        //     tamil_checkbox.checked = true;
-        //     openForm(1);
-        //   } else if (time === periods[3]) {
-        //     map.setLayoutProperty('Tamil Settlements', 'visibility', 'visible');
-        //     filterTime = ["match", ["get", "time"], ["present", "near future"], false, true];
-        //     tamil_checkbox.className = 'active';
-        //     tamil_checkbox.checked = true;
-        //     openForm(2);
-        //   } else {
-        //     console.log('error');
-        //   }
-        //   map.setFilter('Settlements', ['all', filterTime]);
-        //   map.setFilter('Palestinian Settlements', ['all', filterTime]);
-        //   map.setFilter('Tamil Settlements', ['all', filterTime]);
-        // });
-        // layers_acc.appendChild(time_filter);
-
-        // var radio = document.getElementsByName('time');
-        // console.log(radio);
-        // for (i = 0; i < radio.length; i++) {
-        //   radio[i].addEventListener("change", function(e) {
-        //     // var time = e.target.value;
-        //     console.log(radio[i]);
-        //     openForm();
-        //   });
-        // }
-        
-
-        // $('input[name="radioButton"]').on("click", function(e) {
-
-        //   if (e.clientX === 0 && e.clientY === 0) {
-        //       console.log("keyboard");
-        //   } else {
-        //       console.log("mouse");
-        //   };
-        // }
-
-        // var test_layer = '';
-        // youtube_video_popup = document.getElementById('youtube_video');
-        // var popups = [];
-
-        // for (i = 78; i < layers_map.length; i++) {
-        //   popups.push(layers_map[i].id);
-
-        //   var form = document.createElement('div');
-        //   form.className = "form-popup";
-        //   form.id = layers_map[i].id;
-
-        //   var closeButton = document.createElement('button');
-        //   closeButton.type = "button";
-        //   closeButton.className = "btn btn-outline-dark";
-        //   closeButton.id = "close";
-        //   closeButton.onclick = 'closeForm()';
-        //   closeButton.innerHTML = 'x';
-
-        //   var text = document.createElement('form');
-        //   text.action = "/action_page.php";
-        //   text.className = "form-container";
-        //   var title = document.createElement('h1');
-        //   title.innerHTML = 'Title';
-        //   var inText = document.createElement('p');
-        //   inText.innerHTML = '---------- This is text ----------\n---------- This is text ----------\n---------- This is text ----------';
-        //   text.appendChild(title);
-        //   text.appendChild(inText);
-
-
-
-        //   map.on('click', layers_map[i].id, (e) => {
-
-        //     openForm();
-        //   });
-        // }
-
         var formToOpen = "";
 
         map.on('moveend', function(e){
@@ -1425,24 +1032,16 @@
             
           }
           map.flyTo({
-            // These options control the ending camera position: centered at
-            // the target, at zoom level 9, and north up.
             center: pos,
             zoom: 16,
             bearing: 0,
             pitch: 60,
             
-            // These options control the flight curve, making it move
-            // slowly and zoom out almost completely before starting
-            // to pan.
-            speed: 0.3, // make the flying slow
-            curve: 1, // change the speed at which it zooms out
+            speed: 0.3, 
+            curve: 1, 
             
-            // This can be any easing function: it takes a number between
-            // 0 and 1 and returns another number between 0 and 1.
             easing: (t) => t,
             
-            // this animation is considered essential with respect to prefers-reduced-motion
             essential: true
           });
           map.fire('flystart');
@@ -1502,16 +1101,13 @@
               else if (prop == 'dizengoff Bottles') {
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
-              // var timeOutVal = 0;
               if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'informal')) {
                 flyToFunc(e.features[0].geometry.coordinates);
                 formToOpen = formIdx[prop];
-                // timeOutVal = 5000;
               }
               else if (!(prop == 'market')) {
                 openForm(formIdx[prop]);
               }
-              // setTimeout(() => openForm(formIdx[prop]), timeOutVal);
             }
             else if (e.features[0].layer['id'] == 'sleeping-corners') {
               updateTextDiv('only_text', e.features[0].properties);
@@ -1523,93 +1119,12 @@
             map.getCanvas().style.cursor = 'pointer';
           });
           
-          // Change the cursor back to a pointer
-          // when it leaves the states layer.
           map.on('mouseleave', layers[i], () => {
             map.getCanvas().style.cursor = '';
           });
         }
 
-       /* map.on('click', 'formal', (e) => {
-          var prop = e.features[0].properties["Official institutions"];
-          console.log(prop);
-          if (prop == '"Lasova"_Gagon_Addicts') {
-            openForm(0);
-          } 
-          else if (prop == '"Lasova"_Gagon_Women') {
-            openForm(1);
-          }
-          else if (prop == '"Lasova"_Transition Apartment') {
-            openForm(2);
-          }
-          else if (prop == 'Hygiene Center') {
-            openForm(3);
-          }
-          else if (prop == 'The Platform') {
-            openForm(4);
-          }
-        }); 
-
-        map.on('mouseenter', 'formal', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-        
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
-        map.on('mouseleave', 'formal', () => {
-          map.getCanvas().style.cursor = '';
-        }); 
-
-
-
-        map.on('click', 'informal', (e) => {
-          var prop = e.features[0].properties["Informal Programs"];
-          console.log(prop);
-          if (prop == 'Dizengoff Center') {
-            openForm(5);
-          } 
-          else if (prop == 'Dirty Burger') {
-            openForm(6);
-          }
-          else if (prop == 'Synagogue Beit El') {
-            openForm(7);
-          }
-        });
-
-        map.on('mouseenter', 'informal', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-        
-        // Change the cursor back to a pointer
-        // when it leaves the states layer.
-        map.on('mouseleave', 'informal', () => {
-          map.getCanvas().style.cursor = '';
-        });
-
-
-
-        map.on('click', 'sleeping-corners', (e) => {
-          var prop = e.features[0].properties["Sleeping Corner"];
-          console.log(prop);
-          if (prop == 'Mati') {
-            openForm(8);
-          } 
-          else if (prop == 'Natan') {
-            openForm(9);
-          }
-        });
-
-        map.on('mouseenter', 'sleeping-corners', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });*/
-        
-        
-        /*map.on('mouseleave', 'sleeping-corners', () => {
-          map.getCanvas().style.cursor = '';
-        });*/ 
-
         function removeMapLayer(layerId) {
-          // console.log(collapseOne);
           for (i = 0; i < collapseOne.children.length; i++) {
             if (collapseOne.children[i].children[0].id == layerId) {
               collapseOne.children[i].remove();
@@ -1693,6 +1208,3 @@
     </script>
   </body>
 </html>
-
-
-
