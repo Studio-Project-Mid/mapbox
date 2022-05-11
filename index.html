@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <title>Mapbox Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
-    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet"/>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet"/>
     <script src="./bootstrap.js"></script>
     <link href="./bootstrap.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -13,8 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant&display=swap" rel="stylesheet"/>
     <link href="./mapstyles.css" rel="stylesheet"/>
 
-    <!-- <style> 
-      /* body {
+ <!-- <style>
+      body {
         margin: 0;
         padding: 0;
       }
@@ -321,9 +321,9 @@
 
       .mapboxgl-popup-close-button {
         color: white;
-      } */
+      }
 
-    </style> -->
+    </style>  -->
   </head>
   <script>
 
@@ -374,7 +374,7 @@
     function openForm(idx) {
       for (i = 0; i < forms.length; i++) {
         if (i == idx) {
-          console.log(forms[i]);
+          // console.log(forms[i]);
           document.getElementById(forms[i]).style.display = "block";
         }
         else {
@@ -739,9 +739,9 @@
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeForm()'>x</button>
       <form action="/action_page.php" class="form-container" id="text_form"></form>
     </div>
-    
+  
     <script>
-
+      
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpZ2FsaSIsImEiOiJja3dsc3ViOHYwMXNxMnBxdDRmOW1tcDRhIn0.01oFmibnj8b3erAu6aTXIg';
       mapboxgl.setRTLTextPlugin(
         'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
@@ -913,14 +913,22 @@
           'sleeping-corners': 'מרחבי לינה',
           'informal': 'הזדמנויות',
           'formal': 'מענים מוסדיים',
-          'green-areas-and-parks': 'גינות',
-          'front-yard': 'חצר קדמית',
+          'green areas and parks': 'גינות',
+          'front yard and back yard': 'חצר קדמית ואחורית',
           'back-yard': 'חצר אחורית',
           'parking': 'חניונים',
           'business': 'חנויות',
           'light-rail': 'תוואי הרכבת הקלה',
           '3D': '3D',
-          'strategic-axes': 'צירים אסטרטגיים'
+          'strategic axes': 'צירים אסטרטגיים',
+          'squares': 'כיכרות',
+          'beaches-wardrobes': 'מלתחות חוף',
+          'mikvahs': 'מקוואות',
+          'sport': 'מגרשי ספורט',
+          'community centers': 'מרכזים קהילתיים',
+          'metro': 'מטרו',
+          'abandoned-buildings-sleeping': 'מבנים נטושים - שינה',
+          'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות'
         }
 
         // create legend
@@ -1088,9 +1096,9 @@
 
         for (i = 0; i < layers.length; i++) {
           map.on('click', layers[i], (e) => {
-            console.log(e.features[0].layer['id']);
+            // console.log(e.features[0].layer['id']);
             var prop = e.features[0].properties["name"];
-            console.log(prop);
+            // console.log(prop);
             if (prop in formIdx) {
               if (e.features[0].layer['id'] == 'sleeping-corners') {
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
