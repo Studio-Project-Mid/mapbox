@@ -742,6 +742,27 @@
   
     <script>
       
+      function addLayersToMap(map) {
+        map.addSource('parking_new_source', {
+          'type': 'geojson',
+          'data': 'json/parking_new.geojson'
+        });
+        map.addLayer(
+          {
+            'id': 'parking_new',
+            'type': 'circle',
+            'source': 'parking_new_source',
+            'layout': {},
+            'paint': {
+              'circle-color': '#2ec1e5',
+              'circle-opacity': 0.4,
+              'circle-radius': 2
+            }
+          },
+          'parking'
+        );
+      }
+
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpZ2FsaSIsImEiOiJja3dsc3ViOHYwMXNxMnBxdDRmOW1tcDRhIn0.01oFmibnj8b3erAu6aTXIg';
       mapboxgl.setRTLTextPlugin(
         'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
@@ -750,6 +771,11 @@
       );
 
       var flying = false;
+
+      var draftMap = new mapboxgl.Map({
+        container: 'map', 
+        style: 'mapbox://styles/adigali/cl2vr1nwz003f14mzeyzvad26' 
+      });
 
       var map = new mapboxgl.Map({
         container: 'map', 
@@ -762,7 +788,15 @@
       map.on('load', function () {
         map.getCanvas().style.cursor = 'default';
 
-        map.getCanvas().style.cursor = 'default';
+        var draft_map_layers = draftMap.getStyle().layers;
+        map.addSource('composite_new', draftMap.getStyle().sources['composite']);
+        for (i = 75; i < draft_map_layers.length; i++) {
+          draft_map_layers[i]['source'] += "_new";
+          map.addLayer(
+            draft_map_layers[i], 
+            map.getStyle().layers[map.getStyle().layers.length - 1].id
+          )
+        }
 
         map.flyTo({
           
@@ -805,28 +839,144 @@
           });
         })
 
+        var layers_for_legend = {
+          'מחקר': {
+            'sleeping-corners': 'מרחבי לינה',
+            'front yard and back yard': 'חצר קדמית ואחורית',
+            'parking': 'חניונים',
+            'air-corridors': 'מסדרונות אוויר',
+            '3D': '3D',
+            'city-border': 'גבול העיר',
+            'light-rail': 'תוואי הרכבת הקלה',
+            'metro': 'רכבת תחתית',
+            'strategic axes': 'עבודה',
+            'formal': 'פורמלי',
+            'שהייה': {
+              'stay-points-exist': 'נקודות שהייה קיימות',
+              'green areas and parks': 'גינות'
+            },
+            'food-exist': 'מזון'
+          },
+          'תכנון': {
+            'התרעננות': {
+              'beaches-wardrobes': 'מלתחות חוף',
+              'mikvahs': 'מקוואות',
+              'sport': 'מגרשי ספורט'
+            },
+            'abandoned-buildings-sleeping': 'נקודות לינה',
+            'abandoned-buildings-resturants': 'מסעדות ונקודות חלוקה',
+            'squares': 'שהייה',
+            'community centers': 'סיוע רפואי',
+          }
+        }
+
         var layers_map = map.getStyle().layers;
 
-        var line_div = document.createElement('div');
-        line_div.className = 'accordion-body';
-        const all_box = document.createElement('input');
-        all_box.type = 'checkbox';
-        all_box.checked = true;
-        all_box.id = 'all_box';
-        all_box.href = '#';
-        all_box.textContent = 'all_box';
-        all_box.className = 'active';
+        function getLayerFromId(layerId) {
+          for (i = 78; i < layers_map.length; i++) {
+            if (layers_map[i].id == layerId)
+              return layers_map[i];
+          }
+          return undefined;
+        }
 
-        all_box.onchange = function (e) {
-          for (i = 1; i < collapseOne.children.length; i++)
-          {
-            const current_layer = collapseOne.children[i].children[0];
-            if (this.checked == false) {
-              current_layer.checked = false;
-            } else {
-              current_layer.checked = true;
+        function addTitleToLegend(titleName) {
+          var line_div = document.createElement('div');
+          line_div.className = 'accordion-body';
+          const all_box = document.createElement('input');
+          all_box.type = 'checkbox';
+          all_box.checked = true;
+          all_box.id = titleName;
+          all_box.href = '#';
+          all_box.textContent = titleName;
+          all_box.className = 'active';
+
+          all_box.onchange = function (e) {
+            for (i = 1; i < collapseOne.children.length; i++)
+            {
+              const current_layer = collapseOne.children[i].children[0];
+              if (this.checked == false) {
+                current_layer.checked = false;
+              } else {
+                current_layer.checked = true;
+              }
+              const clickedLayer = current_layer.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+              
+              const visibility = map.getLayoutProperty(
+                clickedLayer,
+                'visibility'
+              );
+              if (visibility == 'visible' && current_layer.checked == false) {
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                  this.className = '';
+                } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(
+                    clickedLayer,
+                    'visibility',
+                    'visible'
+                  );
+                }
+              
             }
-            const clickedLayer = current_layer.textContent;
+            
+          };
+
+          var all_title = document.createElement('span');
+          all_title.innerHTML = titleName;
+          all_title.style = "font-size:10.0pt; margin-left:10px;"
+
+          line_div.appendChild(all_box);
+          line_div.appendChild(all_title);
+          collapseOne.appendChild(line_div);
+        }
+
+        function addLayerToLegend(layerId, hebrewName) {
+          var layerObj = getLayerFromId(layerId);
+          var layer = layerObj.id;
+          var color = getLayerColor(layerObj);
+          var layerType = layerObj.type;
+          var item = document.createElement('div');
+          item.id = 'item_' + layerObj.id;
+          item.className = 'accordion-body';
+          var key = document.createElement('span');
+          key.className = 'legend-key';
+          key.style.backgroundColor = color;
+          if (layerType == 'circle') {
+            key.style.borderRadius = '50%';
+          }
+          else if (layerType == 'line') {
+            key.style.height = '2px';
+            key.style.verticalAlign = 'middle';
+          }
+            
+          const link = document.createElement('input');
+          link.type = 'checkbox';
+          link.id = layerObj.id;
+          link.href = '#';
+          link.textContent = layerObj.id;
+          link.style = "margin-left:10px;"
+
+          link.checked = true;
+          link.className = 'active';
+
+          var vis = 'visible';
+          if (layerObj.id == '3D') {
+            vis = 'none';
+            link.checked = false;
+          }
+            
+          map.setLayoutProperty(
+            link.textContent,
+            'visibility',
+            vis
+          );
+          
+          // Show or hide layer when the toggle is clicked.
+          link.onchange = function (e) {
+            const clickedLayer = this.textContent;
             e.preventDefault();
             e.stopPropagation();
             
@@ -834,29 +984,97 @@
               clickedLayer,
               'visibility'
             );
-            if (visibility == 'visible' && current_layer.checked == false) {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-              } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                  clickedLayer,
-                  'visibility',
-                  'visible'
-                );
-              }
             
+            // Toggle layer visibility by changing the layout object's visibility property.
+            if (visibility == 'visible' && link.checked == false) {
+              map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+              this.className = '';
+            } else {
+              this.className = 'active';
+              map.setLayoutProperty(
+                clickedLayer,
+                'visibility',
+                'visible'
+              );
+            }
+          };
+
+          var value = document.createElement('span');
+          value.innerHTML = hebrewName;
+          value.style = "font-size:10.0pt;"
+
+          item.appendChild(link);
+          item.appendChild(key);
+          item.appendChild(value);
+          collapseOne.appendChild(item);
+        }
+
+        for (titleName in layers_for_legend) {
+
+          addTitleToLegend(titleName);
+          for (subTitle in layers_for_legend[titleName]) {
+            if (typeof layers_for_legend[titleName][subTitle] === "object") {
+              addTitleToLegend(subTitle);
+              for (obj in layers_for_legend[titleName][subTitle]) {
+                addLayerToLegend(obj, layers_for_legend[titleName][subTitle][obj]);
+              }
+            }
+            else {
+              addLayerToLegend(subTitle, layers_for_legend[titleName][subTitle]);
+            }
           }
+        }
+
+        // var line_div = document.createElement('div');
+        // line_div.className = 'accordion-body';
+        // const all_box = document.createElement('input');
+        // all_box.type = 'checkbox';
+        // all_box.checked = true;
+        // all_box.id = 'all_box';
+        // all_box.href = '#';
+        // all_box.textContent = 'all_box';
+        // all_box.className = 'active';
+
+        // all_box.onchange = function (e) {
+        //   for (i = 1; i < collapseOne.children.length; i++)
+        //   {
+        //     const current_layer = collapseOne.children[i].children[0];
+        //     if (this.checked == false) {
+        //       current_layer.checked = false;
+        //     } else {
+        //       current_layer.checked = true;
+        //     }
+        //     const clickedLayer = current_layer.textContent;
+        //     e.preventDefault();
+        //     e.stopPropagation();
+            
+        //     const visibility = map.getLayoutProperty(
+        //       clickedLayer,
+        //       'visibility'
+        //     );
+        //     if (visibility == 'visible' && current_layer.checked == false) {
+        //         map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+        //         this.className = '';
+        //       } else {
+        //         this.className = 'active';
+        //         map.setLayoutProperty(
+        //           clickedLayer,
+        //           'visibility',
+        //           'visible'
+        //         );
+        //       }
+            
+        //   }
           
-        };
+        // };
 
-        var all_title = document.createElement('span');
-        all_title.innerHTML = 'כל השכבות';
-        all_title.style = "font-size:10.0pt; margin-left:10px;"
+        // var all_title = document.createElement('span');
+        // all_title.innerHTML = 'כל השכבות';
+        // all_title.style = "font-size:10.0pt; margin-left:10px;"
 
-        line_div.appendChild(all_box);
-        line_div.appendChild(all_title);
-        collapseOne.appendChild(line_div);
+        // line_div.appendChild(all_box);
+        // line_div.appendChild(all_title);
+        // collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
           switch (layer.type) {
@@ -932,83 +1150,86 @@
         }
 
         // create legend
-        for (i = 78; i < layers_map.length; i++) {
-          if (!notInLegend.includes(layers_map[i].id)) {
-            layers.push(layers_map[i].id);
-            var layer = layers_map[i].id;
-            var color = getLayerColor(layers_map[i]);
-            var layerType = layers_map[i].type;
-            var item = document.createElement('div');
-            item.id = 'item_' + layers_map[i].id;
-            item.className = 'accordion-body';
-            var key = document.createElement('span');
-            key.className = 'legend-key';
-            key.style.backgroundColor = color;
-            if (layerType == 'circle') {
-              key.style.borderRadius = '50%';
-            }
-            else if (layerType == 'line') {
-              key.style.height = '2px';
-              key.style.verticalAlign = 'middle';
-            }
-              
-            const link = document.createElement('input');
-            link.type = 'checkbox';
-            link.id = layers_map[i].id;
-            link.href = '#';
-            link.textContent = layers_map[i].id;
-            link.style = "margin-left:10px;"
+        
 
-            link.checked = true;
-            link.className = 'active';
 
-            var vis = 'visible';
-            if (layers_map[i].id == '3D') {
-              vis = 'none';
-              link.checked = false;
-            }
+        // for (i = 78; i < layers_map.length; i++) {
+        //   if (!notInLegend.includes(layers_map[i].id)) {
+        //     layers.push(layers_map[i].id);
+        //     var layer = layers_map[i].id;
+        //     var color = getLayerColor(layers_map[i]);
+        //     var layerType = layers_map[i].type;
+        //     var item = document.createElement('div');
+        //     item.id = 'item_' + layers_map[i].id;
+        //     item.className = 'accordion-body';
+        //     var key = document.createElement('span');
+        //     key.className = 'legend-key';
+        //     key.style.backgroundColor = color;
+        //     if (layerType == 'circle') {
+        //       key.style.borderRadius = '50%';
+        //     }
+        //     else if (layerType == 'line') {
+        //       key.style.height = '2px';
+        //       key.style.verticalAlign = 'middle';
+        //     }
               
-            map.setLayoutProperty(
-              link.textContent,
-              'visibility',
-              vis
-            );
+        //     const link = document.createElement('input');
+        //     link.type = 'checkbox';
+        //     link.id = layers_map[i].id;
+        //     link.href = '#';
+        //     link.textContent = layers_map[i].id;
+        //     link.style = "margin-left:10px;"
+
+        //     link.checked = true;
+        //     link.className = 'active';
+
+        //     var vis = 'visible';
+        //     if (layers_map[i].id == '3D') {
+        //       vis = 'none';
+        //       link.checked = false;
+        //     }
+              
+        //     map.setLayoutProperty(
+        //       link.textContent,
+        //       'visibility',
+        //       vis
+        //     );
             
-            // Show or hide layer when the toggle is clicked.
-            link.onchange = function (e) {
-              const clickedLayer = this.textContent;
-              e.preventDefault();
-              e.stopPropagation();
+        //     // Show or hide layer when the toggle is clicked.
+        //     link.onchange = function (e) {
+        //       const clickedLayer = this.textContent;
+        //       e.preventDefault();
+        //       e.stopPropagation();
               
-              const visibility = map.getLayoutProperty(
-                clickedLayer,
-                'visibility'
-              );
+        //       const visibility = map.getLayoutProperty(
+        //         clickedLayer,
+        //         'visibility'
+        //       );
               
-              // Toggle layer visibility by changing the layout object's visibility property.
-              if (visibility == 'visible' && link.checked == false) {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-              } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                  clickedLayer,
-                  'visibility',
-                  'visible'
-                );
-              }
-            };
+        //       // Toggle layer visibility by changing the layout object's visibility property.
+        //       if (visibility == 'visible' && link.checked == false) {
+        //         map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+        //         this.className = '';
+        //       } else {
+        //         this.className = 'active';
+        //         map.setLayoutProperty(
+        //           clickedLayer,
+        //           'visibility',
+        //           'visible'
+        //         );
+        //       }
+        //     };
 
-            var value = document.createElement('span');
-            value.innerHTML = layerHebrewNames[layer];
-            value.style = "font-size:10.0pt;"
+        //     var value = document.createElement('span');
+        //     value.innerHTML = layerHebrewNames[layer];
+        //     value.style = "font-size:10.0pt;"
 
-            item.appendChild(link);
-            item.appendChild(key);
-            item.appendChild(value);
-            collapseOne.appendChild(item);
-          }
-        }
+        //     item.appendChild(link);
+        //     item.appendChild(key);
+        //     item.appendChild(value);
+        //     collapseOne.appendChild(item);
+        //   }
+        // }
 
         var formToOpen = "";
 
