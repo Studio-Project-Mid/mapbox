@@ -841,7 +841,7 @@
 
         var layers_for_legend = {
           'מחקר': {
-            'sleeping-corners': 'מרחבי לינה',
+            'sleeping-corners': 'לינה',
             'front yard and back yard': 'חצר קדמית ואחורית',
             'parking': 'חניונים',
             'air-corridors': 'מסדרונות אוויר',
@@ -863,13 +863,27 @@
               'mikvahs': 'מקוואות',
               'sport': 'מגרשי ספורט'
             },
-            'abandoned-buildings-sleeping': 'נקודות לינה',
+            'abandoned-buildings-sleeping': 'לינה',
             'abandoned-buildings-resturants': 'מסעדות ונקודות חלוקה',
             'squares': 'שהייה',
             'community centers': 'סיוע רפואי',
           }
         }
 
+        var individual_layers = [
+          '3D',
+          'city-border',
+          'light-rail',
+          'metro',
+          'strategic axes',
+          'formal',
+          'stay-points-exist',
+          'green areas and parks',
+          'food-exist'
+        ];
+
+        var researchOn = true;
+        var planningOn = true;
         var layers_map = map.getStyle().layers;
 
         function getLayerFromId(layerId) {
@@ -883,6 +897,7 @@
         function addTitleToLegend(titleName) {
           var line_div = document.createElement('div');
           line_div.className = 'accordion-body';
+          line_div.id = 'title_' + titleName;
           const all_box = document.createElement('input');
           all_box.type = 'checkbox';
           all_box.checked = true;
@@ -891,14 +906,26 @@
           all_box.textContent = titleName;
           all_box.className = 'active';
 
+          var startIdx = collapseOne.children.length;
+
           all_box.onchange = function (e) {
-            for (i = 1; i < collapseOne.children.length; i++)
+            if (this.id == "מחקר") {
+              researchOn = !researchOn;
+            }
+            else if (this.id == "תכנון") {
+              planningOn = !planningOn;
+            }
+            for (i = startIdx + 1; i < collapseOne.children.length; i++)
             {
               const current_layer = collapseOne.children[i].children[0];
+              if (collapseOne.children[i].id.startsWith("title_"))
+                break;
               if (this.checked == false) {
-                current_layer.checked = false;
+                if (!individual_layers.includes(current_layer.id) || (!researchOn && !planningOn))
+                  current_layer.checked = false;
               } else {
-                current_layer.checked = true;
+                if (!individual_layers.includes(current_layer.id) || (researchOn || planningOn))
+                  current_layer.checked = true;
               }
               const clickedLayer = current_layer.textContent;
               e.preventDefault();
@@ -933,7 +960,67 @@
           collapseOne.appendChild(line_div);
         }
 
-        function addLayerToLegend(layerId, hebrewName) {
+        function addSubTitleToLegend(subTitleName) {
+          var line_div = document.createElement('div');
+          line_div.className = 'accordion-body';
+          line_div.id = 'subtitle_' + subTitleName;
+          const all_box = document.createElement('input');
+          all_box.type = 'checkbox';
+          all_box.checked = true;
+          all_box.id = subTitleName;
+          all_box.href = '#';
+          all_box.textContent = subTitleName;
+          all_box.className = 'active';
+          all_box.style = "margin-left:10px;"
+
+          var startIdx = collapseOne.children.length;
+
+          all_box.onchange = function (e) {
+            for (i = startIdx + 1; i < collapseOne.children.length; i++)
+            {
+              const current_layer = collapseOne.children[i].children[0];
+              if (collapseOne.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px"
+                                                                  || individual_layers.includes(current_layer.id))
+                break;
+              if (this.checked == false) {
+                current_layer.checked = false;
+              } else {
+                current_layer.checked = true;
+              }
+              const clickedLayer = current_layer.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+              
+              const visibility = map.getLayoutProperty(
+                clickedLayer,
+                'visibility'
+              );
+              if (visibility == 'visible' && current_layer.checked == false) {
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                  this.className = '';
+                } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(
+                    clickedLayer,
+                    'visibility',
+                    'visible'
+                  );
+                }
+              
+            }
+            
+          };
+
+          var all_title = document.createElement('span');
+          all_title.innerHTML = subTitleName;
+          all_title.style = "font-size:10.0pt; margin-left:10px;"
+
+          line_div.appendChild(all_box);
+          line_div.appendChild(all_title);
+          collapseOne.appendChild(line_div);
+        }
+
+        function addLayerToLegend(layerId, hebrewName, isSub) {
           var layerObj = getLayerFromId(layerId);
           var layer = layerObj.id;
           var color = getLayerColor(layerObj);
@@ -957,7 +1044,7 @@
           link.id = layerObj.id;
           link.href = '#';
           link.textContent = layerObj.id;
-          link.style = "margin-left:10px;"
+          link.style = isSub ? "margin-left:20px;" : "margin-left:10px;";
 
           link.checked = true;
           link.className = 'active';
@@ -1014,14 +1101,25 @@
           addTitleToLegend(titleName);
           for (subTitle in layers_for_legend[titleName]) {
             if (typeof layers_for_legend[titleName][subTitle] === "object") {
-              addTitleToLegend(subTitle);
+              addSubTitleToLegend(subTitle);
               for (obj in layers_for_legend[titleName][subTitle]) {
-                addLayerToLegend(obj, layers_for_legend[titleName][subTitle][obj]);
+                addLayerToLegend(obj, layers_for_legend[titleName][subTitle][obj], true);
               }
             }
             else {
-              addLayerToLegend(subTitle, layers_for_legend[titleName][subTitle]);
+              addLayerToLegend(subTitle, layers_for_legend[titleName][subTitle], false);
             }
+          }
+        }
+
+        // Turn off planning
+        var isTurnOff = false;
+        for (i = 0; i < collapseOne.children.length; i++) {
+          var current_layer = collapseOne.children[i].children[0];
+          if (current_layer.id == "subtitle_תכנון")
+            isTurnOff = true;
+          if (isTurnOff) {
+            current_layer.checked = false;
           }
         }
 
