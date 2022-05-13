@@ -1043,6 +1043,7 @@
         function addLayerToLegend(layerId, hebrewName, isSub) {
           var layerObj = getLayerFromId(layerId);
           var layer = layerObj.id;
+          layers.push(layer);
           var color = getLayerColor(layerObj);
           var layerType = layerObj.type;
           var item = document.createElement('div');
@@ -1050,7 +1051,12 @@
           item.className = 'accordion-body';
           var key = document.createElement('span');
           key.className = 'legend-key';
-          key.style.backgroundColor = color;
+          if (Array.isArray(color)) {
+            key.style.background = 'linear-gradient(90deg, ' + color[0]+ ', ' + color[0] + ' 49%, white, ' + color[1] + ' 51%)';
+          }
+          else {
+            key.style.backgroundColor = color;
+          }
           if (layerType == 'circle') {
             key.style.borderRadius = '50%';
           }
@@ -1058,7 +1064,6 @@
             key.style.height = '2px';
             key.style.verticalAlign = 'middle';
           }
-            
           const link = document.createElement('input');
           link.type = 'checkbox';
           link.id = layerObj.id;
@@ -1184,17 +1189,24 @@
         // collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
+          console.log(layer);
           switch (layer.type) {
             case "line":
+              var lineColor = "hsl(0, 100%, 0%)";
               if ("paint" in layer) {
-                var lineColor = layer.paint["line-color"];
-                if (Array.isArray(lineColor))
-                  return lineColor[6];
-                return lineColor;
+                if ("line-color" in layer.paint) {
+                  var lineColor = layer.paint["line-color"];
+                  if (Array.isArray(lineColor)) {
+                    var innerLineColor = lineColor[6];
+                    if (Array.isArray(innerLineColor)) {
+                      return [innerLineColor[3], innerLineColor[4]]
+                    }
+                    return innerLineColor;
+                  }
+                    
+                }
               }
-              else {
-                return "hsl(0, 100%, 0%)";
-              }
+              return lineColor;
             case "fill":
               var fillColor = "hsl(0, 100%, 0%)";
               var fillPaint = layer.paint;
@@ -1204,8 +1216,12 @@
               else if ("fill-outline-color" in fillPaint) {
                 fillColor = fillPaint["fill-outline-color"];
               }
-              if (Array.isArray(fillColor))
-                return fillColor[6];
+              if (Array.isArray(fillColor)) {
+                var innerFillColor = fillColor[6];
+                if (Array.isArray(innerFillColor))
+                  return [innerFillColor[3], innerFillColor[4]];
+                return innerFillColor;
+              }
               return fillColor;
             case "circle":
               var circleColor = "hsl(0, 100%, 0%)";

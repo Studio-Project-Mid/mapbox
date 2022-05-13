@@ -4474,7 +4474,7 @@ textarea.form-control-lg {
 
 .accordion-item {
   /* background-color: #fff; */
-  background-color: black;
+  background-color: #403d3d;
   color: white;
   opacity: 70%;
   border: 1px solid rgba(0, 0, 0, 0.125);
