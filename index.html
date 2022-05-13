@@ -881,7 +881,8 @@
           'formal',
           'stay-points-exist',
           'green areas and parks',
-          'food-exist'
+          'food-exist',
+          'שהייה'
         ];
 
         var researchOn = true;
@@ -999,8 +1000,7 @@
             for (i = startIdx + 1; i < collapseOne.children.length; i++)
             {
               const current_layer = collapseOne.children[i].children[0];
-              if (collapseOne.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px"
-                                                                  || individual_layers.includes(current_layer.id))
+              if (collapseOne.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px")
                 break;
               if (this.checked == false) {
                 current_layer.checked = false;
