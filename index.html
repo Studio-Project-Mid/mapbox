@@ -1469,7 +1469,7 @@
               else if (prop == 'dizengoff Bottles') {
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
-              if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'informal')) {
+              if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
                 flyToFunc(e.features[0].geometry.coordinates);
                 formToOpen = formIdx[prop];
               }
@@ -1522,14 +1522,15 @@
               return;
             }
             var feature = features[0];
+            // +
+            //                   '<p>'  +
+            //                   layerHebrewNames[feature.layer.id] +
+            //                   '</p>';
             if (!(noPopupLayers.includes(feature.layer.id))) {
               var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[feature.layer.id];
               var htmlText = '<h3 class="h3_1"><b>' +
                               title +
-                              '</b></h3>' +
-                              '<p>'  +
-                              layerHebrewNames[feature.layer.id] +
-                              '</p>';
+                              '</b></h3>';
               if (feature.layer.id == 'sleeping-corners') {
                 htmlText =  '<h3 class="h3_2">שם' + 
                             '<br><b>' +
