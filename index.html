@@ -1455,7 +1455,8 @@
           map.on('click', layers[i], (e) => {
             // console.log(e.features[0].layer['id']);
             var prop = e.features[0].properties["name"];
-            if (e.features[0].layer['id'] == '3D') {
+            var idsToPrint = ['3D', '3d route'];
+            if (e.features[0].layer['id'] in idsToPrint) {
               console.log(e.features[0].properties);
             }
             // console.log(prop);
