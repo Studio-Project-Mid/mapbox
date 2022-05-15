@@ -422,7 +422,8 @@
     <h1 style="padding-top: 5px; padding-right: 8px; padding-left: 8px; text-align: center;">כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב</h1>
   </div>
   <div class="secondary-title">
-    <p style="padding-right: 2px; padding-left: 2px; text-align: center;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים</p>
+    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים
+      לחץ על הנקודות האדומות בכיכר דיזינגוף \ שוק הכרמל להעמקת מקטע אזורי</p>
   </div>
   <body>
     <div id="map"></div>
@@ -869,6 +870,7 @@
             'abandoned-buildings-resturants': 'מסעדות ונקודות חלוקה',
             'squares': 'שהייה',
             'community centers': 'סיוע רפואי',
+            '3d route': 'מסלול'
           }
         }
 
@@ -950,6 +952,8 @@
                 const current_layer = collapseOne.children[i].children[0];
                 if (individual_layers.includes(current_layer.id)) {
                   current_layer.checked = vis;
+                  if (current_layer.id == 'שהייה')
+                    continue;
                   setLayerVis(current_layer, e);
                 }
               }
@@ -1199,7 +1203,7 @@
         // collapseOne.appendChild(line_div);
 
         function getLayerColor(layer) {
-          console.log(layer);
+          // console.log(layer);
           switch (layer.type) {
             case "line":
               var lineColor = "hsl(0, 100%, 0%)";
@@ -1282,7 +1286,8 @@
           'community centers': 'מרכזים קהילתיים',
           'metro': 'מטרו',
           'abandoned-buildings-sleeping': 'מבנים נטושים - שינה',
-          'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות'
+          'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות',
+          '3d route': 'מסלול'
         }
 
         // create legend
@@ -1456,7 +1461,7 @@
             // console.log(e.features[0].layer['id']);
             var prop = e.features[0].properties["name"];
             var idsToPrint = ['3D', '3d route'];
-            if (e.features[0].layer['id'] in idsToPrint) {
+            if (idsToPrint.includes(e.features[0].layer['id'])) {
               console.log(e.features[0].properties);
             }
             // console.log(prop);
