@@ -870,7 +870,8 @@
             'abandoned-buildings-resturants': 'מסעדות ונקודות חלוקה',
             'squares': 'שהייה',
             'community centers': 'סיוע רפואי',
-            '3d route': 'מסלול'
+            '3d-route': 'מסלול',
+            '24h-homeless-route': '24שעות - מסלול'
           }
         }
 
@@ -952,7 +953,7 @@
                 const current_layer = collapseOne.children[i].children[0];
                 if (individual_layers.includes(current_layer.id)) {
                   current_layer.checked = vis;
-                  if (current_layer.id == 'שהייה')
+                  if (current_layer.id == 'שהייה' || current_layer.id == 'התרעננות')
                     continue;
                   setLayerVis(current_layer, e);
                 }
@@ -972,6 +973,8 @@
                 if (!individual_layers.includes(current_layer.id) || (researchOn || planningOn))
                   current_layer.checked = true;
               }
+              if (current_layer.id == 'שהייה' || current_layer.id == 'התרעננות')
+                continue;
               setLayerVis(current_layer, e);
               
             }
