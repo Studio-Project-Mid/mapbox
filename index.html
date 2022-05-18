@@ -418,10 +418,10 @@
       }
     }
   </script>
-  <div class="map-title">
+  <div class="map-title" id="main_title">
     <h1 style="padding-top: 5px; padding-right: 8px; padding-left: 8px; text-align: center;">כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב</h1>
   </div>
-  <div class="secondary-title">
+  <div class="secondary-title" id="secondary_title">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים
       לחץ על הנקודות האדומות בכיכר דיזינגוף \ שוק הכרמל להעמקת מקטע אזורי</p>
   </div>
@@ -743,26 +743,26 @@
   
     <script>
       
-      function addLayersToMap(map) {
-        map.addSource('parking_new_source', {
-          'type': 'geojson',
-          'data': 'json/parking_new.geojson'
-        });
-        map.addLayer(
-          {
-            'id': 'parking_new',
-            'type': 'circle',
-            'source': 'parking_new_source',
-            'layout': {},
-            'paint': {
-              'circle-color': '#2ec1e5',
-              'circle-opacity': 0.4,
-              'circle-radius': 2
-            }
-          },
-          'parking'
-        );
-      }
+      // function addLayersToMap(map) {
+      //   map.addSource('parking_new_source', {
+      //     'type': 'geojson',
+      //     'data': 'json/parking_new.geojson'
+      //   });
+      //   map.addLayer(
+      //     {
+      //       'id': 'parking_new',
+      //       'type': 'circle',
+      //       'source': 'parking_new_source',
+      //       'layout': {},
+      //       'paint': {
+      //         'circle-color': '#2ec1e5',
+      //         'circle-opacity': 0.4,
+      //         'circle-radius': 2
+      //       }
+      //     },
+      //     'parking'
+      //   );
+      // }
 
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpZ2FsaSIsImEiOiJja3dsc3ViOHYwMXNxMnBxdDRmOW1tcDRhIn0.01oFmibnj8b3erAu6aTXIg';
       mapboxgl.setRTLTextPlugin(
@@ -772,6 +772,7 @@
       );
 
       var flying = false;
+      var formToOpen = "";
 
       var draftMap = new mapboxgl.Map({
         container: 'map', 
@@ -799,6 +800,27 @@
           )
         }
 
+        // Turn off 3D layer
+        map.setLayoutProperty(
+            '3D',
+            'visibility',
+            'none'
+        );
+        // Turn off route layers
+        map.setLayoutProperty(
+          '3d-route',
+          'visibility',
+          'none'
+        );
+        map.setLayoutProperty(
+          '24h-homeless-route',
+          'visibility',
+          'none'
+        );
+
+        // map.setLayerZoomRange('3d-route', 0, 24);
+        // map.setLayerZoomRange('24h-homeless-route', 0, 24);
+
         map.flyTo({
           
           center: pos,
@@ -823,11 +845,8 @@
               collapseOne.children[i].children[0].checked = false;
             }
           }
-          map.setLayoutProperty(
-            '3D',
-            'visibility',
-            'none'
-          );
+          
+          // Fly to initial position
           map.flyTo({
           center: map.getCenter(),
           zoom: 14,
@@ -844,21 +863,25 @@
         
         var layers_for_legend = {
           'מחקר': {
-            'sleeping-corners': 'לינה',
-            'front yard and back yard': 'חצר קדמית ואחורית',
-            'parking': 'חניונים',
-            'air-corridors': 'מסדרונות אוויר',
             '3D': '3D',
             'city-border': 'גבול העיר',
             'light-rail': 'תוואי הרכבת הקלה',
             'metro': 'רכבת תחתית',
-            'strategic axes': 'עבודה',
-            'formal': 'פורמלי',
+            'עבודה': {
+              'kibbutz-nadavot': 'קיבוץ נדבות',
+              'collecting-bottles': 'איסוף בקבוקים', 
+              'drug-deals': 'עסקאות סמים' 
+            },
+            'formal': 'מוסדות פורמליים',
             'שהייה': {
-              'stay-points-exist': 'נקודות שהייה קיימות',
+              'stay-points-exist': 'נקודות שהייה שנחקרו',
               'green areas and parks': 'גינות'
             },
-            'food-exist': 'מזון'
+            'food-exist': 'מזון',
+            'sleeping-corners': 'לינה',
+            'parking': 'חניונים',
+            'front yard and back yard': 'חצר קדמית ואחורית',
+            'air-corridors': 'מסדרונות אוויר',
           },
           'תכנון': {
             'התרעננות': {
@@ -866,12 +889,21 @@
               'mikvahs': 'מקוואות',
               'sport': 'מגרשי ספורט'
             },
-            'abandoned-buildings-sleeping': 'לינה',
-            'abandoned-buildings-resturants': 'מסעדות ונקודות חלוקה',
-            'squares': 'שהייה',
-            'community centers': 'סיוע רפואי',
-            '3d-route': 'מסלול',
-            '24h-homeless-route': '24שעות - מסלול'
+            'לינה': {
+              'abandoned-buildings': 'מבנים נטושים', //TODO
+              'abandoned-buildings-ground-floors': 'קומות קרקע' //TODO
+              // 'points-700-abandoned': 'מבנים נטושים', //TODO
+              // 'points-700-ground-floors': 'קומות קרקע' //TODO
+            },
+            'abandoned-buildings-resturants': 'נקודות חלוקת מזון',
+            'שהייה': {
+              'squares': 'כיכרות'
+            },
+            'סיוע רפואי': {
+              'community centers': 'מרכזים קהילתיים'
+            }
+            // '3d-route': 'מסלול',
+            // '24h-homeless-route': '24שעות - מסלול'
           }
         }
 
@@ -951,9 +983,10 @@
               }
               for (i = 0; i < startIdx + 1; i++) {
                 const current_layer = collapseOne.children[i].children[0];
+                
                 if (individual_layers.includes(current_layer.id)) {
                   current_layer.checked = vis;
-                  if (current_layer.id == 'שהייה' || current_layer.id == 'התרעננות')
+                  if (current_layer.id.startsWith("subtitle_"))
                     continue;
                   setLayerVis(current_layer, e);
                 }
@@ -962,6 +995,7 @@
             for (i = startIdx + 1; i < collapseOne.children.length; i++)
             {
               const current_layer = collapseOne.children[i].children[0];
+              
               if (collapseOne.children[i].id.startsWith("title_"))
                 break;
               if (current_layer.id == "3D")
@@ -973,9 +1007,8 @@
                 if (!individual_layers.includes(current_layer.id) || (researchOn || planningOn))
                   current_layer.checked = true;
               }
-              if (current_layer.id == 'שהייה' || current_layer.id == 'התרעננות')
-                continue;
-              setLayerVis(current_layer, e);
+              if (!current_layer.id.startsWith("subtitle_") && current_layer.id != 'שהייה' && current_layer.id != 'עבודה')
+                setLayerVis(current_layer, e);
               
             }
             
@@ -1009,6 +1042,7 @@
             for (i = startIdx + 1; i < collapseOne.children.length; i++)
             {
               const current_layer = collapseOne.children[i].children[0];
+              
               if (collapseOne.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px")
                 break;
               if (this.checked == false) {
@@ -1154,6 +1188,135 @@
           }
         }
 
+        layers.push('3d-route');
+        layers.push('24h-homeless-route');
+
+        var route_layers = [
+          '3D',
+          'city-border',
+          'light-rail',
+          'metro',
+          'עבודה',
+          'green areas and parks'
+        ]
+
+        function turnOffAllLayers() {
+          for (i = 0; i < collapseOne.children.length; i++) {
+            var currentTitle = collapseOne.children[i];
+            var current_box = currentTitle.children[0];
+            var idx = i;
+            if (currentTitle.id.startsWith("title_") && current_box.checked == true) {
+              current_box.checked = false;
+              var evt = document.createEvent("HTMLEvents");
+              evt.initEvent("change", false, true);
+              current_box.dispatchEvent(evt);
+              i = idx;
+            }
+            else if (route_layers.includes(current_box.id)) {
+              current_box.checked = true;
+              var evt = document.createEvent("HTMLEvents");
+              evt.initEvent("change", false, true);
+              current_box.dispatchEvent(evt);
+              i = idx;
+            }
+          }
+        }
+
+        // class HelloWorldControl {
+        //   onAdd(map) {
+        //   this._map = map;
+        //   this._container = document.createElement('div');
+        //   this._container.className = 'mapboxgl-ctrl';
+        //   this._container.textContent = 'Hello, world';
+        //   return this._container;
+        //   }
+          
+        //   onRemove() {
+        //   this._container.parentNode.removeChild(this._container);
+        //   this._map = undefined;
+        //   }
+        // }
+
+        // const myControl = new HelloWorldControl();
+        // map.addControl(myControl, 'top-right');
+        
+        
+
+        class MapboxGLButtonControl {
+          constructor({
+            className = "",
+            title = "",
+            eventHandler = evtHndlr
+          }) {
+            this._className = className;
+            this._title = title;
+            this._eventHandler = eventHandler;
+          }
+
+          onAdd(map) {
+            this._btn = document.createElement("button");
+            this._btn.className = "mapboxgl-ctrl-icon" + " " + this._className;
+            this._btn.type = "button";
+            this._btn.title = this._title;
+            this._btn.onclick = this._eventHandler;
+
+            this._container = document.createElement("div");
+            this._container.className = "mapboxgl-ctrl-group mapboxgl-ctrl";
+            this._container.appendChild(this._btn);
+
+            return this._container;
+          }
+
+          onRemove() {
+            this._container.parentNode.removeChild(this._container);
+            this._map = undefined;
+          }
+        }
+        
+        function addPopupToRoute() {
+          map.moveLayer('24h-homeless-route');
+          map.moveLayer('3d-route');
+          const features = map.queryRenderedFeatures({layers: ['24h-homeless-route']});
+          console.log(map.getLayoutProperty('3d-route', 'visibility'));
+          console.log(map.getLayoutProperty('24h-homeless-route', 'visibility'));
+          console.log("layer info:\n");
+          console.log(features);
+          var popup = new mapboxgl.Popup({ offset: [0, -15], closeOnMove: true, closeButton: false });
+        }
+
+        function routeHandler(event) {
+          turnOffAllLayers();
+          // Turn ON route layers
+          map.setLayoutProperty(
+            '3d-route',
+            'visibility',
+            'visible'
+          );
+          map.setLayoutProperty(
+            '24h-homeless-route',
+            'visibility',
+            'visible'
+          );
+          document.getElementById("main_title").style.display = "none";
+          document.getElementById("secondary_title").style.display = "none";
+          
+          center_pos = [34.771146978793695, 32.0639430515279];
+          formToOpen = -1;
+          flyToFunc(center_pos, 15.6, 62, -45);
+
+          addPopupToRoute();
+
+        }
+
+        const ctrlLine = new MapboxGLButtonControl({
+          className: "mapbox-gl-draw_line",
+          title: "לחץ לליווי דר רחוב ביומו בפריסה העירונית",
+          eventHandler: routeHandler
+        });
+
+        map.addControl(ctrlLine, 'top-right');
+
+
         // var line_div = document.createElement('div');
         // line_div.className = 'accordion-body';
         // const all_box = document.createElement('input');
@@ -1290,7 +1453,8 @@
           'metro': 'מטרו',
           'abandoned-buildings-sleeping': 'מבנים נטושים - שינה',
           'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות',
-          '3d route': 'מסלול'
+          '3d-route': 'מסלול',
+          '24h-homeless-route': '24 מסלול'
         }
 
         // create legend
@@ -1375,8 +1539,6 @@
         //   }
         // }
 
-        var formToOpen = "";
-
         map.on('moveend', function(e){
           if(flying) {
             openForm(formToOpen);
@@ -1391,7 +1553,7 @@
           flying = false;
         });
 
-        function flyToFunc(pos) {
+        function flyToFunc(pos, zoomLevel, pitchLevel, bearingLevel) {
           closeForm();
           for (i = 0; i < collapseOne.children.length; i++) {
             if (collapseOne.children[i].innerText == '3D') {
@@ -1406,9 +1568,9 @@
           }
           map.flyTo({
             center: pos,
-            zoom: 16,
-            bearing: 0,
-            pitch: 60,
+            zoom: zoomLevel,
+            bearing: bearingLevel,
+            pitch: pitchLevel,
             
             speed: 0.3, 
             curve: 1, 
@@ -1419,6 +1581,8 @@
           });
           map.fire('flystart');
         }
+
+
 
         function updateTextDiv(divId, properties, text="") {
 
@@ -1458,6 +1622,12 @@
             }
           }
         }
+        
+        map.on('click', (e) => {
+          console.log(e.lngLat);
+          console.log("Center:\n");
+          console.log(map.getCenter());
+        });
 
         for (i = 0; i < layers.length; i++) {
           map.on('click', layers[i], (e) => {
@@ -1479,7 +1649,7 @@
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
               if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
-                flyToFunc(e.features[0].geometry.coordinates);
+                flyToFunc(e.features[0].geometry.coordinates, 16, 60, 0);
                 formToOpen = formIdx[prop];
               }
               else if (!(prop == 'market')) {
@@ -1531,6 +1701,8 @@
               return;
             }
             var feature = features[0];
+            if (feature.layer.id == '3d-route')
+              console.log(feature);
             // +
             //                   '<p>'  +
             //                   layerHebrewNames[feature.layer.id] +
