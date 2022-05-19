@@ -994,7 +994,7 @@
                 // }
               }
               setTitlesVis("block");
-              isRouteOn = false;
+              map.fire('flystart');
             }
           }
           
@@ -1042,8 +1042,8 @@
               'sport': 'מגרשי ספורט'
             },
             'לינה': {
-              'abandoned-buildings': 'מבנים נטושים', //TODO
-              'abandoned-buildings-ground-floors': 'קומות קרקע' //TODO
+              'abandoned-buildings': 'מבנים נטושים',
+              'abandoned-buildings-ground-floors': 'קומות קרקע'
               // 'points-700-abandoned': 'מבנים נטושים', //TODO
               // 'points-700-ground-floors': 'קומות קרקע' //TODO
             },
@@ -1447,13 +1447,18 @@
 
             if (fId in routeIdsForPopup) {
               var height = feature.properties['govasimple'];
-              var popup = new mapboxgl.Popup({ offset: [0, -height - 50], closeOnMove: false, closeButton: false });
+              
+              var offset = -height - 50;
+              if (fId == 2615 || fId == 19306 || fId == 15009) {
+                offset -= 50;
+              }
+              var popup = new mapboxgl.Popup({ offset: [0, offset], closeOnMove: false, closeButton: false, closeOnClick: false, className: "routePopup" });
               var title = routeIdsForPopup[fId][0];
               var subtitle = routeIdsForPopup[fId][1];
               var finaltitle = routeIdsForPopup[fId][2];
               var htmlText = "";
               if (fId == 19306) {
-                htmlText = '<div id="popupButton" onclick=openImage("01")>' +
+                htmlText = '<div id="popupButton" class="routePopup" onclick=openImage("01")>' +
                             '<h3><b>' +
                             title +
                             '</b></h3>' +
@@ -1465,7 +1470,7 @@
                             '</b></h3></div>';
               }
               else if (fId == 13479) {
-                htmlText = '<div id="popupButton" onclick=openImage("01_Building_Photo")>' +
+                htmlText = '<div id="popupButton" class="routePopup" onclick=openImage("01_Building_Photo")>' +
                             '<h3><b>' +
                             title +
                             '</b></h3>' +
@@ -1477,7 +1482,7 @@
                             '</b></h3></div>';
               }
               else {
-                htmlText ='<h3><b>' +
+                htmlText ='<div id="popupButton" class="routePopup"<h3><b>' +
                           title +
                           '</b></h3>' +
                           '<h3 class="h3_1"><b>' +
@@ -1485,7 +1490,7 @@
                           '</b></h3>' +
                           '<h3 class="h3_1"><b>' +
                           finaltitle +
-                          '</b></h3>';
+                          '</b></h3></div>';
               }
               popup.setMaxWidth('240px');
               var coordinates = feature.geometry.coordinates.slice();
@@ -1659,7 +1664,9 @@
           'abandoned-buildings-sleeping': 'מבנים נטושים - שינה',
           'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות',
           '3d-route': 'מסלול',
-          '24h-homeless-route': '24 מסלול'
+          '24h-homeless-route': '24 מסלול',
+          'abandoned-buildings': 'מבנים נטושים',
+          'abandoned-buildings-ground-floors': 'קומות קרקע'
         }
 
         // create legend
@@ -1753,13 +1760,14 @@
               for (i = 0; i < collapseOne.children.length; i++) {
                 var currentTitle = collapseOne.children[i];
                 var current_box = currentTitle.children[0];
-                if (currentTitle == 'title_תכנון') {
+                if (currentTitle.id == 'title_תכנון') {
                     current_box.checked = true;
                     var evt = document.createEvent("HTMLEvents");
                     evt.initEvent("change", false, true);
                     current_box.dispatchEvent(evt);
                 }
               }
+              isRouteOn = false;
             }
             map.fire('flyend');
           }
@@ -1908,7 +1916,9 @@
         'front-yard',
         'business',
         'parking',
-        'green-areas-and-parks'
+        'green-areas-and-parks',
+        '3d-route',
+        '24h-homeless-route'
       ];
 
       function hoverPopupMove(popup) {

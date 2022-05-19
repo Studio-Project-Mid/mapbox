@@ -276,12 +276,37 @@ body {
     padding-right: 0px;
   }
 
+  .routePopup .mapboxgl-popup-content {
+    width: 150px;
+    height: 80px;
+    background-color: black;
+    opacity: 50%;
+    font-family: 'Assistant';
+    text-align: center;
+    direction: rtl;
+    padding-right: 0px;
+  }
+  
   .mapboxgl-popup-content h3.h3_1{
     color: white;
   }
 
   .mapboxgl-popup-content b{
     color: white;
+  }
+
+  .routePopup .mapboxgl-popup-content h3{
+    color: white;
+    font-weight: bolder;
+  }
+
+  .routePopup .mapboxgl-popup-content h3.h3_1{
+    color: white;
+  }
+
+  .routePopup .mapboxgl-popup-content b{
+    color: white;
+    font-weight: 900;
   }
 
   .mapboxgl-popup-content h3.h3_2{
