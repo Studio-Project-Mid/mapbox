@@ -429,6 +429,9 @@
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים
       לחץ על הנקודות האדומות בכיכר דיזינגוף \ שוק הכרמל להעמקת מקטע אזורי</p>
   </div>
+  <div class="instruction-title" id="instruction" style="display: none;">
+    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ כאן לליווי דר רחוב ביומו בפריסה העירונית</p>
+  </div>
   <body>
     <div id="map"></div>
     <div class="map-overlay">
@@ -927,6 +930,7 @@
         function setTitlesVis(vis) {
           document.getElementById("main_title").style.display = vis;
           document.getElementById("secondary_title").style.display = vis;
+          document.getElementById("instruction").style.display = vis;
         }
 
         // Turn off 3D layer
@@ -1124,14 +1128,30 @@
           var startIdx = collapseOne.children.length;
 
           all_box.onchange = function (e) {
+            var mainTitle = document.getElementById('main_title').children[0];
+            var secondaryTitle = document.getElementById('secondary_title');
+            var instructionTitle= document.getElementById('instruction');
             if (this.id == "מחקר") {
               researchOn = !researchOn;
+              if (!planningOn) {
+                mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
+                secondaryTitle.style.display = 'block';
+                instructionTitle.style.display = 'none';
+              }
             }
             else if (this.id == "תכנון") {
               planningOn = !planningOn;
+              mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
+              secondaryTitle.style.display = 'none';
+              instructionTitle.style.display = 'block';
               var vis = true;
               if (!planningOn && !researchOn) {
                 vis = false;
+              }
+              if (!planningOn && researchOn) {
+                mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
+                secondaryTitle.style.display = 'block';
+                instructionTitle.style.display = 'none';
               }
               for (i = 0; i < startIdx + 1; i++) {
                 const current_layer = collapseOne.children[i].children[0];

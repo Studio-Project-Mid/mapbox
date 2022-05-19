@@ -43,6 +43,20 @@ body {
     font-family: 'Assistant';
     direction: rtl;
   }
+  .instruction-title {
+    position: fixed;
+    top: 100px;
+    width: 260px;
+    right: 45px;
+    background-color: black;
+    opacity: 70%;
+    vertical-align: middle;
+    color: white;
+    z-index: 99999;
+    text-size-adjust: 6;
+    font-family: 'Assistant';
+    direction: rtl;
+  }
   .map-title {
     position: fixed;
     top: 0;
