@@ -386,6 +386,7 @@
     }
 
     function openImage(id) {
+      console.log('here: ' + id);
       document.getElementById(id).style.display = "block";
       closeForm();
     }
@@ -404,6 +405,7 @@
 
     var relIdx = 0;
     function changeSource(id1, id2) {
+      console.log('onchange: ' + id1 + ', ' + id2);
       document.getElementById(id2).style.display = "block";
       document.getElementById(id1).style.display = "none";
     }
@@ -805,67 +807,96 @@
       });
 
       var pos = [34.77551, 32.07435];
+      var isRouteOn = false;
+      var routePopups = [];
 
-      function createFullImageSeries(image_list) {
+      function closeAllImages(image_list) {
         for (i = 0; i < image_list.length; i++) {
-          var imgId = image_list[i];
-          var divItem = document.createElement('div');
-          divItem.className = 'full-image';
-          divItem.id = imgId;
-          // Close Button
-          var closeButton = document.createElement('button');
-          closeButton.type = 'button';
-          closeButton.className = 'btn btn-outline-dark';
-          closeButton.id = 'close_' + imgId;
-          closeButton.onclick = "";
-          closeButton.innerHTML = 'x';
-          // Arrow
-          var arrowButton = document.createElement('button');
-          arrowButton.className = 'button';
-          var nextForm = i == image_list.length - 1 ? image_list[0] : image_list[i + 1];
-          arrowButton.onclick = "changeSource(" + imgId + ", " + nextForm + ");";
-          var innerButtonDiv = document.createElement('div');
-          innerButtonDiv.className = 'button__arrow button__arrow--left';
-          arrowButton.appendChild(innerButtonDiv);
-          // Adobe
-          var innerDiv = document.createElement('div');
-          innerDiv.id = imgId + "_in";
-          var firstScript = document.createElement('script');
-          firstScript.src = "https://documentcloud.adobe.com/view-sdk/main.js";
-          var secondScript = document.createElement('script');
-          secondScript.type = "text/javascript";
-          var scriptBody = document.addEventListener("adobe_dc_view_sdk.ready", function(){ 
-            var adobeDCView = new AdobeDC.View({clientId: "9029a3f828a14ab9b10c9b799a7981d8", divId: innerDiv.id});
-            adobeDCView.previewFile({
-              content:{location: {url: "images/" + imgId + ".pdf"}},
-              metaData:{fileName: imgId}
-            }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
-          });
-          secondScript.appendChild(scriptBody);
-          divItem.appendChild(closeButton);
-          divItem.appendChild(arrowButton);
-          divItem.appendChild(innerDiv);
-          divItem.appendChild(firstScript);
-          divItem.appendChild(secondScript);
+          document.getElementById(image_list[i]).style.display = 'none';
         }
       }
 
-      var klisher_images = ['01', '02', '03', '04', '05'];
-      var binyamin_images = [
-        '01_Building Photo',
-        '02_Explanation of the point',
+      function getNextForm(imageId, image_list, index_dict) {
+        return image_list[index_dict[imageId]];
+      }
+
+      function createFullImageSeries(imgId, nextForm, image_list) {
+        var divItem = document.createElement('div');
+        divItem.className = 'full-image';
+        divItem.id = imgId;
+        document.body.appendChild(divItem);
+        // Close Button
+        var closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn btn-outline-dark';
+        closeButton.id = 'close_' + imgId;
+        closeButton.onclick = function(){closeAllImages(image_list);};
+        closeButton.innerHTML = 'x';
+        // Arrow
+        var arrowButton = document.createElement('button');
+        arrowButton.className = 'button';
+        arrowButton.onclick = function() {changeSource(imgId, nextForm);};
+        var innerButtonDiv = document.createElement('div');
+        innerButtonDiv.className = 'button__arrow button__arrow--left';
+        arrowButton.appendChild(innerButtonDiv);
+        // Adobe
+        var innerDiv = document.createElement('div');
+        innerDiv.id = imgId + "_in";
+        var firstScript = document.createElement('script');
+        firstScript.src = "https://documentcloud.adobe.com/view-sdk/main.js";
+        var secondScript = document.createElement('script');
+        secondScript.type = "text/javascript";
+        secondScript.innerHTML = "document.addEventListener(\"adobe_dc_view_sdk.ready\", function(){ " +
+          "var adobeDCView = new AdobeDC.View({clientId: \"9029a3f828a14ab9b10c9b799a7981d8\", divId: \"" + innerDiv.id + "\"});" +
+          "adobeDCView.previewFile({" +
+            "content:{location: {url: \"https://studio-project-mid.github.io/mapbox/images/" + imgId + ".pdf\"}}," +
+            "metaData:{fileName: \"" + imgId + "\"}" +
+          "}, {embedMode: \"SIZED_CONTAINER\", showDownloadPDF: false, showPrintPDF: false});" +
+        "});";
+        divItem.appendChild(closeButton);
+        divItem.appendChild(arrowButton);
+        divItem.appendChild(innerDiv);
+        divItem.appendChild(firstScript);
+        divItem.appendChild(secondScript);
+      }
+
+      // var klisher_images = {'01': 1, '02': 2, '03': 3, '04': 4, '05': 0};
+      var klisher_images_list = ['01', '02', '03', '04', '05'];
+      // var binyamin_images = {
+      //   '01_Building_Photo': 1,
+      //   '02_Explanation_of_the_point': 2,
+      //   '03_Context': 3,
+      //   '04_Ground_Plan': 4,
+      //   '05_First_floor_plan': 5,
+      //   '06_Second_floor_plan': 6,
+      //   '07_Magen_David_Section': 7,
+      //   '08_Circulation_diagram': 8,
+      //   '09_מבט': 9,
+      //   '10_מבט': 0
+      // };
+      var binyamin_images_list = [
+        '01_Building_Photo',
+        '02_Explanation_of_the_point',
         '03_Context',
-        '04_Ground Plan',
-        '05_First floor plan',
-        '06_Second floor plan',
-        '07_Magen David Section',
-        '08_Circulation diagram',
+        '04_Ground_Plan',
+        '05_First_floor_plan',
+        '06_Second_floor_plan',
+        '07_Magen_David_Section',
+        '08_Circulation_diagram',
         '09_מבט',
         '10_מבט'
       ];
 
-      createFullImageSeries(klisher_images);
-      createFullImageSeries(binyamin_images);
+      for (i = 0; i < klisher_images_list.length; i++) {
+        var imgId = klisher_images_list[i];
+        var nextForm = i == klisher_images_list.length - 1 ? klisher_images_list[0] : klisher_images_list[i + 1];
+        createFullImageSeries(imgId, nextForm, klisher_images_list);
+      }
+      for (i = 0; i < binyamin_images_list.length; i++) {
+        var imgId = binyamin_images_list[i];
+        var nextForm = i == binyamin_images_list.length - 1 ? binyamin_images_list[0] : binyamin_images_list[i + 1];
+        createFullImageSeries(imgId, nextForm, binyamin_images_list);
+      }
 
       map.on('load', function () {
         map.getCanvas().style.cursor = 'default';
@@ -940,6 +971,9 @@
             }
             if (map.getLayoutProperty('3d-route', 'visibility') == 'visible') {
               setRouteVis('none');
+              while (routePopups.length > 0) {
+                routePopups.pop().remove();
+              }
               for (i = 0; i < collapseOne.children.length; i++) {
                 var currentTitle = collapseOne.children[i];
                 var current_box = currentTitle.children[0];
@@ -951,15 +985,16 @@
                   current_box.dispatchEvent(evt);
                   i = idx;
                 }
-                else if (currentTitle == 'title_תכנון') {
-                  current_box.checked = true;
-                  var evt = document.createEvent("HTMLEvents");
-                  evt.initEvent("change", false, true);
-                  current_box.dispatchEvent(evt);
-                  i = idx;
-                }
+                // else if (currentTitle == 'title_תכנון') {
+                //   current_box.checked = true;
+                //   var evt = document.createEvent("HTMLEvents");
+                //   evt.initEvent("change", false, true);
+                //   current_box.dispatchEvent(evt);
+                //   i = idx;
+                // }
               }
               setTitlesVis("block");
+              isRouteOn = false;
             }
           }
           
@@ -1418,7 +1453,7 @@
               var finaltitle = routeIdsForPopup[fId][2];
               var htmlText = "";
               if (fId == 19306) {
-                htmlText = '<div id="popupButton" onclick="openImage("01")">' +
+                htmlText = '<div id="popupButton" onclick=openImage("01")>' +
                             '<h3><b>' +
                             title +
                             '</b></h3>' +
@@ -1430,7 +1465,7 @@
                             '</b></h3></div>';
               }
               else if (fId == 13479) {
-                htmlText = '<div id="popupButton" onclick="openImage("01_Building Photo")">' +
+                htmlText = '<div id="popupButton" onclick=openImage("01_Building_Photo")>' +
                             '<h3><b>' +
                             title +
                             '</b></h3>' +
@@ -1459,6 +1494,7 @@
               popup.setLngLat([coordinates['lat'], coordinates['lng']])
               .setHTML(htmlText)
               .addTo(map);
+              routePopups.push(popup);
             }
           }
         }
@@ -1472,7 +1508,7 @@
           center_pos = [34.771146978793695, 32.0639430515279];
           formToOpen = -1;
           flyToFunc(center_pos, 15.6, 62, -45, false);
-
+          isRouteOn = true;
           // addPopupToRoute();
 
         }
@@ -1713,6 +1749,18 @@
             openForm(formToOpen);
             if (map.getLayoutProperty('3d-route', 'visibility') == 'visible')
               addPopupToRoute();
+            else if (isRouteOn) {
+              for (i = 0; i < collapseOne.children.length; i++) {
+                var currentTitle = collapseOne.children[i];
+                var current_box = currentTitle.children[0];
+                if (currentTitle == 'title_תכנון') {
+                    current_box.checked = true;
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    current_box.dispatchEvent(evt);
+                }
+              }
+            }
             map.fire('flyend');
           }
         });
