@@ -829,7 +829,7 @@
         var closeButton = document.createElement('button');
         closeButton.type = 'button';
         closeButton.className = 'btn btn-outline-dark';
-        closeButton.id = 'close_' + imgId;
+        closeButton.id = 'close_';
         closeButton.onclick = function(){closeAllImages(image_list);};
         closeButton.innerHTML = 'x';
         // Arrow
@@ -1506,6 +1506,7 @@
 
         function routeHandler(event) {
           turnOffAllLayers();
+          // $(".accordion-collapse").collapse("hide");
           // Turn ON route layers
           setRouteVis('visible');
           setTitlesVis("none");

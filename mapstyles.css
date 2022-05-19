@@ -221,6 +221,28 @@ body {
     width: 25px;
     align-items: center;
   }
+  #close_ {
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px;
+    /* background:white; */
+    /* border: none; */
+    /* width: 25px; */
+    align-items: center;
+  }
+  #close_:hover {
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px;
+    /* background:#ccc;
+    color:#fff; */
+    width: 25px;
+    align-items: center;
+  }
   #enlarge {
 
     position: absolute;
@@ -278,13 +300,16 @@ body {
 
   .routePopup .mapboxgl-popup-content {
     width: 150px;
-    height: 80px;
+    height: 90px;
     background-color: black;
     opacity: 50%;
+    line-height: 0.5;
     font-family: 'Assistant';
     text-align: center;
+    vertical-align: middle;
+    display: inline-block;
     direction: rtl;
-    padding-right: 0px;
+    padding-bottom: 10px;
   }
   
   .mapboxgl-popup-content h3.h3_1{
