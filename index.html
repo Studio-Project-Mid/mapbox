@@ -421,6 +421,153 @@
         }
       }
     }
+
+    var individual_layers = [
+      '3D',
+      'city-border',
+      'light-rail',
+      'metro',
+      'kibbutz-nadavot',
+      'collecting-bottles', 
+      'drug-deals',
+      'formal',
+      'stay-points-exist',
+      'green areas and parks',
+      'food-exist',
+      'stay-points-exist',
+      'green areas and parks'
+    ];
+
+    var titlesHebrew = {
+      'מחקר': 'research',
+      'תכנון': 'planning'
+    }
+
+    var researchOn = true;
+    var planningOn = false;
+
+    function setLayerVis(current_layer, e) {
+      const clickedLayer = current_layer.textContent;
+      if (e != null) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      const visibility = map.getLayoutProperty(
+        clickedLayer,
+        'visibility'
+      );
+      if (visibility == 'visible' && current_layer.checked == false) {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+      } else {
+        this.className = 'active';
+        map.setLayoutProperty(
+          clickedLayer,
+          'visibility',
+          'visible'
+        );
+      }
+    }
+
+
+    function clickTitle(titleName) {
+      var mainTitle = document.getElementById('main_title').children[0];
+      var secondaryTitle = document.getElementById('secondary_title');
+      var instructionTitle= document.getElementById('instruction');
+      var accordionDiv = document.getElementById(titlesHebrew[titleName]);
+      var clickedItem = document.getElementById(titleName);
+      if (titleName == "מחקר") {
+        researchOn = !researchOn;
+        if (!planningOn) {
+          mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
+          secondaryTitle.style.display = 'block';
+          instructionTitle.style.display = 'none';
+        }
+      }
+      else if (titleName == "תכנון") {
+        planningOn = !planningOn;
+        mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
+        secondaryTitle.style.display = 'none';
+        instructionTitle.style.display = 'block';
+        var vis = true;
+        if (!planningOn && !researchOn) {
+          vis = false;
+        }
+        if (!planningOn && researchOn) {
+          mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
+          secondaryTitle.style.display = 'block';
+          instructionTitle.style.display = 'none';
+        }
+        for (i = 0; i < research.children.length; i++) {
+          var current_line = research.children[i];
+          
+          if (current_line.id.startsWith('accordion')) {
+            var subTitleCheckBox = current_line.children[0].children[0].children[0].children[0];
+            subTitleCheckBox.checked = vis;
+            var current_subtitle = current_line.children[0].children[1];
+            for (j = 0; j < current_subtitle.children.length; j++){
+              const current_layer = current_subtitle.children[j].children[0];
+              if (individual_layers.includes(current_layer.id)) {
+                current_layer.checked = vis;
+                if (current_layer.id.endsWith("_" + titleName))
+                  continue;
+                setLayerVis(current_layer, null);
+              }
+            }
+          }
+          else {
+            const current_layer = current_line.children[0];
+          
+            if (individual_layers.includes(current_layer.id)) {
+              current_layer.checked = vis;
+              if (current_layer.id.endsWith("_" + titleName))
+                continue;
+              setLayerVis(current_layer, null);
+            }
+          }
+          
+        }
+      }
+      for (i = 0; i < accordionDiv.children.length; i++)
+      {
+        var current_line = accordionDiv.children[i];
+        if (current_line.id.startsWith('accordion')) {
+          var subTitleCheckBox = current_line.children[0].children[0].children[0].children[0];
+          subTitleCheckBox.checked = clickedItem.checked;
+          var current_subtitle = current_line.children[0].children[1];
+          for (j = 0; j < current_subtitle.children.length; j++){
+            const current_layer = current_subtitle.children[j].children[0];
+            if (current_layer.id == "3D")
+              continue;
+            if (clickedItem.checked == false) {
+              if (!individual_layers.includes(current_layer.id) || (!researchOn && !planningOn))
+                current_layer.checked = false;
+            } else {
+              if (!individual_layers.includes(current_layer.id) || (researchOn || planningOn))
+                current_layer.checked = true;
+            }
+            setLayerVis(current_layer, null);
+          }
+        }
+        else {
+          const current_layer = current_line.children[0];
+        
+          if (current_layer.id == "3D")
+              continue;
+          if (clickedItem.checked == false) {
+            if (!individual_layers.includes(current_layer.id) || (!researchOn && !planningOn))
+              current_layer.checked = false;
+          } else {
+            if (!individual_layers.includes(current_layer.id) || (researchOn || planningOn))
+              current_layer.checked = true;
+          }
+          setLayerVis(current_layer, null);
+        }
+      }
+    }
+
+
   </script>
   <div class="map-title" id="main_title">
     <h1 style="padding-top: 5px; padding-right: 8px; padding-left: 8px; text-align: center;">כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב</h1>
@@ -435,14 +582,37 @@
   <body>
     <div id="map"></div>
     <div class="map-overlay">
-      <div class="accordion" id="accordionExample">
+      <div class="accordion" id="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick='accordionClick()'>
               מקרא
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse hide" aria-labelledby="headingOne"></div>
+          <div id="collapseOne" class="accordion-collapse collapse hide" aria-labelledby="headingOne1">
+            <div class="accordion" id="accordion1">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#research" aria-expanded="true" aria-controls="research" onclick='accordionClick()'>
+                    <input type="checkbox" checked id="מחקר" href="#" class="active" onchange="clickTitle('מחקר')"></input>
+                    <span style="padding-inline: 10px;">מחקר</span>
+                  </button>
+                </h2>
+                <div id="research" class="accordion-collapse collapse hide" aria-labelledby="headingOne1" data-parent="#collapseOne"></div>
+              </div>
+            </div>
+            <div class="accordion" id="accordion2">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#planning" aria-expanded="true" aria-controls="planning" onclick='accordionClick()'>
+                    <input type="checkbox" id="תכנון" href="#" class="active" onchange="clickTitle('תכנון')"></input>
+                    <span style="padding-inline: 10px;">תכנון</span>
+                  </button>
+                </h2>
+                <div id="planning" class="accordion-collapse collapse hide" aria-labelledby="headingOne2" data-parent="#collapseOne"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -1016,6 +1186,11 @@
         })
 
         var toCheck = true;
+
+        var titlesHebrew = {
+          'מחקר': 'research',
+          'תכנון': 'planning'
+        }
         
         var layers_for_legend = {
           'מחקר': {
@@ -1055,7 +1230,7 @@
             'שהייה': {
               'squares': 'כיכרות'
             },
-            'סיוע רפואי': {
+            'סיוע_רפואי': {
               'community centers': 'מרכזים קהילתיים'
             }
             // '3d-route': 'מסלול',
@@ -1068,7 +1243,9 @@
           'city-border',
           'light-rail',
           'metro',
-          'strategic axes',
+          'kibbutz-nadavot',
+          'collecting-bottles', 
+          'drug-deals',
           'formal',
           'stay-points-exist',
           'green areas and parks',
@@ -1090,8 +1267,10 @@
 
         function setLayerVis(current_layer, e) {
           const clickedLayer = current_layer.textContent;
-          e.preventDefault();
-          e.stopPropagation();
+          if (e != null) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           
           const visibility = map.getLayoutProperty(
             clickedLayer,
@@ -1110,6 +1289,8 @@
           }
         }
 
+
+        
         function addTitleToLegend(titleName) {
           if (titleName == "תכנון") {
             toCheck = false;
@@ -1192,31 +1373,89 @@
 
           line_div.appendChild(all_box);
           line_div.appendChild(all_title);
-          collapseOne.appendChild(line_div);
+          if (titleName == "מחקר") {
+            research.appendChild(line_div);
+          }
+          else {
+            collapseOne.appendChild(line_div);
+          }
+          
         }
 
-        function addSubTitleToLegend(subTitleName) {
-          var line_div = document.createElement('div');
-          line_div.className = 'accordion-body';
-          line_div.id = 'subtitle_' + subTitleName;
+        var divNum = 3;
+
+        function createSubTitle(subTitleName, titleName) {
+          if (titleName == "תכנון") {
+            toCheck = false;
+          }
+          var numStr = divNum.toString();
+          divNum++;
+          var accordionDiv = document.createElement('div');
+          accordionDiv.className = 'accordion';
+          accordionDiv.id = 'accordion' + numStr;
+          var accordionItem = document.createElement('div');
+          accordionItem.className = 'accordion-item';
+
+          var accordionHead = document.createElement('h2');
+          accordionHead.className = 'accordion-header';
+          accordionHead.id = 'headingOne' + numStr;
+          var accordionButton = document.createElement('button');
+          accordionButton.className = 'accordion-button2 collapsed';
+          accordionButton.type = 'button';
+          accordionButton.dataset.bsToggle = 'collapse';
+          accordionButton.dataset.bsTarget = '#' + subTitleName + '_' + titleName;
+          accordionButton.ariaExpanded = 'true';
+          accordionButton.ariaControls = subTitleName + '_' + titleName;
+          accordionButton.onclick = function(){accordionClick();};
+          // accordionButton.innerHTML = subTitleName;
+          accordionHead.appendChild(accordionButton);
+          var subTitleDiv = document.createElement('div');
+          subTitleDiv.id = subTitleName + '_' + titleName;
+          subTitleDiv.className = 'accordion-collapse collapse hide';
+          subTitleDiv.setAttribute('aria-labelledby', accordionHead.id);
+          if (titleName == 'מחקר') {
+            subTitleDiv.dataset.parent = '#research';
+          }
+          else {
+            subTitleDiv.dataset.parent = '#planning';
+          }
+          var subTitleCheckBox = addSubTitleToLegend(subTitleName, subTitleDiv);
+          var buttonTitle = document.createElement('span');
+          finalTitle = subTitleName.includes('_') ? subTitleName.replace("_", " ") : subTitleName;
+          buttonTitle.innerHTML = finalTitle;
+          buttonTitle.style.paddingInline = '10px';
+          accordionButton.appendChild(subTitleCheckBox);
+          accordionButton.appendChild(buttonTitle);
+          accordionItem.appendChild(accordionHead);
+          accordionItem.appendChild(subTitleDiv);
+          accordionDiv.appendChild(accordionItem);
+          var titleDiv = document.getElementById(titlesHebrew[titleName]);
+          titleDiv.appendChild(accordionDiv);
+          return subTitleDiv;
+        }
+
+        function addSubTitleToLegend(subTitleName, accordionItem) {
+          // var line_div = document.createElement('div');
+          // line_div.className = 'accordion-body';
+          // line_div.id = 'subtitle_' + subTitleName;
           const all_box = document.createElement('input');
           all_box.type = 'checkbox';
           all_box.checked = toCheck;
-          all_box.id = subTitleName;
+          all_box.id = subTitleName + '_';
           all_box.href = '#';
           all_box.textContent = subTitleName;
           all_box.className = 'active';
-          all_box.style = "margin-left:10px;"
+          // all_box.style = "margin-left:10px;"
 
-          var startIdx = collapseOne.children.length;
+          // var startIdx = collapseOne.children.length;
 
           all_box.onchange = function (e) {
-            for (i = startIdx + 1; i < collapseOne.children.length; i++)
+            for (i = 0; i < accordionItem.children.length; i++)
             {
-              const current_layer = collapseOne.children[i].children[0];
+              const current_layer = accordionItem.children[i].children[0];
               
-              if (collapseOne.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px")
-                break;
+              // if (accordionItem.children[i].id.startsWith("title_") || current_layer.style.marginLeft == "10px")
+              //   break;
               if (this.checked == false) {
                 current_layer.checked = false;
               } else {
@@ -1246,16 +1485,16 @@
             
           };
 
-          var all_title = document.createElement('span');
-          all_title.innerHTML = subTitleName;
-          all_title.style = "font-size:10.0pt; margin-left:10px;"
-
-          line_div.appendChild(all_box);
-          line_div.appendChild(all_title);
-          collapseOne.appendChild(line_div);
+          // var all_title = document.createElement('span');
+          // all_title.innerHTML = subTitleName;
+          // all_title.style = "font-size:10.0pt; margin-left:10px;"
+          return all_box;
+          // line_div.appendChild(all_box);
+          // line_div.appendChild(all_title);
+          // collapseOne.appendChild(line_div);
         }
 
-        function addLayerToLegend(layerId, hebrewName, isSub) {
+        function addLayerToLegend(layerId, hebrewName, accordionDiv, isSub) {
           var layerObj = getLayerFromId(layerId);
           var layer = layerObj.id;
           layers.push(layer);
@@ -1292,7 +1531,8 @@
           link.id = layerObj.id;
           link.href = '#';
           link.textContent = layerObj.id;
-          link.style = isSub ? "margin-left:20px;" : "margin-left:10px;";
+          if (isSub)
+            link.style = "margin-left:10px;";
 
           link.checked = toCheck;
           link.className = 'active';
@@ -1341,21 +1581,22 @@
           item.appendChild(link);
           item.appendChild(key);
           item.appendChild(value);
-          collapseOne.appendChild(item);
+          accordionDiv.appendChild(item);
         }
 
         for (titleName in layers_for_legend) {
 
-          addTitleToLegend(titleName);
+          // addTitleToLegend(titleName);
           for (subTitle in layers_for_legend[titleName]) {
             if (typeof layers_for_legend[titleName][subTitle] === "object") {
-              addSubTitleToLegend(subTitle);
+              var subTitleDiv = createSubTitle(subTitle, titleName);
               for (obj in layers_for_legend[titleName][subTitle]) {
-                addLayerToLegend(obj, layers_for_legend[titleName][subTitle][obj], true);
+                addLayerToLegend(obj, layers_for_legend[titleName][subTitle][obj], subTitleDiv, true);
               }
             }
             else {
-              addLayerToLegend(subTitle, layers_for_legend[titleName][subTitle], false);
+              var accordionDiv = titleName == 'מחקר' ? document.getElementById('research') : document.getElementById('planning');
+              addLayerToLegend(subTitle, layers_for_legend[titleName][subTitle], accordionDiv, false);
             }
           }
         }
@@ -1668,6 +1909,7 @@
           'sleeping-corners': 'מרחבי לינה',
           'informal': 'הזדמנויות',
           'formal': 'מענים מוסדיים',
+          'city-border': 'גבול העיר',
           'green areas and parks': 'גינות',
           'front yard and back yard': 'חצר קדמית ואחורית',
           'back-yard': 'חצר אחורית',
