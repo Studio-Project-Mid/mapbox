@@ -14,318 +14,6 @@
     <link href="./mapstyles.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-
- <!-- <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      h1 {
-        font-size:16.0pt;
-      }
-      h2 {
-        font-size:10.0pt;
-      }
-      h3 {
-        margin: 10px;
-        font-size: 1.2em;
-      }
-      h3 {
-        font-size: 1em;
-      }
-      p {
-        font-size: 0.85em;
-        margin: 10px;
-        text-align: left;
-      }
-      .map-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin-left: 20px;
-        margin-top: 20px;
-        font-family: Arial, sans-serif;
-
-      }
-      .secondary-title {
-        position: fixed;
-        top: 100px;
-        right: 10px;
-        background-color: black;
-        opacity: 70%;
-        vertical-align: middle;
-        color: white;
-        z-index: 99999;
-        text-size-adjust: 6;
-        font-family: 'Assistant';
-        direction: rtl;
-      }
-      .map-title {
-        position: fixed;
-        top: 0;
-        left: 35%;
-        background-color: black;
-        opacity: 50%;
-        vertical-align: middle;
-        color: white;
-        z-index: 99999;
-        text-size-adjust: 14;
-        font-family: 'Assistant';
-        direction: rtl;
-      }
-      .full-image {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-
-        opacity: 95%;
-        z-index: 99999;
-        display: none;
-      }
-      .button {
-        position: absolute;
-        top: 50%;
-        right: 92%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        align-items: center;
-        display: flex;
-        justify-content: center;
-
-        padding: 8px;
-      }
-      
-      .button__arrow {
-        background-color: transparent;
-
-        height: 12px;
-        width: 12px;
-      }
-
-      .button__arrow--left {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-        border-left: 1px solid rgba(0, 0, 0, 0.3);
-        transform: translateX(25%) rotate(45deg);
-      }
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-      #features {
-        top: 0;
-        height: 100px;
-        margin-top: 20px;
-        width: 250px;
-      }
-      #legend {
-        padding: 10px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        line-height: 18px;
-        height: 280px;
-        top: 100%;
-        margin-left: 20px;
-        margin-top: 20px;
-        width: 260px;
-        position: relative;
-
-      }
-      .legend-key {
-        display: inline-block;
-        border-radius: 20%;
-        width: 10px;
-        height: 10px;
-        margin-right: 5px;
-        margin-left: 10px;
-      }
-      .icon {
-        background: url('./checkpoints-15.svg');
-        height: 15px;
-        width: 15px;
-        display: inline-block;
-        margin-right: 2px;
-        margin-left: 10px;
-      }
-      .triangle_icon {
-        background: url('./triangle-blue-11.svg');
-        height: 15px;
-        width: 15px;
-        display: inline-block;
-        margin-right: 2px;
-        margin-left: 10px;
-      }
-      .form-popup {
-        display: none;
-        position: fixed;
-        vertical-align: middle;
-        bottom: 0;
-        right: 15px;
-        border: 3px solid #f1f1f1;
-        z-index: 9;
-        margin:4px, 4px;
-        padding:4px;
-        background-color: white;
-        width: 560px;
-        height: 560px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        text-align:justify;
-        font-family: 'Assistant';
-      }
-
-      .form-popup button.btn-outline-secondary {
-        left: 0;
-      }
-
-      .form-popup form {
-        direction: rtl;
-        text-align: right;
-        font-family: 'Assistant';
-      }
-
-      .form-container {
-        width: 560;
-        padding: 10px;
-        background-color: white;
-      }
-      .form-container h3{
-        font-family: 'Assistant';
-        font-size: 0.8em;
-        color: gray;
-        opacity: 70%;
-      }
-
-      .form-container b{
-        color: black;
-      }
-
-      .text-container {
-        display: none;
-        position: fixed;
-        vertical-align: middle;
-        bottom: 0;
-        right: 15px;
-        border: 3px solid #f1f1f1;
-        z-index: 9;
-        margin:4px, 4px;
-        padding:4px;
-        background-color: rgba(255,255,255, 0.6);
-        text-align: right;
-        width: 560px;
-      }
-      #close {
-
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 8px;
-        background:white;
-        border: none;
-        width: 25px;
-        align-items: center;
-      }
-      #close:hover {
-
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 8px;
-        background:#ccc;
-        color:#fff;
-        width: 25px;
-        align-items: center;
-      }
-      #enlarge {
-
-        position: absolute;
-        right: 30px;
-        top: 0;
-        padding: 8px;
-        background:white;
-        border: none;
-      }
-      #enlarge:hover {
-
-        position: absolute;
-        right: 30px;
-        top: 0;
-        padding: 8px;
-        background:#ccc;
-        color:#fff;
-      }
-      
-      div.scroll {
-        margin:4px, 4px;
-        padding:4px;
-        background-color: green;
-        width: 500px;
-        height: 110px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        text-align:justify;
-      }
-      img {
-        max-width: 100%;
-        max-height: 100%;
-      }
-      audio {
-        display: none;
-        position: fixed;
-        vertical-align: middle;
-        bottom: 0;
-        right: 15px;
-        z-index: 9;
-      }
-      .mapboxgl-popup {
-        font-family: 'Assistant';
-        text-align: right;
-        direction: rtl;
-      }
-      .mapboxgl-popup-content{
-        background-color: black;
-        opacity: 70%;
-        font-family: 'Assistant';
-        text-align: right;
-        direction: rtl;
-        padding-right: 0px;
-      }
-
-      .mapboxgl-popup-content h3.h3_1{
-        color: white;
-      }
-
-      .mapboxgl-popup-content b{
-        color: white;
-      }
-
-      .mapboxgl-popup-content h3.h3_2{
-        color: gray;
-      }
-
-      .mapboxgl-popup-content h2{
-        color: gray;
-      }
-
-      .mapboxgl-popup-content p{
-        color: white;
-      }
-
-      .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
-        border: none;
-      }
-
-      .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-        border: none;
-      }
-
-      .mapboxgl-popup-close-button {
-        color: white;
-      }
-
-    </style>  -->
   </head>
   <script>
 
@@ -386,7 +74,7 @@
     }
 
     function openImage(id) {
-      console.log('here: ' + id);
+      // console.log('here: ' + id);
       document.getElementById(id).style.display = "block";
       closeForm();
     }
@@ -405,7 +93,7 @@
 
     var relIdx = 0;
     function changeSource(id1, id2) {
-      console.log('onchange: ' + id1 + ', ' + id2);
+      // console.log('onchange: ' + id1 + ', ' + id2);
       document.getElementById(id2).style.display = "block";
       document.getElementById(id1).style.display = "none";
     }
@@ -1033,20 +721,8 @@
         divItem.appendChild(secondScript);
       }
 
-      // var klisher_images = {'01': 1, '02': 2, '03': 3, '04': 4, '05': 0};
       var klisher_images_list = ['01', '02', '03', '04', '05'];
-      // var binyamin_images = {
-      //   '01_Building_Photo': 1,
-      //   '02_Explanation_of_the_point': 2,
-      //   '03_Context': 3,
-      //   '04_Ground_Plan': 4,
-      //   '05_First_floor_plan': 5,
-      //   '06_Second_floor_plan': 6,
-      //   '07_Magen_David_Section': 7,
-      //   '08_Circulation_diagram': 8,
-      //   '09_מבט': 9,
-      //   '10_מבט': 0
-      // };
+
       var binyamin_images_list = [
         '01_Building_Photo',
         '02_Explanation_of_the_point',
@@ -1134,43 +810,45 @@
         });
         map.addControl(nav, 'top-right');
         document.querySelector('.mapboxgl-ctrl-compass').addEventListener('click', () =>{
-          for (i = 0; i < collapseOne.children.length; i++) {
-            if (collapseOne.children[i].id == '3D') {
-              collapseOne.children[i].children[0].checked = false;
-              map.setLayoutProperty(
-                '3D',
-                'visibility',
-                'none'
-              );
+          
+          // Turn off 3D layer
+          var layer_3d = document.getElementById('3D');
+          layer_3d.checked = false;
+          map.setLayoutProperty(
+            '3D',
+            'visibility',
+            'none'
+          );
+
+          if (map.getLayoutProperty('3d-route', 'visibility') == 'visible') {
+            // Turn off route
+            setRouteVis('none');
+            // Remove route popups
+            while (routePopups.length > 0) {
+              routePopups.pop().remove();
             }
-            if (map.getLayoutProperty('3d-route', 'visibility') == 'visible') {
-              setRouteVis('none');
-              while (routePopups.length > 0) {
-                routePopups.pop().remove();
-              }
-              for (i = 0; i < collapseOne.children.length; i++) {
-                var currentTitle = collapseOne.children[i];
-                var current_box = currentTitle.children[0];
-                var idx = i;
-                if (route_layers.includes(current_box.id)) {
-                  current_box.checked = false;
-                  var evt = document.createEvent("HTMLEvents");
-                  evt.initEvent("change", false, true);
-                  current_box.dispatchEvent(evt);
-                  i = idx;
-                }
-                // else if (currentTitle == 'title_תכנון') {
-                //   current_box.checked = true;
-                //   var evt = document.createEvent("HTMLEvents");
-                //   evt.initEvent("change", false, true);
-                //   current_box.dispatchEvent(evt);
-                //   i = idx;
-                // }
-              }
-              setTitlesVis("block");
-              map.fire('flystart');
+            // Turn off route layers
+            for (i = 0; i < route_layers.length; i++) {
+              var idx = i;
+              var current_box = document.getElementById(route_layers[i]);
+              current_box.checked = false;
+              var evt = document.createEvent("HTMLEvents");
+              evt.initEvent("change", false, true);
+              current_box.dispatchEvent(evt);
+              i = idx;
             }
+            // Turn on planning layers
+            var planning_checkbox = document.getElementById('תכנון');
+            planning_checkbox.checked = true;
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            planning_checkbox.dispatchEvent(evt);
+            // Turn on map titles
+            setTitlesVis("block");
+            // Fly back up
+            map.fire('flystart');
           }
+          
           
           // Fly to initial position
           map.flyTo({
@@ -1183,7 +861,7 @@
           easing: (t) => t,
           essential: true
           });
-        })
+        });
 
         var toCheck = true;
 
@@ -1609,29 +1287,34 @@
           'city-border',
           'light-rail',
           'metro',
-          'עבודה',
+          'עבודה_',
           'green areas and parks'
         ]
 
         function turnOffAllLayers() {
-          for (i = 0; i < collapseOne.children.length; i++) {
-            var currentTitle = collapseOne.children[i];
-            var current_box = currentTitle.children[0];
+          
+          var research_checkbox = document.getElementById('מחקר');
+          var planning_checkbox = document.getElementById('תכנון');
+          if (research_checkbox.checked == true) {
+            research_checkbox.checked = false;
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            research_checkbox.dispatchEvent(evt);
+          }
+          if (planning_checkbox.checked == true) {
+            planning_checkbox.checked = false;
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            planning_checkbox.dispatchEvent(evt);
+          }
+          for (i = 0; i < route_layers.length; i++) {
             var idx = i;
-            if (currentTitle.id.startsWith("title_") && current_box.checked == true) {
-              current_box.checked = false;
-              var evt = document.createEvent("HTMLEvents");
-              evt.initEvent("change", false, true);
-              current_box.dispatchEvent(evt);
-              i = idx;
-            }
-            else if (route_layers.includes(current_box.id)) {
-              current_box.checked = true;
-              var evt = document.createEvent("HTMLEvents");
-              evt.initEvent("change", false, true);
-              current_box.dispatchEvent(evt);
-              i = idx;
-            }
+            var current_box = document.getElementById(route_layers[i]);
+            current_box.checked = true;
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            current_box.dispatchEvent(evt);
+            i = idx;
           }
         }
 
