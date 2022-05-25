@@ -1867,6 +1867,17 @@
         '24h-homeless-route'
       ];
 
+      var popupLabels = {
+        'abandoned-buildings': ['לינה', 'מבנה נטוש'],
+        'community centers': ['סיוע רפואי', 'מרכז קהילתי'],
+        'mikvahs': ['התרעננות', 'מקווה'],
+        'beaches-wardrobes': ['התרעננות'],
+        'sport': ['התרעננות', 'מרכז ספורט'],
+        'abandoned-buildings-resturants': ['מזון', 'מבנה נטוש'],
+        'green areas and parks': ['שהייה', 'גינות'],
+        'squares': ['שהייה', 'כיכרות']
+      }
+
       function hoverPopupMove(popup) {
         map.on('mousemove', function (e) {
             var features = map.queryRenderedFeatures(e.point, {
@@ -1876,18 +1887,19 @@
               return;
             }
             var feature = features[0];
-            if (feature.layer.id == '3d-route')
+            var layerId = feature.layer.id;
+            if (layerId == '3d-route')
               console.log(feature);
             // +
             //                   '<p>'  +
             //                   layerHebrewNames[feature.layer.id] +
             //                   '</p>';
-            if (!(noPopupLayers.includes(feature.layer.id))) {
-              var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[feature.layer.id];
+            if (!(noPopupLayers.includes(layerId))) {
+              var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[layerId];
               var htmlText = '<h3 class="h3_1"><b>' +
                               title +
                               '</b></h3>';
-              if (feature.layer.id == 'sleeping-corners') {
+              if (layerId == 'sleeping-corners') {
                 htmlText =  '<h3 class="h3_2">שם' + 
                             '<br><b>' +
                             feature.properties["name_he"] +
@@ -1901,7 +1913,7 @@
                             '</b></h3>';
                 popup.setMaxWidth('240px');
               }
-              else if (feature.layer.id == 'strategic-axes' && "tsug" in feature.properties) {
+              else if (layerId == 'strategic-axes' && "tsug" in feature.properties) {
                 htmlText =  '<h3><b>' +
                             feature.properties["name_he"] +
                             '</b></h3>' +
@@ -1910,6 +1922,15 @@
                             feature.properties["tsug"] +
                             '</b></br></h3>';
                 popup.setMaxWidth('240px');
+              }
+              else if (layerId in popupLabels) {
+                title = popupLabels[layerId][0];
+                var content = popupLabels[layerId].length == 2 ? popupLabels[layerId][1] : feature.properties["name_he"];
+                htmlText =  '<h3 class="h3_3">' +
+                            title +
+                            '</h3><h3 class="h3_1">' +
+                            content +
+                            '</h3>';
               }
               popup.setLngLat(e.lngLat)
               .setHTML(htmlText)

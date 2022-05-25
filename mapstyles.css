@@ -352,6 +352,12 @@ body {
     color: gray;
   }
 
+  .mapboxgl-popup-content h3.h3_3{
+    color: white;
+    font-weight: 900;
+    font: bold;
+  }
+
   .mapboxgl-popup-content h2{
     color: gray;
   }
