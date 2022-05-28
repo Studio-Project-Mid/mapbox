@@ -267,7 +267,7 @@
   <div class="instruction-title" id="instruction" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ כאן לליווי דר רחוב ביומו בפריסה העירונית</p>
   </div>
-  <div class="lower-text" id="lower_text" style="display: none;">
+  <div class="tool-box" id="tool_box" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p>
     <embed
         height="100%"
@@ -281,7 +281,7 @@
       <div class="accordion" id="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick='accordionClick()'>
+            <button class="accordion-button collapsed" id="main_legend_button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick='accordionClick()'>
               מקרא
             </button>
           </h2>
@@ -1455,10 +1455,18 @@
             }
           }
         }
+        
+        function accordionCollapse() {
+          var mainAccordionButton = document.getElementById('main_legend_button');
+          mainAccordionButton.className = 'accordion-button collapsed';
+          mainAccordionButton.ariaExpanded = 'false';
+          collapseOne.className = 'accordion-collapse collapse hide';
+        }
 
         function routeHandler(event) {
           turnOffAllLayers();
-          // $(".accordion-collapse").collapse("hide");
+          // Collapse legend
+          accordionCollapse();
           // Turn ON route layers
           setRouteVis('visible');
           setTitlesVis("none");
@@ -1472,7 +1480,7 @@
         }
 
         function toolsHandler(event) {
-          var lowerText = document.getElementById('lower_text');
+          var lowerText = document.getElementById('tool_box');
           var vis = lowerText.style.display;
           vis = vis == 'none' ? 'block' : 'none';
           lowerText.style.display = vis;
