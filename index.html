@@ -267,6 +267,14 @@
   <div class="instruction-title" id="instruction" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ כאן לליווי דר רחוב ביומו בפריסה העירונית</p>
   </div>
+  <div class="lower-text" id="lower_text" style="display: none;">
+    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p>
+    <embed
+        height="100%"
+        width="100%" 
+        src="images/ToolBox.pdf#view=Fit">
+      </embed>
+  </div>
   <body>
     <div id="map"></div>
     <div class="map-overlay">
@@ -1463,6 +1471,13 @@
 
         }
 
+        function toolsHandler(event) {
+          var lowerText = document.getElementById('lower_text');
+          var vis = lowerText.style.display;
+          vis = vis == 'none' ? 'block' : 'none';
+          lowerText.style.display = vis;
+        }
+
         const ctrlLine = new MapboxGLButtonControl({
           className: "mapbox-gl-draw_line",
           title: "לחץ לליווי דר רחוב ביומו בפריסה העירונית",
@@ -1470,6 +1485,15 @@
         });
 
         map.addControl(ctrlLine, 'top-right');
+
+
+        const ctrlTools = new MapboxGLButtonControl({
+          className: "mapbox-gl-tools",
+          title: "ארגז כלים",
+          eventHandler: toolsHandler
+        });
+
+        map.addControl(ctrlTools, 'top-right');
 
 
         // var line_div = document.createElement('div');
