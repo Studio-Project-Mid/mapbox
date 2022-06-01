@@ -57,6 +57,21 @@ body {
     font-family: 'Assistant';
     direction: rtl;
   }
+  .lower-text {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    width: 400px;
+    right: 4px;
+    background-color: black;
+    opacity: 70%;
+    vertical-align: middle;
+    color: white;
+    z-index: 99999;
+    text-size-adjust: 6;
+    font-family: 'Assistant';
+    direction: rtl;
+  }
   .tool-box {
     display: none;
     position: fixed;

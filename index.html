@@ -162,6 +162,7 @@
     function clickTitle(titleName) {
       var mainTitle = document.getElementById('main_title').children[0];
       var secondaryTitle = document.getElementById('secondary_title');
+      var lowerText = document.getElementById('lower_text').children[0];
       var instructionTitle= document.getElementById('instruction');
       var accordionDiv = document.getElementById(titlesHebrew[titleName]);
       var clickedItem = document.getElementById(titleName);
@@ -170,6 +171,7 @@
         if (!planningOn) {
           mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
           secondaryTitle.style.display = 'block';
+          lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
           instructionTitle.style.display = 'none';
         }
       }
@@ -177,6 +179,7 @@
         planningOn = !planningOn;
         mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
         secondaryTitle.style.display = 'none';
+        lowerText.innerHTML = 'התכנית העירונית פורסת רשת של מוקדים הפועלים יחד על מנת לאפשר קיום עירוני מגוון והבטחה של חיים בכבוד, גם ללא בית קבוע, ובעצם להיות בבית בעיר. הרשת מורכבת ממענה לצרכים בסיסיים ומאפשרת למשתמשים בה אפשרויות בחירה רבות.';
         instructionTitle.style.display = 'block';
         var vis = true;
         if (!planningOn && !researchOn) {
@@ -185,6 +188,7 @@
         if (!planningOn && researchOn) {
           mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
           secondaryTitle.style.display = 'block';
+          lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
           instructionTitle.style.display = 'none';
         }
         for (i = 0; i < research.children.length; i++) {
@@ -266,6 +270,9 @@
   </div>
   <div class="instruction-title" id="instruction" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ כאן לליווי דר רחוב ביומו בפריסה העירונית</p>
+  </div>
+  <div class="lower-text" id="lower_text">
+    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.</p>
   </div>
   <div class="tool-box" id="tool_box" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p>
@@ -784,6 +791,7 @@
         function setTitlesVis(vis) {
           document.getElementById("main_title").style.display = vis;
           document.getElementById("secondary_title").style.display = vis;
+          document.getElementById("lower_text").style.display = vis;
           document.getElementById("instruction").style.display = vis;
         }
 
@@ -997,12 +1005,14 @@
           all_box.onchange = function (e) {
             var mainTitle = document.getElementById('main_title').children[0];
             var secondaryTitle = document.getElementById('secondary_title');
+            var lowerText = document.getElementById('lower_text').children[0];
             var instructionTitle= document.getElementById('instruction');
             if (this.id == "מחקר") {
               researchOn = !researchOn;
               if (!planningOn) {
                 mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
                 secondaryTitle.style.display = 'block';
+                lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
                 instructionTitle.style.display = 'none';
               }
             }
@@ -1010,6 +1020,7 @@
               planningOn = !planningOn;
               mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
               secondaryTitle.style.display = 'none';
+              lowerText.innerHTML = 'התכנית העירונית פורסת רשת של מוקדים הפועלים יחד על מנת לאפשר קיום עירוני מגוון והבטחה של חיים בכבוד, גם ללא בית קבוע, ובעצם להיות בבית בעיר. הרשת מורכבת ממענה לצרכים בסיסיים ומאפשרת למשתמשים בה אפשרויות בחירה רבות.';
               instructionTitle.style.display = 'block';
               var vis = true;
               if (!planningOn && !researchOn) {
@@ -1018,6 +1029,7 @@
               if (!planningOn && researchOn) {
                 mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
                 secondaryTitle.style.display = 'block';
+                lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
                 instructionTitle.style.display = 'none';
               }
               for (i = 0; i < startIdx + 1; i++) {
@@ -1480,10 +1492,10 @@
         }
 
         function toolsHandler(event) {
-          var lowerText = document.getElementById('tool_box');
+          var toolBox = document.getElementById('tool_box');
           var vis = lowerText.style.display;
           vis = vis == 'none' ? 'block' : 'none';
-          lowerText.style.display = vis;
+          toolBox.style.display = vis;
         }
 
         const ctrlLine = new MapboxGLButtonControl({
