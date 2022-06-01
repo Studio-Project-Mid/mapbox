@@ -1413,8 +1413,14 @@
               var height = feature.properties['govasimple'];
               
               var offset = -height - 50;
-              if (fId == 2615 || fId == 19306 || fId == 15009) {
+              if (fId == 2615 || fId == 19306) {
                 offset -= 50;
+              }
+              else if (fId == 15009) {
+                offset -= 70;
+              }
+              else if (fId == 13479) {
+                offset += 50;
               }
               var popup = new mapboxgl.Popup({ offset: [0, offset], closeOnMove: false, closeButton: false, closeOnClick: false, className: "routePopup" });
               var title = routeIdsForPopup[fId][0];
@@ -1493,7 +1499,7 @@
 
         function toolsHandler(event) {
           var toolBox = document.getElementById('tool_box');
-          var vis = lowerText.style.display;
+          var vis = toolBox.style.display;
           vis = vis == 'none' ? 'block' : 'none';
           toolBox.style.display = vis;
         }
