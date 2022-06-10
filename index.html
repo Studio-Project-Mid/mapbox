@@ -827,6 +827,8 @@
         map.addControl(nav, 'top-right');
         document.querySelector('.mapboxgl-ctrl-compass').addEventListener('click', () =>{
           
+          setMapInteractive(true);
+
           // Turn off 3D layer
           var layer_3d = document.getElementById('3D');
           layer_3d.checked = false;
@@ -1338,6 +1340,25 @@
           }
         }
 
+        function setMapInteractive(isEnable) {
+          if (isEnable) {
+            map.dragPan.enable();
+            map.scrollZoom.enable();
+            map.boxZoom.enable();
+            map.dragRotate.enable();
+            map.keyboard.enable();
+            map.doubleClickZoom.enable();
+          }
+          else {
+            map.dragPan.disable();
+            map.scrollZoom.disable();
+            map.boxZoom.disable();
+            map.dragRotate.disable();
+            map.keyboard.disable();
+            map.doubleClickZoom.disable();
+          }
+        }
+
         // class HelloWorldControl {
         //   onAdd(map) {
         //   this._map = map;
@@ -1483,6 +1504,7 @@
 
         function routeHandler(event) {
           turnOffAllLayers();
+          setMapInteractive(false);
           // Collapse legend
           accordionCollapse();
           // Turn ON route layers
