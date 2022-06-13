@@ -402,6 +402,12 @@ body {
   .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
     border: none;
   }
+  .mapboxgl-popup-anchor-left > .mapboxgl-popup-tip {
+    border: none;
+  }
+  .mapboxgl-popup-anchor-right > .mapboxgl-popup-tip {
+    border: none;
+  }
 
   /* .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip::after {
     content:"";
@@ -416,7 +422,10 @@ body {
   } */
 
   .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-    border: none;
+    /* border: none; */
+    /* background-color: black; */
+    opacity: 50%;
+    border-top-color: black;
   }
 
   /* .dotted:after {

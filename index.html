@@ -1434,16 +1434,16 @@
               var height = feature.properties['govasimple'];
               
               var offset = -height - 50;
-              if (fId == 2615 || fId == 19306) {
+              if (fId == 2615) {
                 offset -= 50;
               }
-              else if (fId == 15009) {
-                offset -= 70;
-              }
-              else if (fId == 13479) {
+              // else if (fId == 15009) {
+              //   offset -= 70;
+              // }
+              else if (fId == 13479 || fId == 43202 || fId == 25250) {
                 offset += 50;
               }
-              var popup = new mapboxgl.Popup({ offset: [0, offset], closeOnMove: false, closeButton: false, closeOnClick: false, className: "routePopup" });
+              var popup = new mapboxgl.Popup({ offset: [0, offset], closeOnMove: false, closeButton: false, closeOnClick: false, className: "routePopup", anchor: "bottom"});
               var title = routeIdsForPopup[fId][0];
               var subtitle = routeIdsForPopup[fId][1];
               var finaltitle = routeIdsForPopup[fId][2];
