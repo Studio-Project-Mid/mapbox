@@ -123,7 +123,10 @@
       'green areas and parks',
       'food-exist',
       'stay-points-exist',
-      'green areas and parks'
+      'green areas and parks',
+      'שהייה_',
+      'עבודה_',
+      'squares'
     ];
 
     var titlesHebrew = {
@@ -163,7 +166,7 @@
       var mainTitle = document.getElementById('main_title').children[0];
       var secondaryTitle = document.getElementById('secondary_title');
       var lowerText = document.getElementById('lower_text').children[0];
-      var instructionTitle= document.getElementById('instruction');
+      // var instructionTitle= document.getElementById('instruction');
       var accordionDiv = document.getElementById(titlesHebrew[titleName]);
       var clickedItem = document.getElementById(titleName);
       if (titleName == "מחקר") {
@@ -172,7 +175,7 @@
           mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
           secondaryTitle.style.display = 'block';
           lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
-          instructionTitle.style.display = 'none';
+          // instructionTitle.style.display = 'none';
         }
       }
       else if (titleName == "תכנון") {
@@ -180,7 +183,7 @@
         mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
         secondaryTitle.style.display = 'none';
         lowerText.innerHTML = 'התכנית העירונית פורסת רשת של מוקדים הפועלים יחד על מנת לאפשר קיום עירוני מגוון והבטחה של חיים בכבוד, גם ללא בית קבוע, ובעצם להיות בבית בעיר. הרשת מורכבת ממענה לצרכים בסיסיים ומאפשרת למשתמשים בה אפשרויות בחירה רבות.';
-        instructionTitle.style.display = 'block';
+        // instructionTitle.style.display = 'block';
         var vis = true;
         if (!planningOn && !researchOn) {
           vis = false;
@@ -189,7 +192,7 @@
           mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
           secondaryTitle.style.display = 'block';
           lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
-          instructionTitle.style.display = 'none';
+          // instructionTitle.style.display = 'none';
         }
         for (i = 0; i < research.children.length; i++) {
           var current_line = research.children[i];
@@ -220,13 +223,21 @@
           }
           
         }
+        if (planningOn && researchOn) {
+          var research_box = document.getElementById("מחקר");
+          research_box.checked = false;
+          var evt = document.createEvent("HTMLEvents");
+          evt.initEvent("change", false, true);
+          research_box.dispatchEvent(evt);
+        }
       }
       for (i = 0; i < accordionDiv.children.length; i++)
       {
         var current_line = accordionDiv.children[i];
         if (current_line.id.startsWith('accordion')) {
           var subTitleCheckBox = current_line.children[0].children[0].children[0].children[0];
-          subTitleCheckBox.checked = clickedItem.checked;
+          if (!individual_layers.includes(subTitleCheckBox.id))
+            subTitleCheckBox.checked = clickedItem.checked;
           var current_subtitle = current_line.children[0].children[1];
           for (j = 0; j < current_subtitle.children.length; j++){
             const current_layer = current_subtitle.children[j].children[0];
@@ -268,9 +279,9 @@
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ על הנקודות הצהובות להכרת הסיפורים האישיים
       לחץ על הנקודות האדומות בכיכר דיזינגוף \ שוק הכרמל להעמקת מקטע אזורי</p>
   </div>
-  <div class="instruction-title" id="instruction" style="display: none;">
+  <!-- <div class="instruction-title" id="instruction" style="display: none;">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">לחץ כאן לליווי דר רחוב ביומו בפריסה העירונית</p>
-  </div>
+  </div> -->
   <div class="lower-text" id="lower_text">
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.</p>
   </div>
@@ -288,11 +299,11 @@
       <div class="accordion" id="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" id="main_legend_button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick='accordionClick()'>
+            <button class="accordion-button" id="main_legend_button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick='accordionClick()'>
               מקרא
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse hide" aria-labelledby="headingOne1">
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne1">
             <div class="accordion" id="accordion1">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne1">
@@ -670,10 +681,15 @@
 
       var flying = false;
       var formToOpen = "";
-
+      var mapPopups = true;
       var draftMap = new mapboxgl.Map({
         container: 'map', 
         style: 'mapbox://styles/adigali/cl2vr1nwz003f14mzeyzvad26' 
+      });
+
+      var draftMap2 = new mapboxgl.Map({
+        container: 'map', 
+        style: 'mapbox://styles/adigali/cl4o2i8yw003p14l5y7pcdaa8' 
       });
 
       var map = new mapboxgl.Map({
@@ -777,11 +793,24 @@
         map.getCanvas().style.cursor = 'default';
 
         var draft_map_layers = draftMap.getStyle().layers;
+        var draft_map_layers2 = draftMap2.getStyle().layers;
         map.addSource('composite_new', draftMap.getStyle().sources['composite']);
+        map.addSource('composite_new2', draftMap2.getStyle().sources['composite']);
         for (i = 75; i < draft_map_layers.length; i++) {
+          var beforeLayer = map.getStyle().layers[map.getStyle().layers.length - 1].id;
+          if (draft_map_layers[i].id == 'kibbutz-nadavot' || draft_map_layers[i].id == 'collecting-bottles' || draft_map_layers[i].id == 'drug-deals') {
+            beforeLayer = map.getStyle().layers[78].id;
+          }
           draft_map_layers[i]['source'] += "_new";
           map.addLayer(
             draft_map_layers[i], 
+            beforeLayer
+          )
+        }
+        for (i = 74; i < draft_map_layers2.length; i++) {
+          draft_map_layers2[i]['source'] += "_new2";
+          map.addLayer(
+            draft_map_layers2[i], 
             map.getStyle().layers[map.getStyle().layers.length - 1].id
           )
         }
@@ -803,7 +832,7 @@
           document.getElementById("main_title").style.display = vis;
           document.getElementById("secondary_title").style.display = vis;
           document.getElementById("lower_text").style.display = vis;
-          document.getElementById("instruction").style.display = vis;
+          // document.getElementById("instruction").style.display = vis;
         }
 
         // Turn off 3D layer
@@ -839,7 +868,7 @@
         document.querySelector('.mapboxgl-ctrl-compass').addEventListener('click', () =>{
           
           setMapInteractive(true);
-
+          mapPopups = true;
           // Turn off 3D layer
           var layer_3d = document.getElementById('3D');
           layer_3d.checked = false;
@@ -902,46 +931,46 @@
         var layers_for_legend = {
           'מחקר': {
             '3D': '3D',
-            'city-border': 'גבול העיר',
-            'light-rail': 'תוואי הרכבת הקלה',
-            'metro': 'רכבת תחתית',
+            'sleeping-corners': 'לינה',
+            'food-exist': 'מזון',
+            'שהייה': {
+              'stay-points-exist': 'נקודות שהייה שנחקרו',
+              'green areas and parks': 'גינות',
+              'squares': 'כיכרות'
+            },
             'עבודה': {
               'kibbutz-nadavot': 'קיבוץ נדבות',
               'collecting-bottles': 'איסוף בקבוקים', 
               'drug-deals': 'עסקאות סמים' 
             },
-            'formal': 'מוסדות פורמליים',
-            'שהייה': {
-              'stay-points-exist': 'נקודות שהייה שנחקרו',
-              'green areas and parks': 'גינות'
-            },
-            'food-exist': 'מזון',
-            'sleeping-corners': 'לינה',
-            'parking': 'חניונים',
             'front yard and back yard': 'חצר קדמית ואחורית',
+            'formal': 'מוסדות פורמליים',
+            'parking': 'חניונים',
             'air-corridors': 'מסדרונות אוויר',
+            'city-border': 'גבול העיר',
+            'light-rail': 'תוואי הרכבת הקלה',
+            'metro': 'רכבת תחתית',
           },
           'תכנון': {
+            'לינה': {
+              '620-abandoned buildings': 'מבנים נטושים',
+              '650-ground-floors': 'קומות קרקע'
+            },
+            'מזון': {
+              'food-planning': 'מבנים נטושים',
+              'food-density': 'עמדות חלוקה',
+              'food-points': 'ריכוזיות מזון'
+            },
             'התרעננות': {
               'beaches-wardrobes': 'מלתחות חוף',
               'mikvahs': 'מקוואות',
-              'sport': 'מגרשי ספורט'
+              'sport': 'מגרשי ספורט',
+              '50-refreshment ground': 'קומות קרקע'
             },
-            'לינה': {
-              'abandoned-buildings': 'מבנים נטושים',
-              'abandoned-buildings-ground-floors': 'קומות קרקע'
-              // 'points-700-abandoned': 'מבנים נטושים', //TODO
-              // 'points-700-ground-floors': 'קומות קרקע' //TODO
-            },
-            'abandoned-buildings-resturants': 'נקודות חלוקת מזון',
-            'שהייה': {
-              'squares': 'כיכרות'
-            },
-            'סיוע_רפואי': {
-              'community centers': 'מרכזים קהילתיים'
+            'סיוע': {
+              'community centers': 'רפואי - מרכזים קהילתיים',
+              '80-support-ground-floor': 'תמיכה - קומות קרקע'
             }
-            // '3d-route': 'מסלול',
-            // '24h-homeless-route': '24שעות - מסלול'
           }
         }
 
@@ -957,7 +986,8 @@
           'stay-points-exist',
           'green areas and parks',
           'food-exist',
-          'שהייה'
+          'שהייה_',
+          'squares'
         ];
 
         var researchOn = true;
@@ -1019,14 +1049,14 @@
             var mainTitle = document.getElementById('main_title').children[0];
             var secondaryTitle = document.getElementById('secondary_title');
             var lowerText = document.getElementById('lower_text').children[0];
-            var instructionTitle= document.getElementById('instruction');
+            // var instructionTitle= document.getElementById('instruction');
             if (this.id == "מחקר") {
               researchOn = !researchOn;
               if (!planningOn) {
                 mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
                 secondaryTitle.style.display = 'block';
                 lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
-                instructionTitle.style.display = 'none';
+                // instructionTitle.style.display = 'none';
               }
             }
             else if (this.id == "תכנון") {
@@ -1034,7 +1064,7 @@
               mainTitle.innerHTML = 'פריסת מוקדים עירונית המאפשרת קיום חיים בסטטוס המעבר';
               secondaryTitle.style.display = 'none';
               lowerText.innerHTML = 'התכנית העירונית פורסת רשת של מוקדים הפועלים יחד על מנת לאפשר קיום עירוני מגוון והבטחה של חיים בכבוד, גם ללא בית קבוע, ובעצם להיות בבית בעיר. הרשת מורכבת ממענה לצרכים בסיסיים ומאפשרת למשתמשים בה אפשרויות בחירה רבות.';
-              instructionTitle.style.display = 'block';
+              // instructionTitle.style.display = 'block';
               var vis = true;
               if (!planningOn && !researchOn) {
                 vis = false;
@@ -1043,7 +1073,7 @@
                 mainTitle.innerHTML = 'כלי לקריאה מחודשת של תל-אביב מעיניהם של דרי הרחוב';
                 secondaryTitle.style.display = 'block';
                 lowerText.innerHTML = 'המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.';
-                instructionTitle.style.display = 'none';
+                // instructionTitle.style.display = 'none';
               }
               for (i = 0; i < startIdx + 1; i++) {
                 const current_layer = collapseOne.children[i].children[0];
@@ -1054,6 +1084,13 @@
                     continue;
                   setLayerVis(current_layer, e);
                 }
+              }
+              if (planningOn && researchOn) {
+                var research_box = document.getElementById("מחקר");
+                research_box.checked = false;
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("change", false, true);
+                research_box.dispatchEvent(evt);
               }
             }
             for (i = startIdx + 1; i < collapseOne.children.length; i++)
@@ -1080,7 +1117,7 @@
 
           var all_title = document.createElement('span');
           all_title.innerHTML = titleName;
-          all_title.style = "font-size:10.0pt; margin-left:10px;"
+          all_title.style = "font-size:10.0pt; margin-left:10px; letter-spacing: 0.5px;"
 
           line_div.appendChild(all_box);
           line_div.appendChild(all_title);
@@ -1091,6 +1128,15 @@
             collapseOne.appendChild(line_div);
           }
           
+        }
+
+        var subtitleColor = {
+          'שהייה': 'rgb(180, 188, 159)',
+          'עבודה': 'rgb(206, 200, 229)',
+          'לינה': 'rgb(248, 206, 94)',
+          'מזון': 'rgb(202, 55, 53)',
+          'התרעננות': 'rgb(126, 44, 133)',
+          'סיוע': 'rgb(41, 53, 116)'
         }
 
         var divNum = 3;
@@ -1135,7 +1181,13 @@
           finalTitle = subTitleName.includes('_') ? subTitleName.replace("_", " ") : subTitleName;
           buttonTitle.innerHTML = finalTitle;
           buttonTitle.style.paddingInline = '10px';
+          var color = subtitleColor[subTitleName];
+          var key = document.createElement('span');
+          key.className = 'legend-key';
+          key.style.backgroundColor = color;
+          key.style.borderRadius = '50%';
           accordionButton.appendChild(subTitleCheckBox);
+          accordionButton.appendChild(key);
           accordionButton.appendChild(buttonTitle);
           accordionItem.appendChild(accordionHead);
           accordionItem.appendChild(subTitleDiv);
@@ -1287,7 +1339,7 @@
 
           var value = document.createElement('span');
           value.innerHTML = hebrewName;
-          value.style = "font-size:10.0pt;"
+          value.style = "font-size:10.0pt; letter-spacing: 0.5px;"
 
           item.appendChild(link);
           item.appendChild(key);
@@ -1422,13 +1474,10 @@
         }
         
         routeIdsForPopup = {
-          12145: ['לינה', '-', 'הקצאה'],
-          2510: ['התרעננות | שירותים', '-', 'הקצאה'],
-          15009: ['שהייה', '-', 'טיפול מרחבי'],
-          43202: ['שהייה', '-', 'טיפול נופי'],
-          2615: ['מזון', 'חומוס גרגר הזהב | שוק לוינסקי', 'הסבה'],
-          19306: ['התרעננות', 'בית ספר קלישר', 'תוספת'],
-          13479: ['לינה, מזון ותמיכה', 'מבנה נטוש | נחלת בנימין 2', 'הסבה'],
+          7015: ['לינה, התרעננות ותמיכה', 'מסחר ומגורים', 'הקצאה בקרקע'],
+          2615: ['מזון', 'חומוס גרגר הזהב', 'הסבה'],
+          19306: ['התרעננות', 'מכללה לאמנות קלישר', 'תוספת'],
+          13479: ['לינה, מזון ותמיכה', 'מבנה נטוש', 'הסבה'],
           25250: ['סיוע רפואי', 'מרכז קהילתי אריק אינשטיין', 'תוספת']
         }
 
@@ -1526,6 +1575,7 @@
           formToOpen = -1;
           flyToFunc(center_pos, 15.6, 62, -45, false);
           isRouteOn = true;
+          mapPopups = false;
           // addPopupToRoute();
 
         }
@@ -1673,17 +1723,13 @@
 
         var layerHebrewNames = {
           'sleeping-corners': 'מרחבי לינה',
-          'informal': 'הזדמנויות',
-          'formal': 'מענים מוסדיים',
+          'formal': 'מוסד פורמלי',
           'city-border': 'גבול העיר',
           'green areas and parks': 'גינות',
           'front yard and back yard': 'חצר קדמית ואחורית',
-          'back-yard': 'חצר אחורית',
           'parking': 'חניונים',
-          'business': 'חנויות',
           'light-rail': 'תוואי הרכבת הקלה',
           '3D': '3D',
-          'strategic axes': 'צירים אסטרטגיים',
           'squares': 'כיכרות',
           'beaches-wardrobes': 'מלתחות חוף',
           'mikvahs': 'מקוואות',
@@ -1692,10 +1738,11 @@
           'metro': 'מטרו',
           'abandoned-buildings-sleeping': 'מבנים נטושים - שינה',
           'abandoned-buildings-resturants': 'מבנים נטושים - מסעדות',
-          '3d-route': 'מסלול',
-          '24h-homeless-route': '24 מסלול',
           'abandoned-buildings': 'מבנים נטושים',
-          'abandoned-buildings-ground-floors': 'קומות קרקע'
+          'abandoned-buildings-ground-floors': 'קומות קרקע',
+          'air-corridors': 'איוורור',
+          'food-exist': 'מזון',
+          'stay-points-exist': 'שהייה'
         }
 
         // create legend
@@ -1947,81 +1994,95 @@
         'parking',
         'green-areas-and-parks',
         '3d-route',
-        '24h-homeless-route'
+        '24h-homeless-route',
+        'food-points'
       ];
 
       var popupLabels = {
-        'abandoned-buildings': ['לינה', 'מבנה נטוש'],
-        'community centers': ['סיוע רפואי', 'מרכז קהילתי'],
+        '620-abandoned buildings': ['לינה', 'מבנה נטוש'],
+        '650-ground-floors': ['לינה', 'קומת קרקע'],
         'mikvahs': ['התרעננות', 'מקווה'],
         'beaches-wardrobes': ['התרעננות'],
         'sport': ['התרעננות', 'מרכז ספורט'],
         'abandoned-buildings-resturants': ['מזון', 'מבנה נטוש'],
         'green areas and parks': ['שהייה', 'גינות'],
-        'squares': ['שהייה', 'כיכרות']
+        'squares': ['שהייה', 'כיכרות'],
+        'food-density': ['מזון', 'עמדת חלוקה'],
+        'food-planning': ['מזון', 'מבנה נטוש'],
+        'community centers': ['סיוע רפואי', 'מרכזים קהילתיים'],
+        '80-support-ground-floor': ['צוות תומך', 'קומות קרקע'],
+        '50-refreshment ground': ['התרעננות', 'קומת קרקע']
       }
 
       function hoverPopupMove(popup) {
         map.on('mousemove', function (e) {
-            var features = map.queryRenderedFeatures(e.point, {
-              layers: layers
-            });
-            if (!features.length) {
-              return;
-            }
-            var feature = features[0];
-            var layerId = feature.layer.id;
-            if (layerId == '3d-route')
-              console.log(feature);
-            // +
-            //                   '<p>'  +
-            //                   layerHebrewNames[feature.layer.id] +
-            //                   '</p>';
-            if (!(noPopupLayers.includes(layerId))) {
-              var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[layerId];
-              var htmlText = '<h3 class="h3_1"><b>' +
-                              title +
-                              '</b></h3>';
-              if (layerId == 'sleeping-corners') {
-                htmlText =  '<h3 class="h3_2">שם' + 
-                            '<br><b>' +
-                            feature.properties["name_he"] +
-                            '</b></br></h3>' +
-                            '<h3 class="h3_2">מרחב לינה' + 
-                            '<br><b>' +
-                            feature.properties["sleeping corner"] +
-                            '</b></br></h3>' +
-                            '<h3 class="h3_1"><b>' +
-                            feature.properties["description"] +
-                            '</b></h3>';
-                popup.setMaxWidth('240px');
-              }
-              else if (layerId == 'strategic-axes' && "tsug" in feature.properties) {
-                htmlText =  '<h3><b>' +
-                            feature.properties["name_he"] +
-                            '</b></h3>' +
-                            '<h3 class="h3_2">שעות פעילות' + 
-                            '<br><b>' +
-                            feature.properties["tsug"] +
-                            '</b></br></h3>';
-                popup.setMaxWidth('240px');
-              }
-              else if (layerId in popupLabels) {
-                title = popupLabels[layerId][0];
-                var content = popupLabels[layerId].length == 2 ? popupLabels[layerId][1] : feature.properties["name_he"];
-                htmlText =  '<h3 class="h3_3">' +
+          var features = map.queryRenderedFeatures(e.point, {
+            layers: layers
+          });
+          if (!features.length) {
+            return;
+          }
+          var feature = features[0];
+          var layerId = feature.layer.id;
+          if (!(noPopupLayers.includes(layerId)) && mapPopups) {
+            var title = feature.properties["name_he"] != undefined ? feature.properties["name_he"] : layerHebrewNames[layerId];
+            var htmlText = '<h3 class="h3_1"><b>' +
                             title +
-                            '</h3><h3 class="h3_1">' +
-                            content +
-                            '</h3>';
-              }
-              popup.setLngLat(e.lngLat)
-              .setHTML(htmlText)
-              .addTo(map);
+                            '</b></h3>';
+            if (layerId == 'sleeping-corners') {
+              htmlText =  '<h3 class="h3_2">שם' + 
+                          '<br><b>' +
+                          feature.properties["name_he"] +
+                          '</b></br></h3>' +
+                          '<h3 class="h3_2">מרחב לינה' + 
+                          '<br><b>' +
+                          feature.properties["sleeping corner"] +
+                          '</b></br></h3>' +
+                          '<h3 class="h3_1"><b>' +
+                          feature.properties["description"] +
+                          '</b></h3>';
+              popup.setMaxWidth('240px');
             }
-            else {
-              popup.remove();
+            else if (layerId == 'food-exist' || layerId == 'stay-points-exist' || layerId == 'formal') {
+              htmlText = '<h3 class="h3_3">' +
+                          layerHebrewNames[layerId] +
+                          '</h3><h3 class="h3_1">' +
+                          title +
+                          '</h3>';
+              popup.setMaxWidth('240px');
             }
+            else if (layerId == 'front yard and back yard') {
+              title = feature.properties["name"] == 'back' ? 'חצר אחורית' : 'חצר קדמית';
+              htmlText = '<h3 class="h3_1"><b>' +
+                            title +
+                            '</b></h3>';
+            }
+            else if (layerId == 'strategic-axes' && "tsug" in feature.properties) {
+              htmlText =  '<h3><b>' +
+                          feature.properties["name_he"] +
+                          '</b></h3>' +
+                          '<h3 class="h3_2">שעות פעילות' + 
+                          '<br><b>' +
+                          feature.properties["tsug"] +
+                          '</b></br></h3>';
+              popup.setMaxWidth('240px');
+            }
+            else if (layerId in popupLabels) {
+              title = popupLabels[layerId][0];
+              var content = popupLabels[layerId].length == 2 ? popupLabels[layerId][1] : feature.properties["name_he"];
+              htmlText =  '<h3 class="h3_3">' +
+                          title +
+                          '</h3><h3 class="h3_1">' +
+                          content +
+                          '</h3>';
+            }
+            popup.setLngLat(e.lngLat)
+            .setHTML(htmlText)
+            .addTo(map);
+          }
+          else {
+            popup.remove();
+          }
         });
         map.on('mouseleave', function(e) {
           popup.remove();

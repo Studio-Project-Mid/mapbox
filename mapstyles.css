@@ -4,21 +4,26 @@ body {
   }
   h1 {
     font-size:16.0pt;
+    letter-spacing: 0.5px;
   }
   h2 {
     font-size:10.0pt;
+    letter-spacing: 0.5px;
   }
   h3 {
     margin: 10px;
     font-size: 1.2em;
+    letter-spacing: 0.5px;
   }
   h3 {
     font-size: 1em;
+    letter-spacing: 0.5px;
   }
   p {
     font-size: 0.85em;
     margin: 10px;
     text-align: left;
+    letter-spacing: 0.5px;
   }
   .map-overlay {
     position: absolute;
@@ -222,6 +227,7 @@ body {
     overflow-y: auto;
     text-align:justify;
     font-family: 'Assistant';
+    letter-spacing: 0.5px;
   }
 
   .form-popup button.btn-outline-secondary {
@@ -232,22 +238,26 @@ body {
     direction: rtl;
     text-align: right;
     font-family: 'Assistant';
+    letter-spacing: 0.5px;
   }
 
   .form-container {
     width: 560;
     padding: 10px;
     background-color: white;
+    letter-spacing: 0.5px;
   }
   .form-container h3{
     font-family: 'Assistant';
     font-size: 0.8em;
     color: gray;
     opacity: 70%;
+    letter-spacing: 0.5px;
   }
 
   .form-container b{
     color: black;
+    letter-spacing: 0.5px;
   }
 
   .text-container {
@@ -263,6 +273,7 @@ body {
     background-color: rgba(255,255,255, 0.6);
     text-align: right;
     width: 560px;
+    letter-spacing: 0.5px;
   }
   #close {
 
@@ -353,6 +364,7 @@ body {
     font-family: 'Assistant';
     text-align: right;
     direction: rtl;
+    letter-spacing: 0.5px;
   }
   .mapboxgl-popup-content{
     background-color: black;
@@ -361,6 +373,7 @@ body {
     text-align: right;
     direction: rtl;
     padding-right: 0px;
+    letter-spacing: 0.5px;
   }
 
   .routePopup .mapboxgl-popup-content {
@@ -375,46 +388,56 @@ body {
     display: inline-block;
     direction: rtl;
     padding-bottom: 10px;
+    letter-spacing: 0.5px;
   }
   
   .mapboxgl-popup-content h3.h3_1{
     color: white;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-content b{
     color: white;
+    letter-spacing: 0.5px;
   }
 
   .routePopup .mapboxgl-popup-content h3{
     color: white;
     font-weight: bolder;
+    letter-spacing: 0.5px;
   }
 
   .routePopup .mapboxgl-popup-content h3.h3_1{
     color: white;
+    letter-spacing: 0.5px;
   }
 
   .routePopup .mapboxgl-popup-content b{
     color: white;
     font-weight: 900;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-content h3.h3_2{
     color: gray;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-content h3.h3_3{
     color: white;
-    font-weight: 900;
-    font: bold;
+    font-weight: bolder;
+    font-size: 11pt;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-content h2{
     color: gray;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-content p{
     color: white;
+    letter-spacing: 0.5px;
   }
 
   .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
