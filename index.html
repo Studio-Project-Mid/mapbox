@@ -696,9 +696,10 @@
         return image_list[index_dict[imageId]];
       }
 
-      function createFullImageSeries(imgId, nextForm, image_list) {
+      function createFullImageSeries(imgId, nextForm, previousForm, image_list) {
         var divItem = document.createElement('div');
         divItem.className = 'full-image';
+        divItem.style.opacity = '100%';
         divItem.id = imgId;
         document.body.appendChild(divItem);
         // Close Button
@@ -715,6 +716,13 @@
         var innerButtonDiv = document.createElement('div');
         innerButtonDiv.className = 'button__arrow button__arrow--left';
         arrowButton.appendChild(innerButtonDiv);
+        // Right Arrow
+        var rightArrowButton = document.createElement('button');
+        rightArrowButton.className = 'button1';
+        rightArrowButton.onclick = function() {changeSource(imgId, previousForm);};
+        var innerRightButtonDiv = document.createElement('div');
+        innerRightButtonDiv.className = 'button__arrow button__arrow--right';
+        rightArrowButton.appendChild(innerRightButtonDiv);
         // Adobe
         var innerDiv = document.createElement('div');
         innerDiv.id = imgId + "_in";
@@ -726,11 +734,12 @@
           "var adobeDCView = new AdobeDC.View({clientId: \"9029a3f828a14ab9b10c9b799a7981d8\", divId: \"" + innerDiv.id + "\"});" +
           "adobeDCView.previewFile({" +
             "content:{location: {url: \"https://studio-project-mid.github.io/mapbox/images/" + imgId + ".pdf\"}}," +
-            "metaData:{fileName: \"" + imgId + "\"}" +
-          "}, {embedMode: \"SIZED_CONTAINER\", showDownloadPDF: false, showPrintPDF: false});" +
+            "metaData:{fileName: \" \"}" +
+          "}, {embedMode: \"SIZED_CONTAINER\", showDownloadPDF: false, showPrintPDF: false, showPageControls: false, showAnnotationTools: false});" +
         "});";
         divItem.appendChild(closeButton);
         divItem.appendChild(arrowButton);
+        divItem.appendChild(rightArrowButton);
         divItem.appendChild(innerDiv);
         divItem.appendChild(firstScript);
         divItem.appendChild(secondScript);
@@ -754,12 +763,14 @@
       for (i = 0; i < klisher_images_list.length; i++) {
         var imgId = klisher_images_list[i];
         var nextForm = i == klisher_images_list.length - 1 ? klisher_images_list[0] : klisher_images_list[i + 1];
-        createFullImageSeries(imgId, nextForm, klisher_images_list);
+        var previousForm = i == 0 ? klisher_images_list[klisher_images_list.length - 1] : klisher_images_list[i - 1];
+        createFullImageSeries(imgId, nextForm, previousForm, klisher_images_list);
       }
       for (i = 0; i < binyamin_images_list.length; i++) {
         var imgId = binyamin_images_list[i];
         var nextForm = i == binyamin_images_list.length - 1 ? binyamin_images_list[0] : binyamin_images_list[i + 1];
-        createFullImageSeries(imgId, nextForm, binyamin_images_list);
+        var previousForm = i == 0 ? binyamin_images_list[binyamin_images_list.length - 1] : binyamin_images_list[i - 1];
+        createFullImageSeries(imgId, nextForm, previousForm, binyamin_images_list);
       }
 
       map.on('load', function () {

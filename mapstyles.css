@@ -126,6 +126,19 @@ body {
 
     padding: 8px;
   }
+
+  .button1 {
+    position: absolute;
+    top: 50%;
+    left: 92%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    padding: 8px;
+  }
   
   .button__arrow {
     background-color: transparent;
@@ -138,6 +151,11 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     border-left: 1px solid rgba(0, 0, 0, 0.3);
     transform: translateX(25%) rotate(45deg);
+  }
+  .button__arrow--right {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    transform: rotate(-45deg);
   }
   #map {
     position: absolute;
