@@ -20,7 +20,7 @@ body {
     letter-spacing: 0.5px;
   }
   p {
-    font-size: 0.85em;
+    font-size: 0.75em;
     margin: 10px;
     text-align: left;
     letter-spacing: 0.5px;
@@ -63,11 +63,11 @@ body {
     direction: rtl;
   }
   .lower-text {
-    display: block;
+    display: none;
     position: fixed;
     bottom: 20px;
     width: 400px;
-    right: 4px;
+    right: 45px;
     background-color: black;
     opacity: 70%;
     vertical-align: middle;
@@ -525,4 +525,11 @@ body {
     background-position: center;
     pointer-events: auto;
     background-image: url('tool-box.png');
+  }
+
+  .mapbox-gl-info {
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: auto;
+    background-image: url('info_icon.png');
   }
