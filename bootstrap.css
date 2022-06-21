@@ -4414,12 +4414,12 @@ textarea.form-control-lg {
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
-  opacity: 70%;
+  opacity: 90%;
   /* color: #212529; */
   color: white;
   text-align: left;
   /* background-color: #fff; */
-  background-color: black;
+  background-color: #585858;
   border: 0;
   border-radius: 0;
   overflow-anchor: none;
@@ -4476,12 +4476,12 @@ textarea.form-control-lg {
   height: fit-content;
   /* padding: 1rem 1.25rem; */
   font-size: 0.9rem;
-  opacity: 70%;
+  opacity: 90%;
   /* color: #212529; */
   color: white;
   text-align: left;
   /* background-color: #fff; */
-  background-color: black;
+  background-color: #585858;
   border: 0;
   border-radius: 0;
   overflow-anchor: none;
@@ -4536,9 +4536,9 @@ textarea.form-control-lg {
 
 .accordion-item {
   /* background-color: #fff; */
-  background-color: #403d3d;
+  background-color: #585858;
   color: white;
-  opacity: 70%;
+  opacity: 90%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   font-family: 'Assistant';
 }
