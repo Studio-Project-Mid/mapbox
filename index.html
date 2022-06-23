@@ -701,6 +701,7 @@
       var pos = [34.77551, 32.07435];
       var isRouteOn = false;
       var routePopups = [];
+      var inRouteIds = [];
 
       function closeAllImages(image_list) {
         for (i = 0; i < image_list.length; i++) {
@@ -885,6 +886,7 @@
             while (routePopups.length > 0) {
               routePopups.pop().remove();
             }
+            inRouteIds = [];
             // Turn off route layers
             for (i = 0; i < route_layers.length; i++) {
               var idx = i;
@@ -1490,17 +1492,17 @@
             var feature = features[i];
             var fId = feature.properties['idbinyan'];
 
-            if (fId in routeIdsForPopup) {
+            if (fId in routeIdsForPopup && !inRouteIds.includes(fId)) {
               var height = feature.properties['govasimple'];
               
               var offset = -height - 50;
               if (fId == 2615) {
-                offset -= 50;
+                offset -= 20;
               }
-              // else if (fId == 15009) {
-              //   offset -= 70;
-              // }
-              else if (fId == 13479 || fId == 43202 || fId == 25250) {
+              else if (fId == 7015) {
+                offset += 30;
+              }
+              else if (fId == 13479 || fId == 25250 || fId == 19306) {
                 offset += 50;
               }
               var popup = new mapboxgl.Popup({ offset: [0, offset], closeOnMove: false, closeButton: false, closeOnClick: false, className: "routePopup", anchor: "bottom"});
@@ -1551,6 +1553,7 @@
               .setHTML(htmlText)
               .addTo(map);
               routePopups.push(popup);
+              inRouteIds.push(fId);
             }
           }
         }
@@ -1570,8 +1573,9 @@
           // Turn ON route layers
           setRouteVis('visible');
           setTitlesVis("none");
-          
-          center_pos = [34.771146978793695, 32.0639430515279];
+
+          // center_pos = [34.771146978793695, 32.0639430515279]; // Previous position -- return if needed!!!
+          center_pos = [34.771516038147865, 32.06527406203743];
           formToOpen = -1;
           flyToFunc(center_pos, 15.6, 62, -45, false);
           isRouteOn = true;
@@ -1899,8 +1903,6 @@
           });
           map.fire('flystart');
         }
-
-
 
         function updateTextDiv(divId, properties, text="") {
 
