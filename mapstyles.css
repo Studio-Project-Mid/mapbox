@@ -378,6 +378,13 @@ body {
     right: 15px;
     z-index: 9;
   }
+  .form-popup audio {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    width: 560px;
+  }
   .mapboxgl-popup {
     font-family: 'Assistant';
     text-align: right;
@@ -552,10 +559,12 @@ body {
   }
 
   .mapbox-gl-info {
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat;
     background-position: center;
     pointer-events: auto;
-    background-image: url('info_icon.png');
+    background-image: url('info_icon.png'); */
+    background: url('https://api.iconify.design/bi/info.svg?width=12&height=12') no-repeat center center / contain;
+    content: url('https://api.iconify.design/bi/info.svg?width=12&height=12');
   }
 
   .mapbox-gl-matrix {
