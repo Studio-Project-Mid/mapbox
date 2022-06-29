@@ -259,6 +259,12 @@ body {
     letter-spacing: 0.5px;
   }
 
+  .form-popup img {
+    max-width: 560px;
+    width: auto;
+    height: auto;
+  }
+
   .form-container {
     width: 560;
     padding: 10px;
@@ -399,6 +405,7 @@ body {
     direction: rtl;
     padding-right: 0px;
     letter-spacing: 0.5px;
+    padding: 0px;
   }
 
   .routePopup .mapboxgl-popup-content {
@@ -442,7 +449,7 @@ body {
     color: white;
     font-weight: 900;
     letter-spacing: 0.5px;
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 
   .mapboxgl-popup-content h3.h3_2{
@@ -572,6 +579,6 @@ body {
     background-position: center;
     pointer-events: auto;
     background-image: url('info_icon.png'); */
-    content: url('https://api.iconify.design/mdi/matrix.svg?width=14&height=14');
-    background: url('https://api.iconify.design/mdi/matrix.svg?width=14&height=14') no-repeat center center / contain;
+    content: url('https://api.iconify.design/material-symbols/grid-4x4-rounded.svg?width=12&height=12');
+    background: url('https://api.iconify.design/material-symbols/grid-4x4-rounded.svg?width=12&height=12') no-repeat center center / contain;
   }
