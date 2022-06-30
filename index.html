@@ -94,7 +94,6 @@
     function openForm(idx) {
       for (i = 0; i < forms.length; i++) {
         if (i == idx) {
-          // console.log(forms[i]);
           document.getElementById(forms[i]).style.display = "block";
         }
         else {
@@ -104,7 +103,6 @@
     }
 
     function openImage(id) {
-      // console.log('here: ' + id);
       document.getElementById(id).style.display = "block";
       closeForm();
     }
