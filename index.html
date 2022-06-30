@@ -1103,13 +1103,6 @@
           );
         }
 
-        function setTitlesVis(vis) {
-          document.getElementById("main_title").style.display = vis;
-          document.getElementById("secondary_title").style.display = vis;
-          // document.getElementById("lower_text").style.display = vis;
-          // document.getElementById("instruction").style.display = vis;
-        }
-
         // Turn off 3D layer
         map.setLayoutProperty(
             '3D',
@@ -1181,7 +1174,7 @@
             evt.initEvent("change", false, true);
             planning_checkbox.dispatchEvent(evt);
             // Turn on map titles
-            setTitlesVis("block");
+            document.getElementById("main_title").style.display = "block";
             // Fly back up
             map.fire('flystart');
           }
@@ -1895,7 +1888,8 @@
           accordionCollapse();
           // Turn ON route layers
           setRouteVis('visible');
-          setTitlesVis("none");
+          document.getElementById("main_title").style.display = "none";
+          document.getElementById("secondary_title").style.display = "none";
 
           // center_pos = [34.771146978793695, 32.0639430515279]; // Previous position -- return if needed!!!
           center_pos = [34.771516038147865, 32.06527406203743];
