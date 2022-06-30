@@ -898,7 +898,8 @@
 
       function closeAllImages(image_list) {
         for (i = 0; i < image_list.length; i++) {
-          document.getElementById(image_list[i]).style.display = 'none';
+          // document.getElementById(image_list[i]).style.display = 'none';
+          document.getElementById(image_list[i]).remove();
         }
       }
 
@@ -1016,16 +1017,43 @@
         refreshment_list
       ];
 
-      for (j = 0; j < image_lists_for_planning.length; j++) {
-        var folderSize = image_lists_for_planning[j].length;
-        var folderName = image_lists_for_planning[j][folderSize - 1];
+      // function addDocsToRoute(){
+      //   for (j = 0; j < image_lists_for_planning.length; j++) {
+      //     var folderSize = image_lists_for_planning[j].length;
+      //     var folderName = image_lists_for_planning[j][folderSize - 1];
+      //     for (i = 0; i < folderSize - 1; i++) {
+      //       var imgId = image_lists_for_planning[j][i];
+      //       var nextForm = i == image_lists_for_planning[j].length - 1 ? image_lists_for_planning[j][0] : image_lists_for_planning[j][i + 1];
+      //       var previousForm = i == 0 ? image_lists_for_planning[j][image_lists_for_planning[j].length - 1] : image_lists_for_planning[j][i - 1];
+      //       createFullImageSeries(imgId, nextForm, previousForm, image_lists_for_planning[j], folderName);
+      //     }
+      //   }
+      // }
+
+      function addDocsToRoute(image_list) {
+        var folderSize = image_list.length;
+        var folderName = image_list[folderSize - 1];
         for (i = 0; i < folderSize - 1; i++) {
-          var imgId = image_lists_for_planning[j][i];
-          var nextForm = i == image_lists_for_planning[j].length - 1 ? image_lists_for_planning[j][0] : image_lists_for_planning[j][i + 1];
-          var previousForm = i == 0 ? image_lists_for_planning[j][image_lists_for_planning[j].length - 1] : image_lists_for_planning[j][i - 1];
-          createFullImageSeries(imgId, nextForm, previousForm, image_lists_for_planning[j], folderName);
+          var imgId = image_list[i];
+          var nextForm = i == image_list.length - 1 ? image_list[0] : image_list[i + 1];
+          var previousForm = i == 0 ? image_list[image_list.length - 1] : image_list[i - 1];
+          createFullImageSeries(imgId, nextForm, previousForm, image_list, folderName);
+        }
+        
+      }
+
+      function openRouteForm(image_list_str) {
+        image_list = eval(image_list_str);
+        addDocsToRoute(image_list);
+        document.getElementById(image_list[0]).style.display = 'block';
+      }
+
+      function closeRouteForm(image_list) {
+        for (i = 0; i < image_list.length; i++) {
+          document.getElementById(image_list[i]).remove();
         }
       }
+
 
       // for (i = 0; i < magen_david_list.length; i++) {
       //   var imgId = magen_david_list[i];
@@ -1757,11 +1785,11 @@
         }
         
         routeIdsForPopup = {
-          7015: [['לינה, התרעננות ותמיכה', 'מסחר ומגורים', 'הקצאה בקרקע'], allocations_list[0]],
-          2615: [['מזון', 'חומוס גרגר הזהב', 'הסבה'], food_point_list[0]],
-          19306: [['התרעננות', 'מכללה לאמנות קלישר', 'תוספת'], refreshment_list[0]],
-          13479: [['לינה, מזון ותמיכה', 'מבנה נטוש', 'הסבה'], magen_david_list[0]],
-          25250: [['סיוע רפואי', 'מרכז קהילתי אריק איינשטיין', 'תוספת'], medical_treatment_list[0]]
+          7015: [['לינה, התרעננות ותמיכה', 'מסחר ומגורים', 'הקצאה בקרקע'], "allocations_list"],
+          2615: [['מזון', 'חומוס גרגר הזהב', 'הסבה'], "food_point_list"],
+          19306: [['התרעננות', 'מכללה לאמנות קלישר', 'תוספת'], "refreshment_list"],
+          13479: [['לינה, מזון ותמיכה', 'מבנה נטוש', 'הסבה'], "magen_david_list"],
+          25250: [['סיוע רפואי', 'מרכז קהילתי אריק איינשטיין', 'תוספת'], "medical_treatment_list"]
         }
 
         function addPopupToRoute() {
@@ -1774,7 +1802,7 @@
             var fId = feature.properties['idbinyan'];
 
             if (fId in routeIdsForPopup && !inRouteIds.includes(fId)) {
-              var firstImg = routeIdsForPopup[fId][1];
+              var imageList = routeIdsForPopup[fId][1];
               var height = feature.properties['govasimple'];
               
               var offset = -height - 50;
@@ -1791,7 +1819,7 @@
               var title = routeIdsForPopup[fId][0][0];
               var subtitle = routeIdsForPopup[fId][0][1];
               var finaltitle = routeIdsForPopup[fId][0][2];
-              var htmlText = '<div id="popupButton" class="routePopup" onclick=openImage("' + firstImg + '")>' +
+              var htmlText = '<div id="popupButton" class="routePopup" onclick=openRouteForm(' + imageList + ')>' +
                               '<h3><b>' +
                               title +
                               '</b></h3>' +
