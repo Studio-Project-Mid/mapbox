@@ -2312,15 +2312,14 @@
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "מנהל בסטה בשוק הכרמל");
               }
               else if (prop == 'dizengoff Bottles') {
-                if (!dizengoffOn)
-                  updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
+                updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
-              else if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
+              if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
                 dizengoffOn = true;
                 flyToFunc(e.features[0].geometry.coordinates, 16, 60, 0, true);
                 formToOpen = formIdx[prop];
               }
-              else if (!(prop == 'market')) {
+              else if (!(prop == 'market') && !dizengoffOn) {
                 openForm(formIdx[prop]);
               }
             }
