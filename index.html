@@ -329,19 +329,19 @@
     <p style="padding-right: 2px; padding-left: 2px; text-align: right;">המחקר מבוסס על 19 סיפורים אישיים של דרי ודרות רחוב בעיר תל אביב, אשר על מנת להתקיים ולענות על צרכיהם הבסיסיים, נשענים על משאבים בעיר באופן סמוי. אלו, מוצגים לצד שכבות מידע של העיר שנבחנו בהתייחסות לסוגיית דרות הרחוב.</p>
   </div>
   <div class="tool-box" id="tool_box" style="display: none;">
-    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p>
+    <!-- <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p> -->
     <embed
-        height="100%"
+        height="99%"
         width="100%" 
-        src="images/final/Toolbox_BW.pdf#view=Fit">
+        src="images/final/Toolbox_BW.pdf#view=Fit&toolbar=0">
       </embed>
   </div>
   <div class="matrix-class" id="matrix" style="display: none;">
-    <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p>
+    <!-- <p style="padding-right: 2px; padding-left: 2px; text-align: right;">ארגז כלים</p> -->
     <embed
-        height="100%"
+        height="98.5%"
         width="100%" 
-        src="images/final/Network_matrix.pdf#view=Fit">
+        src="images/final/Network_matrix.pdf#view=Fit&toolbar=0">
       </embed>
   </div>
   <body>
@@ -468,6 +468,9 @@
             metaData:{fileName: "מקטע דיזינגוף"}
           }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
         });
+        var pdfHeader = document.getElementsByClassName('sdk-HeaderView-header')[0];
+        if (pdfHeader != undefined)
+          pdfHeader.remove();
       </script>
     </div>
    
@@ -891,6 +894,8 @@
       var routePopups = [];
       var inRouteIds = [];
 
+      var dizengoffOn = false;
+
       function closeAllImages(image_list) {
         for (i = 0; i < image_list.length; i++) {
           document.getElementById(image_list[i]).style.display = 'none';
@@ -1139,6 +1144,7 @@
           
           setMapInteractive(true);
           mapPopups = true;
+          dizengoffOn = false;
           // Turn off 3D layer
           var layer_3d = document.getElementById('3D');
           layer_3d.checked = false;
@@ -1904,6 +1910,7 @@
         function toolsHandler(event) {
           var toolBox = document.getElementById('tool_box');
           var vis = toolBox.style.display;
+          document.getElementById('matrix').style.display = 'none';
           vis = vis == 'none' ? 'block' : 'none';
           toolBox.style.display = vis;
         }
@@ -1918,6 +1925,7 @@
         function matrixHandler(event) {
           var matrix = document.getElementById('matrix');
           var matrixVis = matrix.style.display;
+          document.getElementById('tool_box').style.display = 'none';
           matrixVis = matrixVis == 'none' ? 'block' : 'none';
           matrix.style.display = matrixVis;
 
@@ -2296,6 +2304,7 @@
             }
             // console.log(prop);
             if (prop in formIdx) {
+              
               if (e.features[0].layer['id'] == 'sleeping-corners') {
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties);
               }
@@ -2303,9 +2312,11 @@
                 updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "מנהל בסטה בשוק הכרמל");
               }
               else if (prop == 'dizengoff Bottles') {
-                updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
+                if (!dizengoffOn)
+                  updateTextDiv(forms[formIdx[prop]], e.features[0].properties, "ציר אסטרטגי - איסוף בקבוקים");
               }
-              if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
+              else if (prop == "Dizengoff  Square" || (prop == "market" && e.features[0].layer['id'] == 'food-exist')) {
+                dizengoffOn = true;
                 flyToFunc(e.features[0].geometry.coordinates, 16, 60, 0, true);
                 formToOpen = formIdx[prop];
               }

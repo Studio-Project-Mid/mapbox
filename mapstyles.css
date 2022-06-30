@@ -88,8 +88,9 @@ body {
     margin:4px, 4px;
     padding:4px;
     background-color: white;
-    width: 260px;
-    height: 90%;
+    width: 360px;
+    /* height: 97%; */
+    height: 84%;
     overflow-x: hidden;
     overflow-y: auto;
     text-align:justify;
@@ -106,9 +107,10 @@ body {
     margin:4px, 4px;
     padding:4px;
     background-color: white;
-    width: 350px;
-    height: 560px;
-    opacity: 70%;
+    width: 400px;
+    /* height: 460px; */
+    height: 405px;
+    /* opacity: 70%; */
     overflow-x: hidden;
     overflow-y: auto;
     text-align:justify;
