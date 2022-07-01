@@ -118,6 +118,10 @@
       closeForm();
     }
 
+    function openRouteImage(id) {
+      document.getElementById(id).style.display = "block";
+    }
+
     function closeImage(id1, id2) {
       document.getElementById(id1).style.display = "none";
       openForm(formIdx[id2]);
@@ -476,7 +480,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "94680971527e46e7983267addec8b11b", divId: "Dizengoff  Square_in_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/final/Sections/Dizengoff Section.pdf"}},
-            metaData:{fileName: ""}
+            metaData:{fileName: " "}
           }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
         });
         var pdfHeader = document.getElementsByClassName('sdk-HeaderView-header')[0];
@@ -495,7 +499,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "94680971527e46e7983267addec8b11b", divId: "Dizengoff  Square_in2_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/final/Sections/Zoom-in Section.pdf"}},
-            metaData:{fileName: ""}
+            metaData:{fileName: " "}
           }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
         });
       </script>
@@ -510,7 +514,7 @@
           var adobeDCView = new AdobeDC.View({clientId: "94680971527e46e7983267addec8b11b", divId: "market_in_in"});
           adobeDCView.previewFile({
             content:{location: {url: "https://studio-project-mid.github.io/mapbox/images/final/Sections/Market Section.pdf"}},
-            metaData:{fileName: ""}
+            metaData:{fileName: " "}
           }, {embedMode: "SIZED_CONTAINER", showDownloadPDF: false, showPrintPDF: false});
         });
       </script>
@@ -543,7 +547,7 @@
       </script>
     </div> -->
 
-    <div class="full-image" id="Allocations_all">
+    <div class="full-image" id="Allocations_all" style="opacity: 100%;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeCurrentImage("Allocations_all")'>x</button>
       <!-- <button class="button" onclick="changeSource('Allocations_all', 'Allocations_all_in')"><div class="button__arrow button__arrow--left"></div></button> -->
       <div id="Allocations_all_in"></div>
@@ -559,7 +563,7 @@
       </script>
     </div>
 
-    <div class="full-image" id="Magen_David_all">
+    <div class="full-image" id="Magen_David_all" style="opacity: 100%;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeCurrentImage("Magen_David_all")'>x</button>
       <!-- <button class="button" onclick="changeSource('Allocations_all', 'Allocations_all_in')"><div class="button__arrow button__arrow--left"></div></button> -->
       <div id="Magen_David_all_in"></div>
@@ -575,7 +579,7 @@
       </script>
     </div>
 
-    <div class="full-image" id="Food_Point_all">
+    <div class="full-image" id="Food_Point_all" style="opacity: 100%;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeCurrentImage("Food_Point_all")'>x</button>
       <!-- <button class="button" onclick="changeSource('Allocations_all', 'Allocations_all_in')"><div class="button__arrow button__arrow--left"></div></button> -->
       <div id="Food_Point_all_in"></div>
@@ -591,7 +595,7 @@
       </script>
     </div>
 
-    <div class="full-image" id="Medical_Treatment_all">
+    <div class="full-image" id="Medical_Treatment_all" style="opacity: 100%;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeCurrentImage("Medical_Treatment_all")'>x</button>
       <!-- <button class="button" onclick="changeSource('Allocations_all', 'Allocations_all_in')"><div class="button__arrow button__arrow--left"></div></button> -->
       <div id="Medical_Treatment_all_in"></div>
@@ -607,7 +611,7 @@
       </script>
     </div>
 
-    <div class="full-image" id="Refreshment_all">
+    <div class="full-image" id="Refreshment_all" style="opacity: 100%;">
       <button type="button" class="btn btn-outline-dark" id='close' onclick='closeCurrentImage("Refreshment_all")'>x</button>
       <!-- <button class="button" onclick="changeSource('Allocations_all', 'Allocations_all_in')"><div class="button__arrow button__arrow--left"></div></button> -->
       <div id="Refreshment_all_in"></div>
@@ -1906,7 +1910,7 @@
               var title = routeIdsForPopup[fId][0][0];
               var subtitle = routeIdsForPopup[fId][0][1];
               var finaltitle = routeIdsForPopup[fId][0][2];
-              var htmlText = '<div id="popupButton" class="routePopup" onclick=openImage("' + imageToOpen + '")>' +
+              var htmlText = '<div id="popupButton" class="routePopup" onclick=openRouteImage("' + imageToOpen + '")>' +
                               '<h3><b>' +
                               title +
                               '</b></h3>' +
