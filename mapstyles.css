@@ -80,43 +80,43 @@ body {
   .tool-box {
     display: none;
     position: fixed;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     top: 2px;
     right: 45px;
-    border: 3px solid #f1f1f1;
+    /* border: 3px solid #f1f1f1; */
     z-index: 999999;
-    margin:4px, 4px;
+    /* margin:4px, 4px;
     padding:4px;
-    background-color: white;
+    background-color: white; */
     /* width: 400px; */
-    width: 24.8%;
-    height: 91.7%;
+    width: 25%;
+    height: 90%;
     /* height: 100%; */
-    overflow-x: hidden;
+    /* overflow-x: hidden;
     overflow-y: auto;
     text-align:justify;
-    font-family: 'Assistant';
+    font-family: 'Assistant'; */
   }
   .matrix-class {
     display: none;
     position: fixed;
-    vertical-align: middle;
+    /* vertical-align: middle; */
     top: 220px;
     right: 10px;
     border: 3px solid #f1f1f1;
     z-index: 999999;
-    margin:4px, 4px;
-    padding:4px;
-    background-color: white;
+    /* margin:4px, 4px;
+    padding:4px; */
+    /* background-color: white; */
     /* width: 400px; */
-    width: 24.8%;
+    width: 29.5%;
     /* height: 460px; */
-    height: 55%;
+    height: 65%;
     /* opacity: 70%; */
-    overflow-x: hidden;
+    /* overflow-x: hidden;
     overflow-y: auto;
     text-align:justify;
-    font-family: 'Assistant';
+    font-family: 'Assistant'; */
   }
   .map-title {
     position: fixed;
